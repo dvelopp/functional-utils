@@ -34,7 +34,7 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to the new list according to the mapper
+     * Map collection to a new list according to the mapper
      *
      * @param collection - source collection
      * @param mapper     - mapper that describes how to map each element of the collection
@@ -48,7 +48,21 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to the new set according to the mapper
+     * Map list to a new list according to the mapper
+     *
+     * @param list - source collection
+     * @param mapper     - mapper that describes how to map each element of the collection
+     * @param <T>        - source collection elements type
+     * @param <R>        - target list elements type
+     * @return mapped list
+     */
+    public static <T, R> List<R> map(List<T> list, Function<? super T, ? extends R> mapper) {
+        requireNonNull(list, mapper);
+        return collectionToMappedStream(list, mapper).collect(toList());
+    }
+
+    /**
+     * Map collection to a new set according to the mapper
      *
      * @param collection - source collection
      * @param mapper     - mapper that describes how to map each element of the collection
@@ -62,7 +76,21 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to the new collection according to the mapper
+     * Map set to a new set according to the mapper
+     *
+     * @param set - source collection
+     * @param mapper     - mapper that describes how to map each element of the collection
+     * @param <T>        - source collection elements type
+     * @param <R>        - target set elements type
+     * @return mapped set
+     */
+    public static <T, R> Set<R> map(Set<T> set, Function<? super T, ? extends R> mapper) {
+        requireNonNull(set, mapper);
+        return collectionToMappedStream(set, mapper).collect(toSet());
+    }
+
+    /**
+     * Map collection to a new collection according to the mapper
      *
      * @param collection        - source collection
      * @param mapper            - mapper that describes how to map each element of the collection
@@ -80,7 +108,7 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to the new array according to the mapper
+     * Map collection to a new array according to the mapper
      *
      * @param collection - source collection
      * @param mapper     - mapper that describes how to map each element of the collection

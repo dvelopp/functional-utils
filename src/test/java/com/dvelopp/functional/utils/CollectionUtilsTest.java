@@ -58,6 +58,15 @@ public class CollectionUtilsTest {
         assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
     }
 
+    @Test
+    public void map_ListWithObjects_ObjectsMappedToTheList() {
+        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+
+        List<SubTestObject> mappedObjects = map(testObjects, TestObject::getSubTestObject);
+
+        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+    }
+
     @Test(expected = NullPointerException.class)
     public void mapToList_ListIsNull_NullPointerExceptionHasBeenThrown() {
         mapToList(null, TestObject::getSubTestObject);
@@ -86,6 +95,14 @@ public class CollectionUtilsTest {
         assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
     }
 
+    @Test
+    public void map_SetWithObjects_ObjectsMappedToTheSet() {
+        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+
+        Set<SubTestObject> mappedObjects = map(testObjects, TestObject::getSubTestObject);
+
+        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+    }
 
     @Test(expected = NullPointerException.class)
     public void mapToSet_SetIsNull_NullPointerExceptionHasBeenThrown() {
