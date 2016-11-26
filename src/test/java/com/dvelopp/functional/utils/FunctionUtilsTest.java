@@ -1,0 +1,117 @@
+package com.dvelopp.functional.utils;
+
+import org.assertj.core.api.Condition;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+import static com.dvelopp.functional.utils.FunctionUtils.*;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+
+@RunWith(MockitoJUnitRunner.class)
+public class FunctionUtilsTest {
+
+    @Test
+    public void not_CheckEmptyListWhenListIsNotEmpty_NegatedPredicateSaysThatListIsEmpty(){
+        List<String> notEmptyList = asList("NotEmptyList");
+
+        Predicate<Collection> isEmptyPredicate = Collection::isEmpty;
+        Predicate<Collection> isNotEmptyPredicate = not(isEmptyPredicate);
+
+        assertThat(isEmptyPredicate.test(notEmptyList)).isFalse();
+        assertThat(isNotEmptyPredicate.test(notEmptyList)).isTrue();
+    }
+
+    @Test
+    public void not_CheckEmptyListWhenListIsEmpty_NegatedPredicateSaysThatListIsNotEmpty(){
+        List<String> emptyList = emptyList();
+
+        Predicate<Collection> isEmptyPredicate = Collection::isEmpty;
+        Predicate<Collection> isNotEmptyPredicate = not(isEmptyPredicate);
+
+        assertThat(isEmptyPredicate.test(emptyList)).isTrue();
+        assertThat(isNotEmptyPredicate.test(emptyList)).isFalse();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void not_NullPredicate_NullPointerExceptionHasBeenThrown(){
+        not(null);
+    }
+
+    @Test
+    public void with_ModifyObjectWithFirstValue_ObjectHasBeenModified(){
+        SubTestObject subTestObject = new SubTestObject();
+        TestObject testObject = new TestObject(subTestObject);
+
+        with(testObject, TestObject::activate);
+
+        assertThat(testObject).is(new Condition<>(TestObject::isActive, "active", testObject));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void with_NullClosure_NullPointerExceptionHasBeenThrown(){
+        with(mock(TestObject.class), null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void with_NullSelfLink_NullPointerExceptionHasBeenThrown(){
+        with(null, o -> {});
+    }
+
+    @Test
+    public void trueSupplier_TrueValueHasBeenProduced() {
+        Supplier<Boolean> trueSupplier = trueSupplier();
+
+        Boolean actualValue = trueSupplier.get();
+
+        assertThat(actualValue).isTrue();
+    }
+
+    @Test
+    public void falseSupplier_FalseValueHasBeenProduced() {
+        Supplier<Boolean> falseSupplier = falseSupplier();
+
+        Boolean actualValue = falseSupplier.get();
+
+        assertThat(actualValue).isFalse();
+    }
+
+    @Test
+    public void identityPredicate_TrueValue_PredicateProducesTrue() {
+        assertThat(identityPredicate().test(true)).isTrue();
+    }
+
+    @Test
+    public void identityPredicate_FalseValue_PredicateProducesFalse() {
+        assertThat(identityPredicate().test(false)).isFalse();
+    }
+
+    @Test
+    public void truePredicate_TrueValue_PredicateProducesTrue() {
+        assertThat(truePredicate().test(true)).isTrue();
+    }
+
+    @Test
+    public void truePredicate_FalseValue_PredicateProducesTrue() {
+        assertThat(truePredicate().test(false)).isTrue();
+    }
+
+    @Test
+    public void falsePredicate_TrueValue_PredicateProducesFalse() {
+        assertThat(falsePredicate().test(true)).isFalse();
+    }
+
+    @Test
+    public void falsePredicate_FalseValue_PredicateProducesFalse() {
+        assertThat(falsePredicate().test(false)).isFalse();
+    }
+
+}
