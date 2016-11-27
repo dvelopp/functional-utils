@@ -7,10 +7,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.dvelopp.functional.utils.FunctionUtils.*;
+import static com.dvelopp.functional.utils.FunctionUtils.consumer;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +23,7 @@ import static org.mockito.Mockito.mock;
 public class FunctionUtilsTest {
 
     @Test
-    public void not_CheckEmptyListWhenListIsNotEmpty_NegatedPredicateSaysThatListIsEmpty(){
+    public void not_CheckEmptyListWhenListIsNotEmpty_NegatedPredicateSaysThatListIsEmpty() {
         List<String> notEmptyList = asList("NotEmptyList");
 
         Predicate<Collection> isEmptyPredicate = Collection::isEmpty;
@@ -31,7 +34,7 @@ public class FunctionUtilsTest {
     }
 
     @Test
-    public void not_CheckEmptyListWhenListIsEmpty_NegatedPredicateSaysThatListIsNotEmpty(){
+    public void not_CheckEmptyListWhenListIsEmpty_NegatedPredicateSaysThatListIsNotEmpty() {
         List<String> emptyList = emptyList();
 
         Predicate<Collection> isEmptyPredicate = Collection::isEmpty;
@@ -42,12 +45,12 @@ public class FunctionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void not_NullPredicate_NullPointerExceptionHasBeenThrown(){
+    public void not_NullPredicate_NullPointerExceptionHasBeenThrown() {
         not(null);
     }
 
     @Test
-    public void with_ModifyObjectWithFirstValue_ObjectHasBeenModified(){
+    public void with_ModifyObjectWithFirstValue_ObjectHasBeenModified() {
         SubTestObject subTestObject = new SubTestObject();
         TestObject testObject = new TestObject(subTestObject);
 
@@ -57,13 +60,14 @@ public class FunctionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void with_NullClosure_NullPointerExceptionHasBeenThrown(){
+    public void with_NullClosure_NullPointerExceptionHasBeenThrown() {
         with(mock(TestObject.class), null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void with_NullSelfLink_NullPointerExceptionHasBeenThrown(){
-        with(null, o -> {});
+    public void with_NullSelfLink_NullPointerExceptionHasBeenThrown() {
+        with(null, o -> {
+        });
     }
 
     @Test
@@ -112,6 +116,25 @@ public class FunctionUtilsTest {
     @Test
     public void falsePredicate_FalseValue_PredicateProducesFalse() {
         assertThat(falsePredicate().test(false)).isFalse();
+    }
+
+    @Test
+    public void function_BiFunctionThatAddsSecArgumentToFirst_ArgumentsHaveBeenAddedToEachOther() {
+        Function<Integer, Integer> function = function(Math::addExact, 100);
+        Integer actualResult = function.apply(1);
+
+        assertThat(actualResult).isEqualTo(101);
+    }
+
+    @Test
+    public void consumer_BiFunctionThatCheckWhetherFirstArgumentIsBiggerThanTheSecond_CheckWorksForLowerAndGreaterOnes() {
+        final boolean[] result = {false};
+        Consumer<Integer> consumer = consumer((o1, o2) -> result[0] = o1 > o2, 100);
+
+        consumer.accept(101);
+        assertThat(result[0]).isTrue();
+        consumer.accept(99);
+        assertThat(result[0]).isFalse();
     }
 
 }
