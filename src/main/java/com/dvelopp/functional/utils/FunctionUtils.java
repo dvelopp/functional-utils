@@ -1,8 +1,6 @@
 package com.dvelopp.functional.utils;
 
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 import static java.util.Objects.requireNonNull;
@@ -53,6 +51,32 @@ public final class FunctionUtils {
 
     public static Predicate<Boolean> falsePredicate() {
         return o -> false;
+    }
+
+    /**
+     * Converts BiConsumer to Consumer
+     *
+     * @param action BiConsumer action to be converted to consumer
+     * @param arg    second argument for BiConsumer
+     * @param <T>    first argument type
+     * @param <R>    second argument type
+     * @return Consumer object
+     */
+    public static <T, R> Consumer<T> consumer(BiConsumer<T, R> action, R arg) {
+        return e -> action.accept(e, arg);
+    }
+
+    /**
+     * Converts BiFunction to Function
+     *
+     * @param action BiConsumer action to be converted to consumer
+     * @param arg    second argument for BiFunction
+     * @param <T>    first argument type
+     * @param <R>    second argument type
+     * @return Function object
+     */
+    public static <T, R, S> Function<T, R> function(BiFunction<T, S, R> action, S arg) {
+        return e -> action.apply(e, arg);
     }
 
 }

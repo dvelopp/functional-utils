@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.function.*;
 import java.util.stream.Stream;
 
+import static com.dvelopp.functional.utils.FunctionUtils.consumer;
+import static com.dvelopp.functional.utils.FunctionUtils.function;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 import static java.util.stream.Collectors.*;
 
@@ -27,7 +29,7 @@ public final class CollectionUtils {
      */
     public static <T, R> void forEach(Collection<T> collection, BiConsumer<? super T, R> action, R arg) {
         requireNonNull(collection, action);
-        collection.forEach(e -> action.accept(e, arg));
+        collection.forEach(consumer(action, arg));
     }
 
     /**
@@ -99,7 +101,7 @@ public final class CollectionUtils {
      * @return mapped list
      */
     public static <T, R, S> List<R> map(List<T> list, BiFunction<? super T, ? super S, ? extends R> mapper, S arg) {
-        return map(list, o -> mapper.apply(o, arg));
+        return map(list, function(mapper, arg));
     }
 
     /**
@@ -114,7 +116,7 @@ public final class CollectionUtils {
      * @return mapped set
      */
     public static <T, R, S> Set<R> map(Set<T> set, BiFunction<? super T, ? super S, ? extends R> mapper, S arg) {
-        return map(set, o -> mapper.apply(o, arg));
+        return map(set, function(mapper, arg));
     }
 
     /**
