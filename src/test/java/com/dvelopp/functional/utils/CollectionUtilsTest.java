@@ -104,6 +104,24 @@ public class CollectionUtilsTest {
         assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
     }
 
+    @Test
+    public void map_ListCaseBiFunctionAdds100ToEachValue_ListWithSumOfTheValuesHasBeenReturned() {
+        List<Integer> testObjects = asList(1, 2, 3);
+
+        List<Integer> mappedObjects = map(testObjects, Math::addExact, 100);
+
+        assertThat(mappedObjects).containsOnly(101, 102, 103);
+    }
+
+    @Test
+    public void map_SetCaseBiFunctionAdds100ToEachValue_SetWithSumOfTheValuesHasBeenReturned() {
+        Set<Integer> testObjects = new HashSet<>(asList(1, 2, 3));
+
+        Set<Integer> mappedObjects = map(testObjects, Math::addExact, 100);
+
+        assertThat(mappedObjects).containsOnly(101, 102, 103);
+    }
+
     @Test(expected = NullPointerException.class)
     public void mapToSet_SetIsNull_NullPointerExceptionHasBeenThrown() {
         mapToSet(null, TestObject::getSubTestObject);

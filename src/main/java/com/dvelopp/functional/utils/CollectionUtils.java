@@ -3,10 +3,7 @@ package com.dvelopp.functional.utils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
@@ -47,19 +44,6 @@ public final class CollectionUtils {
         return collectionToMappedStream(collection, mapper).collect(toList());
     }
 
-    /**
-     * Map list to a new list according to the mapper
-     *
-     * @param list - source collection
-     * @param mapper     - mapper that describes how to map each element of the collection
-     * @param <T>        - source collection elements type
-     * @param <R>        - target list elements type
-     * @return mapped list
-     */
-    public static <T, R> List<R> map(List<T> list, Function<? super T, ? extends R> mapper) {
-        requireNonNull(list, mapper);
-        return collectionToMappedStream(list, mapper).collect(toList());
-    }
 
     /**
      * Map collection to a new set according to the mapper
@@ -76,17 +60,61 @@ public final class CollectionUtils {
     }
 
     /**
+     * Map list to a new list according to the mapper
+     *
+     * @param list   - source list
+     * @param mapper - mapper that describes how to map each element of the collection
+     * @param <T>    - source list elements type
+     * @param <R>    - target list elements type
+     * @return mapped list
+     */
+    public static <T, R> List<R> map(List<T> list, Function<? super T, ? extends R> mapper) {
+        requireNonNull(list, mapper);
+        return collectionToMappedStream(list, mapper).collect(toList());
+    }
+
+    /**
      * Map set to a new set according to the mapper
      *
-     * @param set - source collection
-     * @param mapper     - mapper that describes how to map each element of the collection
-     * @param <T>        - source collection elements type
-     * @param <R>        - target set elements type
+     * @param set    - source set
+     * @param mapper - mapper that describes how to map each element of the collection
+     * @param <T>    - source set elements type
+     * @param <R>    - target set elements type
      * @return mapped set
      */
     public static <T, R> Set<R> map(Set<T> set, Function<? super T, ? extends R> mapper) {
         requireNonNull(set, mapper);
         return collectionToMappedStream(set, mapper).collect(toSet());
+    }
+
+    /**
+     * Map list to a new list according to the mapper using {@link BiFunction} and additional argument
+     *
+     * @param list   - source list
+     * @param mapper - BiFunction mapper that describes how to map each element of the collection
+     * @param arg    - second argument for bi function
+     * @param <T>    - source list elements type
+     * @param <R>    - target list elements type
+     * @param <S>    - argument type
+     * @return mapped list
+     */
+    public static <T, R, S> List<R> map(List<T> list, BiFunction<? super T, ? super S, ? extends R> mapper, S arg) {
+        return map(list, o -> mapper.apply(o, arg));
+    }
+
+    /**
+     * Map set to a new set according to the mapper using {@link BiFunction} and additional argument
+     *
+     * @param set    - source set
+     * @param mapper - BiFunction mapper that describes how to map each element of the collection
+     * @param arg    - second argument for bi function
+     * @param <T>    - source set elements type
+     * @param <R>    - target set elements type
+     * @param <S>    - argument type
+     * @return mapped set
+     */
+    public static <T, R, S> Set<R> map(Set<T> set, BiFunction<? super T, ? super S, ? extends R> mapper, S arg) {
+        return map(set, o -> mapper.apply(o, arg));
     }
 
     /**
