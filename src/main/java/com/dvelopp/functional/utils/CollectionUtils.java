@@ -46,6 +46,22 @@ public final class CollectionUtils {
         return collectionToMappedStream(collection, mapper).collect(toList());
     }
 
+    /**
+     * Map collection to a new list according to the mapper using {@link BiFunction} and additional argument
+     *
+     * @param collection - source collection
+     * @param mapper     - mapper that describes how to map each element of the collection
+     * @param arg        - second argument for bi function
+     * @param <T>        - source collection elements type
+     * @param <R>        - target list elements type
+     * @param <S>        - argument type
+     * @return mapped list
+     */
+    public static <T, R, S> List<R> mapToList(Collection<T> collection,
+                                              BiFunction<? super T, ? super S, ? extends R> mapper, S arg) {
+        requireNonNull(collection, mapper);
+        return collectionToMappedStream(collection, function(mapper, arg)).collect(toList());
+    }
 
     /**
      * Map collection to a new set according to the mapper
@@ -59,6 +75,23 @@ public final class CollectionUtils {
     public static <T, R> Set<R> mapToSet(Collection<T> collection, Function<? super T, ? extends R> mapper) {
         requireNonNull(collection, mapper);
         return collectionToMappedStream(collection, mapper).collect(toSet());
+    }
+
+    /**
+     * Map collection to a new set according to the mapper using {@link BiFunction} and additional argument
+     *
+     * @param collection - source collection
+     * @param mapper     - mapper that describes how to map each element of the collection
+     * @param arg        - second argument for bi function
+     * @param <T>        - source collection elements type
+     * @param <R>        - target set elements type
+     * @param <S>        - argument type
+     * @return mapped set
+     */
+    public static <T, R, S> Set<R> mapToSet(Collection<T> collection,
+                                            BiFunction<? super T, ? super S, ? extends R> mapper, S arg) {
+        requireNonNull(collection, mapper);
+        return collectionToMappedStream(collection, function(mapper, arg)).collect(toSet());
     }
 
     /**
