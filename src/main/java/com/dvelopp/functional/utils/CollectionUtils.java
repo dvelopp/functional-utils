@@ -211,4 +211,22 @@ public final class CollectionUtils {
         return collection.stream().collect(toMap(keyMapper, valueMapper));
     }
 
+    /**
+     * Map collection to a new map using according to mappers provided for keys and values
+     *
+     * @param collection    - source collection
+     * @param keyMapper     - mapper that describes how to map keys
+     * @param valueMapper   - mapper that describes how to map values
+     * @param mergeFunction - merger in case there are duplicate keys
+     * @param <T>           - source collection elements type
+     * @param <K>           - target map keys type
+     * @param <U>           - target map values type
+     * @return map containing mapped key/value pairs
+     */
+    public static <T, K, U> Map<K, U> mapToMap(Collection<T> collection, Function<? super T, ? extends K> keyMapper,
+                                               Function<? super T, ? extends U> valueMapper, BinaryOperator<U> mergeFunction) {
+        requireNonNull(collection, keyMapper, valueMapper, mergeFunction);
+        return collection.stream().collect(toMap(keyMapper, valueMapper, mergeFunction));
+    }
+
 }
