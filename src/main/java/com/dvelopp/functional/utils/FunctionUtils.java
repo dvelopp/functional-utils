@@ -16,7 +16,7 @@ public final class FunctionUtils {
      */
     public static <T> Predicate<T> not(Predicate<T> predicate) {
         requireNonNull(predicate);
-        return t -> !predicate.test(t);
+        return predicate.negate();
     }
 
     /**
