@@ -5,11 +5,13 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.dvelopp.functional.utils.CollectionUtils.*;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -224,6 +226,51 @@ public class CollectionUtilsTest {
     @Test(expected = NullPointerException.class)
     public void mapToArray_ArrayGeneratorIsNull_NullPointerExceptionHasBeenThrown() {
         mapToArray(new HashSet<>(), TestObject::getSubTestObject, null);
+    }
+
+    @Test
+    public void mapToMap_OneObjectAndValidMappers_ObjectHasBeenMappedToMapAccordingToMappers() {
+        List<TestObject> testObjects = asList(firstTestObject);
+
+        Map<String, SubTestObject> actualMap = mapToMap(testObjects, TestObject::getId, TestObject::getSubTestObject);
+
+        assertThat(actualMap)
+                .containsExactly(new SimpleEntry<>(firstTestObject.getId(), firstTestObject.getSubTestObject()));
+    }
+
+    @Test
+    public void mapToMap_TwoObjectsAndValidMappers_ObjectsHasBeenMappedToMapAccordingToMappers() {
+        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+
+        Map<String, SubTestObject> actualMap = mapToMap(testObjects, TestObject::getId, TestObject::getSubTestObject);
+
+        assertThat(actualMap)
+                .containsExactly(new SimpleEntry<>(firstTestObject.getId(), firstTestObject.getSubTestObject()),
+                        new SimpleEntry<>(secondTestObject.getId(), secondTestObject.getSubTestObject()));
+    }
+
+    @Test
+    public void mapToMap_EmptyCollection_EmptyMapHasBeenCreated() {
+        List<TestObject> testObjects = emptyList();
+
+        Map<String, SubTestObject> actualMap = mapToMap(testObjects, TestObject::getId, TestObject::getSubTestObject);
+
+        assertThat(actualMap).isEmpty();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_NullCollection_NullPointerExceptionHasBeenThrown() {
+        mapToMap(null, TestObject::getId, TestObject::getSubTestObject);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_NullKeyMapper_NullPointerExceptionHasBeenThrown() {
+        mapToMap(emptyList(), null, TestObject::getSubTestObject);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_NullValueMapper_NullPointerExceptionHasBeenThrown() {
+        mapToMap(emptyList(), TestObject::getId, null);
     }
 
 }

@@ -2,6 +2,7 @@ package com.dvelopp.functional.utils;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.*;
 import java.util.stream.Stream;
@@ -191,6 +192,23 @@ public final class CollectionUtils {
     private static <T, R> Stream<? extends R> collectionToMappedStream(Collection<T> collection,
                                                                        Function<? super T, ? extends R> mapper) {
         return collection.stream().map(mapper);
+    }
+
+    /**
+     * Map collection to a new map using according to mappers provided for keys and values
+     *
+     * @param collection  - source collection
+     * @param keyMapper   - mapper that describes how to map keys
+     * @param valueMapper - mapper that describes how to map values
+     * @param <T>         - source collection elements type
+     * @param <K>         - target map keys type
+     * @param <U>         - target map values type
+     * @return map containing mapped key/value pairs
+     */
+    public static <T, K, U> Map<K, U> mapToMap(Collection<T> collection, Function<? super T, ? extends K> keyMapper,
+                                               Function<? super T, ? extends U> valueMapper) {
+        requireNonNull(collection, keyMapper, valueMapper);
+        return collection.stream().collect(toMap(keyMapper, valueMapper));
     }
 
 }
