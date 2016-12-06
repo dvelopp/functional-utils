@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -18,56 +18,49 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class CollectionUtilsTest {
 
-    private SubTestObject firstSubTestObject = new SubTestObject();
-    private SubTestObject secondSubTestObject = new SubTestObject();
-    private TestObject firstTestObject = new TestObject(firstSubTestObject);
-    private TestObject secondTestObject = new TestObject(secondSubTestObject);
+    private static final String KEY_1 = "key1";
+    private static final String KEY_2 = "key2";
+    private static final String VAL_1 = "val1";
+    private static final String VAL_2 = "val2";
+    private final BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+    private final BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
 
     @Test
-    public void forEach_ChangeElementStateToFalse_StateWasChangedForAllElements() {
-        List<TestObject> list = asList(firstTestObject, secondTestObject);
+    public void forEach_ChangeElementState_StateWasChangedForAllElements() {
+        List<BiValHolder<String, String>> list = asList(testObject1, testObject2);
+        String expectedNewValue = "changed value";
 
-        forEach(list, TestObject::setActive, false);
+        forEach(list, BiValHolder::setVal2, expectedNewValue);
 
-        assertThat(firstTestObject.isActive()).isEqualTo(false);
-        assertThat(secondTestObject.isActive()).isEqualTo(false);
-    }
-
-    @Test
-    public void forEach_ChangeElementStateToTrue_StateWasChangedForAllElements() {
-        List<TestObject> list = asList(firstTestObject, secondTestObject);
-
-        forEach(list, TestObject::setActive, true);
-
-        assertThat(firstTestObject.isActive()).isEqualTo(true);
-        assertThat(secondTestObject.isActive()).isEqualTo(true);
+        assertThat(testObject1.getVal2()).isEqualTo(expectedNewValue);
+        assertThat(testObject2.getVal2()).isEqualTo(expectedNewValue);
     }
 
     @Test
     public void mapToList_ListWithObjects_ObjectsMappedToTheList() {
-        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        List<SubTestObject> mappedObjects = mapToList(testObjects, TestObject::getSubTestObject);
+        List<String> mappedObjects = mapToList(testObjects, BiValHolder::getVal2);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).containsOnly(VAL_1, VAL_2);
     }
 
     @Test
     public void mapToList_SetWithObjects_ObjectsMappedToTheList() {
-        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
 
-        List<SubTestObject> mappedObjects = mapToList(testObjects, TestObject::getSubTestObject);
+        List<String> mappedObjects = mapToList(testObjects, BiValHolder::getVal2);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test
     public void map_ListWithObjects_ObjectsMappedToTheList() {
-        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        List<SubTestObject> mappedObjects = map(testObjects, TestObject::getSubTestObject);
+        List<String> mappedObjects = map(testObjects, BiValHolder::getVal2);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test(expected = NullPointerException.class)
@@ -82,29 +75,29 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToSet_SetWithObjects_ObjectsMappedToTheSet() {
-        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
 
-        Set<SubTestObject> mappedObjects = mapToSet(testObjects, TestObject::getSubTestObject);
+        Set<String> mappedObjects = mapToSet(testObjects, BiValHolder::getVal2);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test
     public void mapToSet_ListWithObjects_ObjectsMappedToTheSet() {
-        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        Set<SubTestObject> mappedObjects = mapToSet(testObjects, TestObject::getSubTestObject);
+        Set<String> mappedObjects = mapToSet(testObjects, BiValHolder::getVal2);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test
     public void map_SetWithObjects_ObjectsMappedToTheSet() {
-        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
 
-        Set<SubTestObject> mappedObjects = map(testObjects, TestObject::getSubTestObject);
+        Set<String> mappedObjects = map(testObjects, BiValHolder::getVal2);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test
@@ -155,20 +148,20 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToCollection_SetToLinkedList_ObjectsFromTheSetHaveBeenMappedToTheLinkedList() {
-        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
 
-        LinkedList<SubTestObject> mappedObjects = mapToCollection(testObjects, TestObject::getSubTestObject, LinkedList::new);
+        LinkedList<String> mappedObjects = mapToCollection(testObjects, BiValHolder::getVal2, LinkedList::new);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test
     public void mapToCollection_LinkedListToTreeSet_ObjectsFromTheLinkedListHaveBeenMappedToTheHashSet() {
-        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
 
-        Set<SubTestObject> mappedObjects = mapToCollection(testObjects, TestObject::getSubTestObject, HashSet::new);
+        Set<String> mappedObjects = mapToCollection(testObjects, BiValHolder::getVal2, HashSet::new);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
 
@@ -198,20 +191,20 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToArray_ListWithObjects_ObjectsMappedToTheArray() {
-        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        SubTestObject[] mappedObjects = mapToArray(testObjects, TestObject::getSubTestObject, SubTestObject[]::new);
+        String[] mappedObjects = mapToArray(testObjects, BiValHolder::getVal2, String[]::new);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test
     public void mapToArray_SetWithObjects_ObjectsMappedToTheArray() {
-        Set<TestObject> testObjects = new HashSet<>(asList(firstTestObject, secondTestObject));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
 
-        SubTestObject[] mappedObjects = mapToArray(testObjects, TestObject::getSubTestObject, SubTestObject[]::new);
+        String[] mappedObjects = mapToArray(testObjects, BiValHolder::getVal2, String[]::new);
 
-        assertThat(mappedObjects).contains(firstSubTestObject, secondSubTestObject);
+        assertThat(mappedObjects).contains(VAL_1, VAL_2);
     }
 
     @Test(expected = NullPointerException.class)
@@ -231,23 +224,22 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_OneObjectAndValidMappers_ObjectHasBeenMappedToMapAccordingToMappers() {
-        List<TestObject> testObjects = asList(firstTestObject);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1);
 
-        Map<String, SubTestObject> actualMap = mapToMap(testObjects, TestObject::getId, TestObject::getSubTestObject);
+        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
 
-        assertThat(actualMap)
-                .containsOnly(new SimpleEntry<>(firstTestObject.getId(), firstTestObject.getSubTestObject()));
+        assertThat(actualMap).containsOnly(new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2()));
     }
 
     @Test
     public void mapToMap_TwoObjectsAndValidMappers_ObjectsHasBeenMappedToMapAccordingToMappers() {
-        List<TestObject> testObjects = asList(firstTestObject, secondTestObject);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        Map<String, SubTestObject> actualMap = mapToMap(testObjects, TestObject::getId, TestObject::getSubTestObject);
+        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
 
         assertThat(actualMap)
-                .containsOnly(new SimpleEntry<>(firstTestObject.getId(), firstTestObject.getSubTestObject()),
-                        new SimpleEntry<>(secondTestObject.getId(), secondTestObject.getSubTestObject()));
+                .containsOnly(new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2()),
+                        new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2()));
     }
 
     @Test
