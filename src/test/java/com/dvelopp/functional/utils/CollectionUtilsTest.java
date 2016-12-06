@@ -276,72 +276,71 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MergeFunctionAndOneDuplicate_ObjectsHaveBeenMappedToMapAccordingToMappersAndDuplicatesMerged() {
-        BiValueHolder<String, String> testObject1 = new BiValueHolder<>("duplicateKey", "duplicateVal1");
-        BiValueHolder<String, String> testObject2 = new BiValueHolder<>("duplicateKey", "duplicateVal2");
-        BiValueHolder<String, String> testObject3 = new BiValueHolder<>("uniqueKey", "uniqueVal");
-        List<BiValueHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
+        BiValHolder<String, String> testObject1 = new BiValHolder<>("duplicateKey", "duplicateVal1");
+        BiValHolder<String, String> testObject2 = new BiValHolder<>("duplicateKey", "duplicateVal2");
+        BiValHolder<String, String> testObject3 = new BiValHolder<>("uniqueKey", "uniqueVal");
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
 
         Map<String, String> actualMap = mapToMap(testObjects,
-                BiValueHolder::getFirstVal, BiValueHolder::getSecondVal, (first, second) -> first + ";" + second);
+                BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
 
-        SimpleEntry<String, String> mergedEntry = new SimpleEntry<>(testObject1.getFirstVal(),
-                format("%s;%s", testObject1.getSecondVal(), testObject2.getSecondVal()));
-        SimpleEntry<String, String> uniqueEntry = new SimpleEntry<>(testObject3.getFirstVal(),
-                testObject3.getSecondVal());
+        SimpleEntry<String, String> mergedEntry = new SimpleEntry<>(testObject1.getVal1(),
+                format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
+        SimpleEntry<String, String> uniqueEntry = new SimpleEntry<>(testObject3.getVal1(), testObject3.getVal2());
         assertThat(actualMap).containsOnly(mergedEntry, uniqueEntry);
     }
 
     @Test
     public void mapToMap_MergeFunctionAndOnlyDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappersAndAllMerged() {
-        BiValueHolder<String, String> testObject1 = new BiValueHolder<>("duplicateKey1", "duplicateVal1");
-        BiValueHolder<String, String> testObject2 = new BiValueHolder<>("duplicateKey1", "duplicateVal2");
-        BiValueHolder<String, String> testObject3 = new BiValueHolder<>("duplicateKey2", "duplicateVal3");
-        BiValueHolder<String, String> testObject4 = new BiValueHolder<>("duplicateKey2", "duplicateVal4");
-        List<BiValueHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        BiValHolder<String, String> testObject1 = new BiValHolder<>("duplicateKey1", "duplicateVal1");
+        BiValHolder<String, String> testObject2 = new BiValHolder<>("duplicateKey1", "duplicateVal2");
+        BiValHolder<String, String> testObject3 = new BiValHolder<>("duplicateKey2", "duplicateVal3");
+        BiValHolder<String, String> testObject4 = new BiValHolder<>("duplicateKey2", "duplicateVal4");
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
-                BiValueHolder::getFirstVal, BiValueHolder::getSecondVal, (first, second) -> first + ";" + second);
+                BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
 
-        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getFirstVal(),
-                format("%s;%s", testObject1.getSecondVal(), testObject2.getSecondVal()));
-        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(testObject3.getFirstVal(),
-                format("%s;%s", testObject3.getSecondVal(), testObject4.getSecondVal()));
+        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getVal1(),
+                format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
+        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(testObject3.getVal1(),
+                format("%s;%s", testObject3.getVal2(), testObject4.getVal2()));
         assertThat(actualMap).containsOnly(mergedEntry1, mergedEntry2);
     }
 
     @Test
     public void mapToMap_NoDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappers() {
-        BiValueHolder<String, String> testObject1 = new BiValueHolder<>("key1", "val1");
-        BiValueHolder<String, String> testObject2 = new BiValueHolder<>("key2", "val2");
-        List<BiValueHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        BiValHolder<String, String> testObject1 = new BiValHolder<>("key1", "val1");
+        BiValHolder<String, String> testObject2 = new BiValHolder<>("key2", "val2");
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        Map<String, String> actualMap = mapToMap(testObjects,
-                BiValueHolder::getFirstVal, BiValueHolder::getSecondVal, (first, second) -> first + ";" + second);
+        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2,
+                (o1, o2) -> o1 + ";" + o2);
 
-        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getFirstVal(), testObject1.getSecondVal());
-        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getFirstVal(), testObject2.getSecondVal());
+        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
+        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
         assertThat(actualMap).containsOnly(entry1, entry2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullCollection_NullPointerExceptionHasBeenThrown() {
-        Collection<BiValueHolder> collection = null;
+        Collection<BiValHolder> collection = null;
 
-        mapToMap(collection, BiValueHolder::getFirstVal, BiValueHolder::getSecondVal, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullKeyMapper_NullPointerExceptionHasBeenThrown() {
-        mapToMap(new ArrayList<BiValueHolder>(), null, BiValueHolder::getSecondVal, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(new ArrayList<BiValHolder>(), null, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullValueMapper_NullPointerExceptionHasBeenThrown() {
-        mapToMap(new ArrayList<BiValueHolder>(), BiValueHolder::getFirstVal, null, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(new ArrayList<BiValHolder>(), BiValHolder::getVal1, null, (o1, o2) -> o1 + ";" + o2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullMergeFunction_NullPointerExceptionHasBeenThrown() {
-        mapToMap(new ArrayList<BiValueHolder>(), BiValueHolder::getFirstVal, BiValueHolder::getSecondVal, null);
+        mapToMap(new ArrayList<BiValHolder>(), BiValHolder::getVal1, BiValHolder::getVal2, null);
     }
 }
