@@ -6,6 +6,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -333,11 +334,14 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullMergeFunction_NullPointerExceptionHasBeenThrown() {
-        mapToMap(new ArrayList<BiValHolder>(), BiValHolder::getVal1, BiValHolder::getVal2, null);
+        BinaryOperator<String> mergeFunction = null;
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, mergeFunction);
     }
 
     @Test
-    public void mapToMap_MapSupplier_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
+    public void mapToMap_MapSupplierWithMergeFunction_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
         Map<String, String> actualMap = mapToMap(testObjects,
@@ -400,6 +404,47 @@ public class CollectionUtilsTest {
         List<BiValHolder<String, String>> collection = new ArrayList<>();
 
         mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, null);
+    }
+
+    @Test
+    public void mapToMap_MapSupplier_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+
+        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2, TestMap::new);
+
+        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
+        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
+        assertThat(actualMap.getClass().isAssignableFrom(TestMap.class));
+        assertThat(actualMap).containsOnly(entry1, entry2);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_MapSupplierCaseNullCollection_NullPointerExceptionHasBeenThrown() {
+        Collection<BiValHolder<String, String>> collection = null;
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_MapSupplierCaseNullKeyMapper_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_MapSupplierCaseNullValueMapper_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_MapSupplierCaseNullSupplierMapCase_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+        Supplier<Map<String, String>> nullMapSupplier = null;
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, nullMapSupplier);
     }
 
     private String testMerge(String o1, String o2) {

@@ -213,7 +213,7 @@ public final class CollectionUtils {
 
     /**
      * Map collection to a new map using according to mappers provided for keys and values and merges values for the
-     * same keys according to merge function.
+     * same keys according to merge function
      *
      * @param collection    - source collection
      * @param keyMapper     - mapper that describes how to map keys
@@ -232,7 +232,7 @@ public final class CollectionUtils {
 
     /**
      * Map collection to a provided map using according to mappers provided for keys and values and merges values for
-     * the same keys according to merge function,
+     * the same keys according to merge function
      *
      * @param collection    - source collection
      * @param keyMapper     - mapper that describes how to map keys
@@ -250,6 +250,38 @@ public final class CollectionUtils {
             Function<? super T, ? extends U> valueMapper, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         requireNonNull(collection, keyMapper, valueMapper, mergeFunction, mapSupplier);
         return collection.stream().collect(toMap(keyMapper, valueMapper, mergeFunction, mapSupplier));
+    }
+
+    /**
+     * Map collection to a provided map using according to mappers provided for keys and values
+     *
+     * @param collection    - source collection
+     * @param keyMapper     - mapper that describes how to map keys
+     * @param valueMapper   - mapper that describes how to map values
+     * @param mapSupplier   - factory that describes how to create instance of the target map
+     * @param <T>           - source collection elements type
+     * @param <K>           - target map keys type
+     * @param <U>           - target map values type
+     * @param <M>           - target map type
+     * @return map containing mapped key/value pairs
+     */
+    public static <T, K, U, M extends Map<K, U>> Map<K, U> mapToMap(
+            Collection<T> collection, Function<? super T, ? extends K> keyMapper,
+            Function<? super T, ? extends U> valueMapper, Supplier<M> mapSupplier) {
+        requireNonNull(collection, keyMapper, valueMapper, mapSupplier);
+        return collection.stream().collect(toMap(keyMapper, valueMapper, throwingMerger(), mapSupplier));
+    }
+
+    public static <U> BinaryOperator<U> usingNewMerger() {
+        return (o, o2) -> o2;
+    }
+
+    public static <U> BinaryOperator<U> usingOldMerger() {
+        return (o, o2) -> o2;
+    }
+
+    public static <T> BinaryOperator<T> throwingMerger() {
+        return (u,v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); };
     }
 
 }
