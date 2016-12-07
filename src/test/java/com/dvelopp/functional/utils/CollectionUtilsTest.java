@@ -268,13 +268,13 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MergeFunctionAndOneDuplicate_ObjectsHaveBeenMappedToMapAccordingToMappersAndDuplicatesMerged() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>("duplicateKey", "duplicateVal1");
-        BiValHolder<String, String> testObject2 = new BiValHolder<>("duplicateKey", "duplicateVal2");
-        BiValHolder<String, String> testObject3 = new BiValHolder<>("uniqueKey", "uniqueVal");
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
 
         Map<String, String> actualMap = mapToMap(testObjects,
-                BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
+                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge);
 
         SimpleEntry<String, String> mergedEntry = new SimpleEntry<>(testObject1.getVal1(),
                 format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
@@ -284,14 +284,14 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MergeFunctionAndOnlyDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappersAndAllMerged() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>("duplicateKey1", "duplicateVal1");
-        BiValHolder<String, String> testObject2 = new BiValHolder<>("duplicateKey1", "duplicateVal2");
-        BiValHolder<String, String> testObject3 = new BiValHolder<>("duplicateKey2", "duplicateVal3");
-        BiValHolder<String, String> testObject4 = new BiValHolder<>("duplicateKey2", "duplicateVal4");
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
-                BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
+                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge);
 
         SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getVal1(),
                 format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
@@ -302,12 +302,12 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_NoDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappers() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>("key1", "val1");
-        BiValHolder<String, String> testObject2 = new BiValHolder<>("key2", "val2");
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2,
-                (o1, o2) -> o1 + ";" + o2);
+                this::testMerge);
 
         SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
         SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
@@ -335,4 +335,78 @@ public class CollectionUtilsTest {
     public void mapToMap_MergeFunctionCaseNullMergeFunction_NullPointerExceptionHasBeenThrown() {
         mapToMap(new ArrayList<BiValHolder>(), BiValHolder::getVal1, BiValHolder::getVal2, null);
     }
+
+    @Test
+    public void mapToMap_MapSupplier_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+
+        Map<String, String> actualMap = mapToMap(testObjects,
+                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+
+        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
+        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
+        assertThat(actualMap.getClass().isAssignableFrom(TestMap.class));
+        assertThat(actualMap).containsOnly(entry1, entry2);
+    }
+
+    @Test
+    public void mapToMap_MapSupplierWithMergeFunctionAndOnlyDuplicates_DuplicatesHaveBeenHandledAndAddedToGivenMap() {
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+
+        Map<String, String> actualMap = mapToMap(testObjects,
+                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+
+        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getVal1(),
+                format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
+        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(testObject3.getVal1(),
+                format("%s;%s", testObject3.getVal2(), testObject4.getVal2()));
+        assertThat(actualMap).containsOnly(mergedEntry1, mergedEntry2);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_SupplierMapAndMergeFunctionCaseNullCollection_NullPointerExceptionHasBeenThrown() {
+        Collection<BiValHolder<String, String>> collection = null;
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_SupplierMapAndMergeFunctionCaseNullKeyMapper_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_SupplierMapAndMergeFunctionCaseNullValueMapper_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_SupplierMapAndMergeFunctionCaseNullMergeFunction_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, null, TestMap::new);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_SupplierMapAndMergeFunctionCaseNullSupplierMapCase_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, null);
+    }
+
+    private String testMerge(String o1, String o2) {
+        return o1 + ";" + o2;
+    }
+
+    public static class TestMap<K, V> extends HashMap<K, V> {
+    }
+
 }
