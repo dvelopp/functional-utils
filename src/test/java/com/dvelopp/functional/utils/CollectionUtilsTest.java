@@ -248,6 +248,16 @@ public class CollectionUtilsTest {
                         new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2()));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void mapToMap_DuplicateKey_IllegalStateExceptionHasBeenThrown() {
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_1, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
+
+        mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
+    }
+
     @Test
     public void mapToMap_EmptyCollection_EmptyMapHasBeenCreated() {
         List<TestObject> testObjects = emptyList();
