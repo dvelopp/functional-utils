@@ -21,8 +21,13 @@ public class CollectionUtilsTest {
 
     private static final String KEY_1 = "key1";
     private static final String KEY_2 = "key2";
+    private static final String KEY_3 = "key3";
+    private static final String KEY_4 = "key4";
     private static final String VAL_1 = "val1";
     private static final String VAL_2 = "val2";
+    private static final String VAL_3 = "val3";
+    private static final String VAL_4 = "val4";
+
     private final BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
     private final BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
 
@@ -445,6 +450,49 @@ public class CollectionUtilsTest {
         Supplier<Map<String, String>> nullMapSupplier = null;
 
         mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, nullMapSupplier);
+    }
+
+    @Test
+    public void groupingBy_WithOnlyClassifierTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+
+        Map<String, List<BiValHolder<String, String>>> groupedValues = groupingBy(testObjects, BiValHolder::getVal1);
+
+        assertThat(groupedValues).hasSize(2);
+        assertThat(groupedValues.get(KEY_1)).containsOnly(testObject1, testObject2);
+        assertThat(groupedValues.get(KEY_2)).containsOnly(testObject3, testObject4);
+    }
+
+    @Test
+    public void groupingBy_WithOnlyClassifierOneKeyAndFourValues_MapWithOneKeyAndFourValuesHasBeenCreated() {
+        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_1, VAL_3);
+        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_1, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+
+        Map<String, List<BiValHolder<String, String>>> groupedValues = groupingBy(testObjects, BiValHolder::getVal1);
+
+        assertThat(groupedValues).hasSize(1);
+        assertThat(groupedValues.get(KEY_1)).containsOnly(testObject1, testObject2, testObject3, testObject4);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_WithOnlyClassifierCaseNullCollection_NullPointerExceptionHasBeenThrown() {
+        Collection<BiValHolder<String, String>> collection = null;
+
+        groupingBy(collection, BiValHolder::getVal1);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void mapToMap_WithOnlyClassifierCaseNullClassifier_NullPointerExceptionHasBeenThrown() {
+        List<BiValHolder<String, String>> collection = new ArrayList<>();
+
+        groupingBy(collection, null);
     }
 
     private String testMerge(String o1, String o2) {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.dvelopp.functional.utils.FunctionUtils.consumer;
@@ -255,14 +256,14 @@ public final class CollectionUtils {
     /**
      * Map collection to a provided map using according to mappers provided for keys and values
      *
-     * @param collection    - source collection
-     * @param keyMapper     - mapper that describes how to map keys
-     * @param valueMapper   - mapper that describes how to map values
-     * @param mapSupplier   - factory that describes how to create instance of the target map
-     * @param <T>           - source collection elements type
-     * @param <K>           - target map keys type
-     * @param <U>           - target map values type
-     * @param <M>           - target map type
+     * @param collection  - source collection
+     * @param keyMapper   - mapper that describes how to map keys
+     * @param valueMapper - mapper that describes how to map values
+     * @param mapSupplier - factory that describes how to create instance of the target map
+     * @param <T>         - source collection elements type
+     * @param <K>         - target map keys type
+     * @param <U>         - target map values type
+     * @param <M>         - target map type
      * @return map containing mapped key/value pairs
      */
     public static <T, K, U, M extends Map<K, U>> Map<K, U> mapToMap(
@@ -270,6 +271,21 @@ public final class CollectionUtils {
             Function<? super T, ? extends U> valueMapper, Supplier<M> mapSupplier) {
         requireNonNull(collection, keyMapper, valueMapper, mapSupplier);
         return collection.stream().collect(toMap(keyMapper, valueMapper, throwingMerger(), mapSupplier));
+    }
+
+    /**
+     * Map collection to a new map grouped by key
+     *
+     * @param collection - source collection
+     * @param classifier - mapper that describes how to map keys to group by
+     * @param <T>        - source and target inner collection elements type
+     * @param <K>        - target map keys type
+     * @return map containing mapped key/value pairs
+     */
+    public static <T, K> Map<K, List<T>> groupingBy(Collection<T> collection,
+                                                    Function<? super T, ? extends K> classifier) {
+        requireNonNull(collection, classifier);
+        return collection.stream().collect(Collectors.groupingBy(classifier));
     }
 
     public static <U> BinaryOperator<U> usingNewMerger() {
@@ -281,7 +297,9 @@ public final class CollectionUtils {
     }
 
     public static <T> BinaryOperator<T> throwingMerger() {
-        return (u,v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); };
+        return (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
+        };
     }
 
 }
