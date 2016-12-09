@@ -71,7 +71,9 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToList_ListIsNull_NullPointerExceptionHasBeenThrown() {
-        mapToList(null, TestObject::getSubTestObject);
+        Collection<BiValHolder<String, String>> collection = null;
+
+        mapToList(collection, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
@@ -144,7 +146,9 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToSet_SetIsNull_NullPointerExceptionHasBeenThrown() {
-        mapToSet(null, TestObject::getSubTestObject);
+        Collection<BiValHolder<String, String>> collection = null;
+
+        mapToSet(collection, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
@@ -173,24 +177,24 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToCollection_SetIsNull_NullPointerExceptionHasBeenThrown() {
-        Function<TestObject, SubTestObject> mapper = TestObject::getSubTestObject;
-        Supplier<LinkedList<SubTestObject>> collectionSupplier = LinkedList::new;
+        Function<BiValHolder<String, String>, String> mapper = BiValHolder::getVal1;
+        Supplier<LinkedList<String>> collectionSupplier = LinkedList::new;
 
         mapToCollection(null, mapper, collectionSupplier);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToCollection_MapperIsNull_NullPointerExceptionHasBeenThrown() {
-        Set<TestObject> testObjects = new HashSet<>();
-        Supplier<LinkedList<SubTestObject>> collectionSupplier = LinkedList::new;
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>();
+        Supplier<LinkedList<String>> collectionSupplier = LinkedList::new;
 
         mapToCollection(testObjects, null, collectionSupplier);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToCollection_CollectionSupplierIsNull_NullPointerExceptionHasBeenThrown() {
-        Set<TestObject> testObjects = new HashSet<>();
-        Function<TestObject, SubTestObject> mapper = TestObject::getSubTestObject;
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>();
+        Function<BiValHolder<String, String>, String> mapper = BiValHolder::getVal1;
 
         mapToCollection(testObjects, mapper, null);
     }
@@ -215,17 +219,23 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToArray_CollectionIsNull_NullPointerExceptionHasBeenThrown() {
-        mapToArray(null, TestObject::getSubTestObject, SubTestObject[]::new);
+        HashSet<BiValHolder<String, String>> objects = null;
+
+        mapToArray(objects, BiValHolder::getVal1, BiValHolder[]::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToArray_MapperIsNull_NullPointerExceptionHasBeenThrown() {
-        mapToArray(new HashSet<>(), null, SubTestObject[]::new);
+        HashSet<BiValHolder<String, String>> objects = new HashSet<>();
+
+        mapToArray(objects, null, BiValHolder[]::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToArray_ArrayGeneratorIsNull_NullPointerExceptionHasBeenThrown() {
-        mapToArray(new HashSet<>(), TestObject::getSubTestObject, null);
+        HashSet<BiValHolder<String, String>> objects = new HashSet<>();
+
+        mapToArray(objects, BiValHolder::getVal1, null);
     }
 
     @Test
@@ -260,26 +270,32 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_EmptyCollection_EmptyMapHasBeenCreated() {
-        List<TestObject> testObjects = emptyList();
+        List<BiValHolder<String, String>> testObjects = emptyList();
 
-        Map<String, SubTestObject> actualMap = mapToMap(testObjects, TestObject::getId, TestObject::getSubTestObject);
+        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
 
         assertThat(actualMap).isEmpty();
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_NullCollection_NullPointerExceptionHasBeenThrown() {
-        mapToMap(null, TestObject::getId, TestObject::getSubTestObject);
+        Collection<BiValHolder<String, String>> collection = null;
+
+        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_NullKeyMapper_NullPointerExceptionHasBeenThrown() {
-        mapToMap(emptyList(), null, TestObject::getSubTestObject);
+        List<BiValHolder<String, String>> collection = emptyList();
+
+        mapToMap(collection, null, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_NullValueMapper_NullPointerExceptionHasBeenThrown() {
-        mapToMap(emptyList(), TestObject::getId, null);
+        List<BiValHolder<String, String>> collection = emptyList();
+
+        mapToMap(collection, BiValHolder::getVal1, null);
     }
 
     @Test

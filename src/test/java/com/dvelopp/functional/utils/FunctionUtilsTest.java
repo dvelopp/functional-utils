@@ -1,6 +1,5 @@
 package com.dvelopp.functional.utils;
 
-import org.assertj.core.api.Condition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -13,7 +12,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.dvelopp.functional.utils.FunctionUtils.*;
-import static com.dvelopp.functional.utils.FunctionUtils.consumer;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,17 +49,16 @@ public class FunctionUtilsTest {
 
     @Test
     public void with_ModifyObjectWithFirstValue_ObjectHasBeenModified() {
-        SubTestObject subTestObject = new SubTestObject();
-        TestObject testObject = new TestObject(subTestObject);
+        BiValHolder<String, String> testObject = new BiValHolder<>("initialFirstValue", "initialSecondValue");
 
-        with(testObject, TestObject::activate);
+        with(testObject, o -> o.setVal1("modifiedFirstValue"));
 
-        assertThat(testObject).is(new Condition<>(TestObject::isActive, "active", testObject));
+        assertThat(testObject.getVal1()).isEqualTo("modifiedFirstValue");
     }
 
     @Test(expected = NullPointerException.class)
     public void with_NullClosure_NullPointerExceptionHasBeenThrown() {
-        with(mock(TestObject.class), null);
+        with(mock(BiValHolder.class), null);
     }
 
     @Test(expected = NullPointerException.class)
