@@ -12,8 +12,8 @@ public final class CheckUtils {
         return new NoArgumentsCheckResult(condition);
     }
 
-    public static NoArgumentsCheckResult inCase(Boolean condition) {
-        return new NoArgumentsCheckResult(() -> condition);
+    public static <R> NoArgumentsCheckResult<R> inCase(Boolean condition) {
+        return new NoArgumentsCheckResult<R>(() -> condition);
     }
 
     public static <T, R> OneArgumentCheckResult<T, R> inCase(Predicate<T> condition, T arg) {
