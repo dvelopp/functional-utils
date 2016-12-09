@@ -63,8 +63,7 @@ public class FunctionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void with_NullSelfLink_NullPointerExceptionHasBeenThrown() {
-        with(null, o -> {
-        });
+        with(null, emptyConsumer());
     }
 
     @Test

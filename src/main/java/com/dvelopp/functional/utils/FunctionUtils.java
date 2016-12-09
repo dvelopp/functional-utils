@@ -53,6 +53,10 @@ public final class FunctionUtils {
         return o -> false;
     }
 
+    public static <T> Consumer<T> emptyConsumer() {
+        return o -> {};
+    }
+
     /**
      * Converts BiConsumer to Consumer
      *
