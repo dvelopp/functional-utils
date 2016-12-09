@@ -58,7 +58,7 @@ public class FunctionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void with_NullClosure_NullPointerExceptionHasBeenThrown() {
-        with(mock(BiValHolder.class), null);
+        with(mock(Testee.class), null);
     }
 
     @Test(expected = NullPointerException.class)

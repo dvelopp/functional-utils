@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class CheckUtilsTest {
 
-    @Mock private BiValHolder<String, String> testObject;
+    @Mock private Testee testee;
 
     @Test
     public void inCaseIsTrue_TrueCaseForSupplier_ClosureHasBeenExecuted() {
@@ -459,7 +459,7 @@ public class CheckUtilsTest {
      * We just need it in order to know whether closureWithoutReturn was executed or not.
      */
     private void closureWithoutReturn() {
-        testObject.getVal1();
+        testee.voidMethod();
     }
 
     /**
@@ -467,16 +467,16 @@ public class CheckUtilsTest {
      * We just need it in order to know whether closureWithoutReturn was executed or not and test return value.
      */
     private Integer closureWithReturn(Integer objectToReturn) {
-        testObject.getVal1();
+        testee.voidMethod();
         return objectToReturn;
     }
 
     private void assertClosureWasExecuted() {
-        verify(testObject).getVal1();
+        verify(testee).voidMethod();
     }
 
     private void assertClosureWasNotExecuted() {
-        verify(testObject, times(0)).getVal1();
+        verify(testee, times(0)).voidMethod();
     }
 
 }
