@@ -8,12 +8,12 @@ import java.util.function.Supplier;
  */
 public final class CheckUtils {
 
-    public static NoArgumentsCheckResult inCase(Supplier<Boolean> condition) {
-        return new NoArgumentsCheckResult(condition);
+    public static <R> NoArgumentsCheckResult<R> inCase(Supplier<Boolean> condition) {
+        return new NoArgumentsCheckResult<>(condition);
     }
 
     public static <R> NoArgumentsCheckResult<R> inCase(Boolean condition) {
-        return new NoArgumentsCheckResult<R>(() -> condition);
+        return new NoArgumentsCheckResult<>(() -> condition);
     }
 
     public static <T, R> OneArgumentCheckResult<T, R> inCase(Predicate<T> condition, T arg) {

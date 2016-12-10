@@ -32,11 +32,13 @@ public class CheckUtilsTest {
         assertClosureWasNotExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsTrue_ExceptionInTheConditionCaseForSupplier_IllegalArgumentExceptionHasBeenThrown() {
+    @Test
+    public void inCaseIsTrue_ExceptionInTheConditionCaseForSupplier_ClosureForExceptionCaseHasBeenExecuted() {
         inCase(() -> {
             throw new IllegalArgumentException();
-        }).isTrue(this::closureWithoutReturn);
+        }).isException(this::closureWithoutReturn);
+
+        assertClosureWasExecuted();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -74,11 +76,13 @@ public class CheckUtilsTest {
         assertClosureWasExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsFalse_ExceptionInTheConditionCaseForSupplier_IllegalArgumentExceptionHasBeenThrown() {
+    @Test
+    public void inCaseIsFalse_ExceptionInTheConditionCaseForSupplier_ClosureForExceptionCaseHasBeenExecuted() {
         inCase(() -> {
             throw new IllegalArgumentException();
-        }).isFalse(this::closureWithoutReturn);
+        }).isException(this::closureWithoutReturn);
+
+        assertClosureWasExecuted();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -192,6 +196,26 @@ public class CheckUtilsTest {
 
         assertClosureWasExecuted();
         assertThat(actualVal).isEqualTo(expectedValInTrueDefinition);
+    }
+
+    @Test
+    public void inCaseIsTrueOrFalseOrException_ExceptionCaseAndClosureInside_ClosureHasBeenExecutedForExceptionCase() {
+        inCase(()-> {throw new IllegalArgumentException();})
+                .isTrue(() -> {})
+                .isFalse(() -> {})
+                .isException(this::closureWithoutReturn);
+
+        assertClosureWasExecuted();
+    }
+
+    @Test
+    public void inCaseIsTrueOrFalseOrException_ExceptionCaseAndClosureOutside_ClosureHasNotBeenExecutedForExceptionCase() {
+        inCase(()-> {throw new IllegalArgumentException();})
+                .isTrue(this::closureWithoutReturn)
+                .isFalse(this::closureWithoutReturn)
+                .isException(() -> {});
+
+        assertClosureWasNotExecuted();
     }
 
     @Test
@@ -361,11 +385,13 @@ public class CheckUtilsTest {
         assertThat(actualVal).isEqualTo(expectedValInFalseDefinition);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsTrue_ExceptionInTheConditionCaseForPredicate_IllegalArgumentExceptionHasBeenThrown() {
+    @Test
+    public void inCaseIsTrue_ExceptionInTheConditionCaseForPredicate_ClosureForExceptionCaseHasBeenExecuted() {
         inCase(() -> {
             throw new IllegalArgumentException();
-        }).isTrue(this::closureWithoutReturn);
+        }).isException(this::closureWithoutReturn);
+
+        assertClosureWasExecuted();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -403,11 +429,13 @@ public class CheckUtilsTest {
         assertClosureWasExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsFalse_ExceptionInTheConditionCaseForPredicate_IllegalArgumentExceptionHasBeenThrown() {
+    @Test
+    public void inCaseIsFalse_ExceptionInTheConditionCaseForPredicate_ClosureForExceptionCaseHasBeenExecuted() {
         inCase(() -> {
             throw new IllegalArgumentException();
-        }).isFalse(this::closureWithoutReturn);
+        }).isException(this::closureWithoutReturn);
+
+        assertClosureWasExecuted();
     }
 
     @Test(expected = IllegalArgumentException.class)

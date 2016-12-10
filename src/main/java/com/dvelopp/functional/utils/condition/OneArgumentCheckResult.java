@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.*;
 import static java.util.Objects.requireNonNull;
 
 public class OneArgumentCheckResult<T, R> extends AbstractCheckResult<Predicate<T>, R, OneArgumentCheckResult<T, R>> {
@@ -17,26 +18,27 @@ public class OneArgumentCheckResult<T, R> extends AbstractCheckResult<Predicate<
     }
 
     public OneArgumentCheckResult<T, R> isTrue(Consumer<T> closure) {
-        return performIfConditionIs(closure, true);
+        return performIfConditionIs(closure, TRUE);
     }
 
     public OneArgumentCheckResult<T, R> isFalse(Consumer<T> closure) {
-        return performIfConditionIs(closure, false);
+        return performIfConditionIs(closure, FALSE);
     }
 
     public <RR extends R> OneArgumentCheckResult<T, RR> isTrueMap(Function<T, RR> function) {
-        return performIfConditionIs(function, true);
+        return performIfConditionIs(function, TRUE);
     }
 
     public <RR extends R> OneArgumentCheckResult<T, RR> isFalseMap(Function<T, RR> function) {
-        return performIfConditionIs(function, false);
+        return performIfConditionIs(function, FALSE);
     }
 
-    private OneArgumentCheckResult<T, R> performIfConditionIs(Consumer<T> closure, boolean expectedConditionValue) {
-        if (!conditionIsMet) {
+    private OneArgumentCheckResult<T, R> performIfConditionIs(Consumer<T> closure,
+                                                              ConditionResult expectedConditionValue) {
+        if (needToExecuteCondition()) {
             requireNonNull(closure);
             if (expectedConditionValue == performCheck()) {
-                conditionIsMet = true;
+                conditionResult = EXECUTED;
                 closure.accept(arg);
             }
         }
@@ -45,11 +47,11 @@ public class OneArgumentCheckResult<T, R> extends AbstractCheckResult<Predicate<
 
     @SuppressWarnings("unchecked")
     private <RR extends R> OneArgumentCheckResult<T, RR> performIfConditionIs(Function<T, RR> function,
-                                                                              boolean expectedConditionValue) {
-        if (!conditionIsMet) {
+                                                                              ConditionResult expectedConditionValue) {
+        if (needToExecuteCondition()) {
             requireNonNull(function);
             if (expectedConditionValue == performCheck()) {
-                conditionIsMet = true;
+                conditionResult = EXECUTED;
                 valueToReturn = function.apply(arg);
             }
         }
@@ -57,11 +59,17 @@ public class OneArgumentCheckResult<T, R> extends AbstractCheckResult<Predicate<
     }
 
     @Override
-    protected Boolean performCheck() {
-        if (conditionResult == null) {
-            return conditionResult = getCondition().test(arg);
+    protected ConditionResult performCheck() {
+        if (conditionResult != NONE) {
+            return conditionResult;
         }
-        return conditionResult;
+        try {
+            return conditionResult = getCondition().test(arg) ? TRUE : FALSE;
+        } catch (Exception e) {
+            exception = e;
+            return conditionResult = EXCEPTION;
+        }
     }
+
 
 }
