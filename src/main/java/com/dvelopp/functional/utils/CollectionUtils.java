@@ -15,20 +15,22 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 import static java.util.stream.Collectors.*;
 
 /**
- * Utility class to improve the way working with collection is implemented by default.
+ * Set of useful methods to work with collections.
+ * There are two types of methods. Some of the methods extend the functionality provided by Java while other methods
+ * make invocations of the same things more concise and easier than in Java.
  */
 public final class CollectionUtils {
 
     /**
-     * For each with BiConsumer function.
-     * This for each can take an additional argument to the function in order to allow developers
-     * to implement such cases in functional style (Java 8)
+     * For each loop that consumes BiConsumer function.
+     * That is made to provide default for each statement with ability to have an additional argument to the function
+     * in order to allow developers to implement such cases in functional style.
      *
-     * @param collection - the collection to use in for each function
-     * @param action     - the bi consumer based function to perform on each element with passed argument
-     * @param arg        - argument to send as the second argument to bi consumer function
-     * @param <T>        - type of the elements in the collection
-     * @param <R>        - second argument type
+     * @param collection The collection to iterated over.
+     * @param action     The action to be performed for each element.
+     * @param arg        The argument that is considered second argument in the function.
+     * @param <T>        The elements type for collection.
+     * @param <R>        The argument type.
      */
     public static <T, R> void forEach(Collection<T> collection, BiConsumer<? super T, R> action, R arg) {
         requireNonNull(collection, action);
