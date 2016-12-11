@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -286,6 +287,25 @@ public final class CollectionUtils {
                                                     Function<? super T, ? extends K> classifier) {
         requireNonNull(collection, classifier);
         return collection.stream().collect(Collectors.groupingBy(classifier));
+    }
+
+    /**
+     * Map collection to a new map grouped by key and collected with downstream collector
+     *
+     * @param collection - source collection
+     * @param classifier - mapper that describes how to map keys to group by
+     * @param downstream - collector to map collection in the value
+     * @param <T>        - source and target inner collection elements type
+     * @param <K>        - target map keys type
+     * @param <A>        - the intermediate accumulation type of the downstream collector
+     * @param <D>        - the result type of the downstream reduction
+     * @return map containing mapped key/value pairs
+     */
+    public static <T, K, A, D> Map<K, D> groupingBy(Collection<T> collection,
+                                                    Function<? super T, ? extends K> classifier,
+                                                    Collector<? super T, A, D> downstream) {
+        requireNonNull(collection, classifier, downstream);
+        return collection.stream().collect(Collectors.groupingBy(classifier, downstream));
     }
 
     public static <U> BinaryOperator<U> usingNewMerger() {

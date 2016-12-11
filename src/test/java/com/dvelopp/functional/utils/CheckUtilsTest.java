@@ -446,32 +446,32 @@ public class CheckUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void check_CaseForSupplierWithNullSupplier_NullPointerExceptionHasBeenThrown() {
+    public void check_CaseForSupplierWithNullSupplier_NPEHasBeenThrown() {
         inCase((Supplier<Boolean>) null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void check_CaseForPredicateWithNullPredicate_NullPointerExceptionHasBeenThrown() {
+    public void check_CaseForPredicateWithNullPredicate_NPEHasBeenThrown() {
         inCase(null, new Object());
     }
 
     @Test(expected = NullPointerException.class)
-    public void check_CaseForPredicateWithNullArgument_NullPointerExceptionHasBeenThrown() {
+    public void check_CaseForPredicateWithNullArgument_NPEHasBeenThrown() {
         inCase(truePredicate(), null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void check_CaseForSupplierWithNullClosure_NullPointerExceptionHasBeenThrown() {
+    public void check_CaseForSupplierWithNullClosure_NPEHasBeenThrown() {
         inCase(trueSupplier()).isTrue(null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void check_CaseForPredicateWithNullClosure_NullPointerExceptionHasBeenThrown() {
+    public void check_CaseForPredicateWithNullClosure_NPEHasBeenThrown() {
         inCase(identityPredicate(), true).isTrue((Runnable) null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void check_CaseForPredicateWithNullFunction_NullPointerExceptionHasBeenThrown() {
+    public void check_CaseForPredicateWithNullFunction_NPEHasBeenThrown() {
         inCase(identityPredicate(), true).isTrueMap(null);
     }
 

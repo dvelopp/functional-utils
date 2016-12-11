@@ -43,7 +43,7 @@ public class FunctionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void not_NullPredicate_NullPointerExceptionHasBeenThrown() {
+    public void not_NullPredicate_NPEHasBeenThrown() {
         not(null);
     }
 
@@ -57,12 +57,12 @@ public class FunctionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void with_NullClosure_NullPointerExceptionHasBeenThrown() {
+    public void with_NullClosure_NPEHasBeenThrown() {
         with(mock(Testee.class), null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void with_NullSelfLink_NullPointerExceptionHasBeenThrown() {
+    public void with_NullSelfLink_NPEHasBeenThrown() {
         with(null, emptyConsumer());
     }
 
