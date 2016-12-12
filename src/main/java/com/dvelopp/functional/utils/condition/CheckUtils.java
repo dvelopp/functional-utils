@@ -3,20 +3,25 @@ package com.dvelopp.functional.utils.condition;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
+
 /**
  * Utility class to build readable builder-based conditions using java 8 features
  */
 public final class CheckUtils {
 
     public static <R> NoArgumentsCheckResult<R> inCase(Supplier<Boolean> condition) {
+        requireNonNull(condition);
         return new NoArgumentsCheckResult<>(condition);
     }
 
     public static <R> NoArgumentsCheckResult<R> inCase(Boolean condition) {
+        requireNonNull(condition);
         return new NoArgumentsCheckResult<>(() -> condition);
     }
 
     public static <T, R> OneArgumentCheckResult<T, R> inCase(Predicate<T> condition, T arg) {
+        requireNonNull(condition);
         return new OneArgumentCheckResult<>(condition, arg);
     }
 
