@@ -20,4 +20,16 @@ public final class CheckUtils {
         return new OneArgumentCheckResult<>(condition, arg);
     }
 
+    public static <R> NoArgumentsCheckResult<R> when(Supplier<Boolean> condition) {
+        return inCase(condition);
+    }
+
+    public static <R> NoArgumentsCheckResult<R> when(Boolean condition) {
+        return inCase(condition);
+    }
+
+    public static <T, R> OneArgumentCheckResult<T, R> when(Predicate<T> condition, T arg) {
+        return inCase(condition, arg);
+    }
+
 }
