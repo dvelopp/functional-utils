@@ -67,6 +67,7 @@ public final class FunctionUtils {
      * @return Consumer object
      */
     public static <T, R> Consumer<T> consumer(BiConsumer<T, R> action, R arg) {
+        requireNonNull(action);
         return e -> action.accept(e, arg);
     }
 
@@ -80,6 +81,7 @@ public final class FunctionUtils {
      * @return Function object
      */
     public static <T, R, S> Function<T, R> function(BiFunction<T, S, R> action, S arg) {
+        requireNonNull(action);
         return e -> action.apply(e, arg);
     }
 
