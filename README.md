@@ -1,3 +1,5 @@
+**The file is being updated. A lot of new stuff have been added recently.**
+
 Java 8 provided such a lot great features connected to functional programming so that the way software is written was totally changed.
 The amount of code to do the same things was significantly reduced and it became more understandable. 
 However, personally, I believe that there is much more can be done to improve the way we write code even with java 8.
