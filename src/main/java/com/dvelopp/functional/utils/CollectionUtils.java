@@ -340,6 +340,15 @@ public final class CollectionUtils {
         };
     }
 
+    /**
+     * Shortcut for getting stream from collection and mapping it using the mapper function.
+     *
+     * @param collection The source collection.
+     * @param mapper     The function to apply to each element of the collection.
+     * @param <T>        The source collection type.
+     * @param <R>        The target collection type.
+     * @return the new collection that containing results of applying the merger function on each element.
+     */
     private static <T, R> Stream<? extends R> collectionToMappedStream(Collection<T> collection,
                                                                        Function<? super T, ? extends R> mapper) {
         return collection.stream().map(mapper);

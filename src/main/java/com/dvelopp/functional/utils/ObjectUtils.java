@@ -20,4 +20,5 @@ public class ObjectUtils {
         Stream.of(objectsToCheck).forEach(o -> Objects.requireNonNull(o, messageSupplier));
         return objectsToCheck;
     }
+
 }
