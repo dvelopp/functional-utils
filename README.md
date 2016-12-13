@@ -20,6 +20,7 @@ Examples:
 - Quick mapping between collections:
 
 ```
+ma(testObjects, TestObject::getSubTestObject);
 mapToList(testObjects, TestObject::getSubTestObject);
 mapToSet(testObjects, TestObject::getSubTestObject);
 mapToCollection(testObjects, TestObject::getSubTestObject, HashSet::new);
@@ -32,7 +33,7 @@ Predicate<Collection> isNotEmptyPredicate = not(isEmptyPredicate);
 assertThat(isEmptyPredicate.test(notEmptyList)).isFalse();
 assertThat(isNotEmptyPredicate.test(notEmptyList)).isTrue();
 ```
-- Conciese concise:
+- Concise condition handlings:
 ```
 Integer expectedValInTrueDefinition = 1;
 Integer expectedValInFalseDefinition = 2;
