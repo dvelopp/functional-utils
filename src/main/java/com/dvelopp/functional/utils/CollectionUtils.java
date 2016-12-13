@@ -208,15 +208,16 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to a new map using according to mappers provided for keys and values
+     * Returns a map consisting of the results of applying the given key/value extraction functions to the elements
+     * of the given collection.
      *
-     * @param collection  - source collection
-     * @param keyMapper   - mapper that describes how to map keys
-     * @param valueMapper - mapper that describes how to map values
-     * @param <T>         - source collection elements type
-     * @param <K>         - target map keys type
-     * @param <U>         - target map values type
-     * @return map containing mapped key/value pairs
+     * @param collection  The source collection.
+     * @param keyMapper   The function to apply to each element to get a key.
+     * @param valueMapper The function to apply to each element to get a value.
+     * @param <T>         The source collection elements type.
+     * @param <K>         The target map keys type.
+     * @param <U>         The target map values type.
+     * @return the new map containing mapped key/value pairs.
      */
     public static <T, K, U> Map<K, U> mapToMap(Collection<T> collection, Function<? super T, ? extends K> keyMapper,
                                                Function<? super T, ? extends U> valueMapper) {
@@ -225,17 +226,17 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to a new map using according to mappers provided for keys and values and merges values for the
-     * same keys according to merge function
+     * Returns a map consisting of the results of applying the given key/value extraction functions to the elements
+     * of the given collection and merges values for the same keys according to merge function.
      *
-     * @param collection    - source collection
-     * @param keyMapper     - mapper that describes how to map keys
-     * @param valueMapper   - mapper that describes how to map values
-     * @param mergeFunction - merger in case there are duplicate keys
-     * @param <T>           - source collection elements type
-     * @param <K>           - target map keys type
-     * @param <U>           - target map values type
-     * @return map containing mapped key/value pairs
+     * @param collection    The source collection.
+     * @param keyMapper     The function to apply to each element to get a key.
+     * @param valueMapper   The function to apply to each element to get a value.
+     * @param mergeFunction The merger function in case there are duplicate keys.
+     * @param <T>           The source collection elements type.
+     * @param <K>           The target map keys type.
+     * @param <U>           The target map values type.
+     * @return the new map containing mapped key/value pairs.
      */
     public static <T, K, U> Map<K, U> mapToMap(Collection<T> collection, Function<? super T, ? extends K> keyMapper,
                                                Function<? super T, ? extends U> valueMapper, BinaryOperator<U> mergeFunction) {
@@ -244,19 +245,20 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to a provided map using according to mappers provided for keys and values and merges values for
-     * the same keys according to merge function
+     * Returns the provided in supplier map consisting of the results of applying the given key/value
+     * extraction functions to the elements of the given collection and merges values for the same keys according
+     * to merge function.
      *
-     * @param collection    - source collection
-     * @param keyMapper     - mapper that describes how to map keys
-     * @param valueMapper   - mapper that describes how to map values
-     * @param mergeFunction - merger in case there are duplicate keys
-     * @param mapSupplier   - factory that describes how to create instance of the target map
-     * @param <T>           - source collection elements type
-     * @param <K>           - target map keys type
-     * @param <U>           - target map values type
-     * @param <M>           - target map type
-     * @return map containing mapped key/value pairs
+     * @param collection    The source collection.
+     * @param keyMapper     The function to apply to each element to get a key.
+     * @param valueMapper   The function to apply to each element to get a value.
+     * @param mergeFunction The merger function in case there are duplicate keys.
+     * @param mapSupplier   The factory that describes how to get an instance of the target map.
+     * @param <T>           The source collection elements type.
+     * @param <K>           The target map keys type.
+     * @param <U>           The target map values type.
+     * @param <M>           The target map type.
+     * @return the map provided in supplier containing new mapped key/value pairs.
      */
     public static <T, K, U, M extends Map<K, U>> Map<K, U> mapToMap(
             Collection<T> collection, Function<? super T, ? extends K> keyMapper,
@@ -266,17 +268,18 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to a provided map using according to mappers provided for keys and values
+     * Returns the provided in supplier map consisting of the results of applying the given key/value
+     * extraction functions to the elements of the given collection.
      *
-     * @param collection  - source collection
-     * @param keyMapper   - mapper that describes how to map keys
-     * @param valueMapper - mapper that describes how to map values
-     * @param mapSupplier - factory that describes how to create instance of the target map
-     * @param <T>         - source collection elements type
-     * @param <K>         - target map keys type
-     * @param <U>         - target map values type
-     * @param <M>         - target map type
-     * @return map containing mapped key/value pairs
+     * @param collection  The source collection.
+     * @param keyMapper   The function to apply to each element to get a key.
+     * @param valueMapper The function to apply to each element to get a value.
+     * @param mapSupplier The factory that describes how to get an instance of the target map.
+     * @param <T>         The source collection elements type.
+     * @param <K>         The target map keys type.
+     * @param <U>         The target map values type.
+     * @param <M>         The target map type.
+     * @return the map provided in supplier containing new mapped key/value pairs.
      */
     public static <T, K, U, M extends Map<K, U>> Map<K, U> mapToMap(
             Collection<T> collection, Function<? super T, ? extends K> keyMapper,
@@ -286,13 +289,15 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to a new map grouped by key
+     * Returns a new map that contains grouped result of applying classifier function on the elements. The classifier
+     * determines how to create a group - key. According the created key a list is collected containing as a value all
+     * the elements that fulfil that key.
      *
-     * @param collection - source collection
-     * @param classifier - mapper that describes how to map keys to group by
-     * @param <T>        - source and target inner collection elements type
-     * @param <K>        - target map keys type
-     * @return map containing mapped key/value pairs
+     * @param collection The source collection.
+     * @param classifier The classifier function to apply to each element to get a key.
+     * @param <T>        The source and target inner collection elements type.
+     * @param <K>        The target map keys type.
+     * @return the new map containing mapped key/value pairs of grouped result.
      */
     public static <T, K> Map<K, List<T>> groupingBy(Collection<T> collection,
                                                     Function<? super T, ? extends K> classifier) {
@@ -301,16 +306,18 @@ public final class CollectionUtils {
     }
 
     /**
-     * Map collection to a new map grouped by key and collected with downstream collector
+     * Returns a new map that contains grouped result of applying classifier function on the elements. The classifier
+     * determines how to create a group - key. According the created key a list is collected containing as a value all
+     * the elements mapped according to downstream function.
      *
-     * @param collection - source collection
-     * @param classifier - mapper that describes how to map keys to group by
-     * @param downstream - collector to map collection in the value
-     * @param <T>        - source and target inner collection elements type
-     * @param <K>        - target map keys type
-     * @param <A>        - the intermediate accumulation type of the downstream collector
-     * @param <D>        - the result type of the downstream reduction
-     * @return map containing mapped key/value pairs
+     * @param collection The source collection.
+     * @param classifier The classifier function to apply to each element to get a key.
+     * @param downstream The collector to map collection in the value.
+     * @param <T>        The source and target inner collection elements type.
+     * @param <K>        The target map keys type.
+     * @param <A>        The intermediate accumulation type of the downstream collector.
+     * @param <D>        The result type of the downstream reduction.
+     * @return the new map containing mapped key/value pairs of grouped result after reduction.
      */
     public static <T, K, A, D> Map<K, D> groupingBy(Collection<T> collection,
                                                     Function<? super T, ? extends K> classifier,
