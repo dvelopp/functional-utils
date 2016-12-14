@@ -86,8 +86,7 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
     }
 
     void setCondition(T condition) {
-        requireNonNull(condition);
-        this.condition = condition;
+        this.condition = requireNonNull(condition);
     }
 
     T getCondition() {
