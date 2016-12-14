@@ -33,6 +33,8 @@ public class CollectionUtilsTest {
 
     private final BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
     private final BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
+    private final List<BiValHolder<String, String>> validBiValList = new ArrayList<>();
+    private final List<BiValHolder<String, String>> nullBiValList = null;
 
     @Test
     public void forEach_ChangeElementState_StateWasChangedForAllElements() {
@@ -74,14 +76,12 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToList_ListIsNull_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
-
-        mapToList(collection, BiValHolder::getVal1);
+        mapToList(nullBiValList, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToList_MapperIsNull_NPEHasBeenThrown() {
-        mapToList(new ArrayList<>(), null);
+        mapToList(validBiValList, null);
     }
 
     @Test
@@ -158,9 +158,7 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToSet_SetIsNull_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
-
-        mapToSet(collection, BiValHolder::getVal1);
+        mapToSet(nullBiValList, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
@@ -297,32 +295,24 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_EmptyCollection_EmptyMapHasBeenCreated() {
-        List<BiValHolder<String, String>> testObjects = emptyList();
-
-        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
+        Map<String, String> actualMap = mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2);
 
         assertThat(actualMap).isEmpty();
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_NullCollection_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
-
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_NullKeyMapper_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = emptyList();
-
-        mapToMap(collection, null, BiValHolder::getVal1);
+        mapToMap(validBiValList, null, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_NullValueMapper_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = emptyList();
-
-        mapToMap(collection, BiValHolder::getVal1, null);
+        mapToMap(validBiValList, BiValHolder::getVal1, null);
     }
 
     @Test
@@ -375,27 +365,24 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullCollection_NPEHasBeenThrown() {
-        Collection<BiValHolder> collection = null;
-
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(new ArrayList<BiValHolder>(), null, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(validBiValList, null, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(new ArrayList<BiValHolder>(), BiValHolder::getVal1, null, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(validBiValList, BiValHolder::getVal1, null, (o1, o2) -> o1 + ";" + o2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullMergeFunction_NPEHasBeenThrown() {
         BinaryOperator<String> mergeFunction = null;
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
 
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, mergeFunction);
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, mergeFunction);
     }
 
     @Test
@@ -431,37 +418,27 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullCollection_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
-
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullKeyMapper_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        mapToMap(collection, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullValueMapper_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        mapToMap(collection, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullMergeFunction_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, null, TestMap::new);
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, null, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullSupplierMapCase_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, null);
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, null);
     }
 
     @Test
@@ -478,31 +455,24 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullCollection_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
-
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullKeyMapper_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        mapToMap(collection, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullValueMapper_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        mapToMap(collection, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullSupplierMapCase_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
         Supplier<Map<String, String>> nullMapSupplier = null;
 
-        mapToMap(collection, BiValHolder::getVal1, BiValHolder::getVal2, nullMapSupplier);
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, nullMapSupplier);
     }
 
     @Test
@@ -606,30 +576,22 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_ClassifierCaseWithNullClassifier_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        groupingBy(collection, null);
+        groupingBy(validBiValList, null);
     }
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_DownstreamCaseWithNullCollection_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
-
-        groupingBy(collection, BiValHolder::getVal1, mapping(identity(), toList()));
+        groupingBy(nullBiValList, BiValHolder::getVal1, mapping(identity(), toList()));
     }
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_DownstreamCaseWithNullClassifier_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        groupingBy(collection, null, mapping(identity(), toList()));
+        groupingBy(validBiValList, null, mapping(identity(), toList()));
     }
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_DownstreamCaseWithNullDownstream_NPEHasBeenThrown() {
-        List<BiValHolder<String, String>> collection = new ArrayList<>();
-
-        groupingBy(collection, BiValHolder::getVal1, null);
+        groupingBy(validBiValList, BiValHolder::getVal1, null);
     }
 
     private String testMerge(String o1, String o2) {
