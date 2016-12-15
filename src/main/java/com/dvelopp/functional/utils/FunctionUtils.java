@@ -61,11 +61,12 @@ public final class FunctionUtils {
     /**
      * Converts BiConsumer to Consumer
      *
-     * @param action BiConsumer action to be converted to consumer
-     * @param arg    second argument for BiConsumer
-     * @param <T>    first argument type
-     * @param <R>    second argument type
-     * @return Consumer object
+     * @param action The BiConsumer action to be converted to consumer.
+     * @param arg    The second argument for BiConsumer.
+     * @param <T>    The first argument type.
+     * @param <R>    The second argument type.
+     * @return The new consumer object based on the BiConsumer and the argument that are passed. Argument is used
+     * in the BiConsumer method invocation.
      */
     public static <T, R> Consumer<T> consumer(BiConsumer<T, R> action, R arg) {
         requireNonNull(action);
@@ -80,8 +81,8 @@ public final class FunctionUtils {
      * @param <T>    The first argument type.
      * @param <S>    The second argument type.
      * @param <R>    The return type.
-     * @return The new function object based on the BiFunction and the argument that are passed. Argument in BiFunction
-     * method invocation.
+     * @return The new function object based on the BiFunction and the argument that are passed. Argument is used
+     * in BiFunction method invocation.
      */
     public static <T, R, S> Function<T, R> function(BiFunction<T, S, R> action, S arg) {
         requireNonNull(action);
