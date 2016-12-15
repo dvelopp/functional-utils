@@ -54,7 +54,8 @@ public final class FunctionUtils {
     }
 
     public static <T> Consumer<T> emptyConsumer() {
-        return o -> {};
+        return o -> {
+        };
     }
 
     /**
@@ -74,11 +75,13 @@ public final class FunctionUtils {
     /**
      * Converts BiFunction to Function
      *
-     * @param action BiConsumer action to be converted to consumer
-     * @param arg    second argument for BiFunction
-     * @param <T>    first argument type
-     * @param <R>    second argument type
-     * @return Function object
+     * @param action The BiFunction to be converted to a function.
+     * @param arg    The second argument for BiFunction.
+     * @param <T>    The first argument type.
+     * @param <S>    The second argument type.
+     * @param <R>    The return type.
+     * @return The new function object based on the BiFunction and the argument that are passed. Argument in BiFunction
+     * method invocation.
      */
     public static <T, R, S> Function<T, R> function(BiFunction<T, S, R> action, S arg) {
         requireNonNull(action);
