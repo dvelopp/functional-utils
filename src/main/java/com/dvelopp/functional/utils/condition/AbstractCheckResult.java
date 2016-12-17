@@ -81,7 +81,7 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
         return (AbstractCheckResult<T, RR, SS>) this;
     }
 
-    protected boolean needToExecuteCondition() {
+    boolean needToExecuteCondition() {
         return conditionResult != EXECUTED;
     }
 
