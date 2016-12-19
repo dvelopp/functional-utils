@@ -367,17 +367,17 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullCollection_NPEHasBeenThrown() {
-        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, null, BiValHolder::getVal2, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, null, (o1, o2) -> o1 + ";" + o2);
+        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge);
     }
 
     @Test(expected = NullPointerException.class)
