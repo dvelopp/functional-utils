@@ -31,8 +31,10 @@ public class CollectionUtilsTest {
     private static final String VAL_3 = "val3";
     private static final String VAL_4 = "val4";
 
-    private final BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-    private final BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
+    private BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+    private BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
+    private BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_3, VAL_3);
+    private BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_4, VAL_4);
     private final List<BiValHolder<String, String>> validBiValList = new ArrayList<>();
     private final List<BiValHolder<String, String>> nullBiValList = null;
 
@@ -285,9 +287,9 @@ public class CollectionUtilsTest {
 
     @Test(expected = IllegalStateException.class)
     public void mapToMap_DuplicateKey_IllegalStateExceptionHasBeenThrown() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_1, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
 
         mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
@@ -317,9 +319,9 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MergeFunctionAndOneDuplicate_ObjectsHaveBeenMappedToMapAccordingToMappersAndDuplicatesMerged() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
 
         Map<String, String> actualMap = mapToMap(testObjects,
@@ -333,10 +335,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MergeFunctionAndOnlyDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappersAndAllMerged() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_2);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        testObject4 = new BiValHolder<>(KEY_2, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
@@ -351,8 +353,8 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_NoDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappers() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_2, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2,
@@ -400,10 +402,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MapSupplierWithMergeFunctionAndOnlyDuplicates_DuplicatesHaveBeenHandledAndAddedToGivenMap() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_2);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        testObject4 = new BiValHolder<>(KEY_2, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
@@ -486,10 +488,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_ClassifierWithTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_2);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
+        testObject4 = new BiValHolder<>(KEY_2, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, List<BiValHolder<String, String>>> groupedValues = groupingBy(testObjects, BiValHolder::getVal1);
@@ -501,10 +503,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_ClassifierWithOneKeyAndFourValues_MapWithOneKeyAndFourValuesHasBeenCreated() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_1, VAL_3);
-        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_1, VAL_4);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_1, VAL_3);
+        testObject4 = new BiValHolder<>(KEY_1, VAL_4);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, List<BiValHolder<String, String>>> groupedValues = groupingBy(testObjects, BiValHolder::getVal1);
@@ -525,8 +527,8 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_DownstreamCaseWithOneKeyAndTwoValues_OneKeyWithListsOfTwoElementsHasBeenCreated() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
         Map<String, List<String>> actualMap =
@@ -538,10 +540,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_DownstreamCaseWithTwoKeysAndTwoValuesPerEach_TwoKeysWithListsOfTwoElementsHaveBeenCreated() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_2, VAL_3);
-        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_2, VAL_4);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_2, VAL_3);
+        testObject4 = new BiValHolder<>(KEY_2, VAL_4);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, List<String>> actualMap =
@@ -554,10 +556,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_DownstreamCaseWithOneKeyAndFourValues_OneKeyWithListsOfFourElementsHasBeenCreated() {
-        BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_1, VAL_3);
-        BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_1, VAL_4);
+        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
+        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
+        testObject3 = new BiValHolder<>(KEY_1, VAL_3);
+        testObject4 = new BiValHolder<>(KEY_1, VAL_4);
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, List<String>> actualMap =
