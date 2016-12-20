@@ -125,11 +125,13 @@ public class FunctionUtilsTest {
     @Test
     public void consumer_BiFunctionThatCheckWhetherFirstArgumentIsBiggerThanTheSecond_CheckWorksForLowerAndGreaterOnes() {
         final boolean[] result = {false};
-        Consumer<Integer> consumer = consumer((o1, o2) -> result[0] = o1 > o2, 100);
+        int greaterValue = 1;
+        int lowerValue = -1;
+        Consumer<Integer> consumer = consumer((o1, o2) -> result[0] = o1 > o2, 0);
 
-        consumer.accept(101);
+        consumer.accept(greaterValue);
         assertThat(result[0]).isTrue();
-        consumer.accept(99);
+        consumer.accept(lowerValue);
         assertThat(result[0]).isFalse();
     }
 
