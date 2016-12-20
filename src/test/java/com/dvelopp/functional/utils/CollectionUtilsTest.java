@@ -246,7 +246,7 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToArray_CollectionIsNull_NPEHasBeenThrown() {
-        HashSet<BiValHolder<String, String>> objects = null;
+        final HashSet<BiValHolder<String, String>> objects = null;
 
         mapToArray(objects, BiValHolder::getVal1, BiValHolder[]::new);
     }
@@ -382,7 +382,7 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullMergeFunction_NPEHasBeenThrown() {
-        BinaryOperator<String> mergeFunction = null;
+        final BinaryOperator<String> mergeFunction = null;
 
         mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, mergeFunction);
     }
@@ -472,7 +472,7 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullSupplierMapCase_NPEHasBeenThrown() {
-        Supplier<Map<String, String>> nullMapSupplier = null;
+        final Supplier<Map<String, String>> nullMapSupplier = null;
 
         mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, nullMapSupplier);
     }
@@ -571,7 +571,7 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_ClassifierCaseWithNullCollection_NPEHasBeenThrown() {
-        Collection<BiValHolder<String, String>> collection = null;
+        final Collection<BiValHolder<String, String>> collection = null;
 
         groupingBy(collection, BiValHolder::getVal1);
     }
