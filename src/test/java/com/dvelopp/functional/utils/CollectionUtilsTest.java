@@ -42,7 +42,7 @@ public class CollectionUtilsTest {
     @Test
     public void forEach_ChangeElementState_StateWasChangedForAllElements() {
         List<BiValHolder<String, String>> list = asList(testObject1, testObject2);
-        String expectedNewValue = "changed value";
+        String expectedNewValue = "expectedNewValue";
 
         forEach(list, BiValHolder::setVal2, expectedNewValue);
 
