@@ -14,6 +14,7 @@ import static com.dvelopp.functional.utils.CollectionUtils.*;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
@@ -267,7 +268,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_OneObjectAndValidMappers_ObjectHasBeenMappedToMapAccordingToMappers() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1);
+        List<BiValHolder<String, String>> testObjects = singletonList(testObject1);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
 
