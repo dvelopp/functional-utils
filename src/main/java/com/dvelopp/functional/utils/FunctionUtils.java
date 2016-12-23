@@ -19,12 +19,12 @@ public final class FunctionUtils {
     }
 
     /**
-     * Execute closure on the object
+     * Execute closure on the object.
      *
-     * @param self    - object to work with
-     * @param closure - actions to do on the object
-     * @param <T>     object type
-     * @return modified object
+     * @param self    The object to work with.
+     * @param closure The actions to do on the object.
+     * @param <T>     The object type.
+     * @return The modified object.
      */
     public static <T> T with(T self, Consumer<T> closure) {
         requireNonNull(self, closure);
