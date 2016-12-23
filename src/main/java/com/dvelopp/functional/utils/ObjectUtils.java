@@ -8,6 +8,18 @@ import static java.util.Arrays.asList;
 
 public class ObjectUtils {
 
+    public static <T> T requireNonNull(T obj) {
+        return Objects.requireNonNull(obj);
+    }
+
+    public static <T> T requireNonNull(T obj, String message) {
+        return Objects.requireNonNull(obj, message);
+    }
+
+    public static <T> T requireNonNull(T obj, Supplier<String> messageSupplier) {
+        return Objects.requireNonNull(obj, messageSupplier);
+    }
+
     @SafeVarargs
     public static <T> T[] requireNonNull(T... objectsToCheck) {
         requireNonNull(asList(objectsToCheck));

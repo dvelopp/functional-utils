@@ -197,10 +197,58 @@ public class ObjectUtilsTest {
     @Test
     public void requireNonNullWithMessageSupplier_CollectionCaseIllegalArgumentExceptionInSupplier_IllegalArgumentExceptionHasBeenThrown() {
         expectedException.expect(IllegalArgumentException.class);
-
+        requireNonNull(new Object());
         requireNonNull(() -> {
             throw new IllegalArgumentException();
         }, asList(NULL_OBJECT, NOT_NULL_OBJECT));
     }
+
+    @Test
+    public void requireNonNull_SingleObjectCaseNotNullObject_Success() {
+        requireNonNull(NOT_NULL_OBJECT);
+    }
+
+    @Test
+    public void requireNonNull_SingleObjectCaseNullObject_NPEHasBeenThrown() {
+        expectedException.expect(NullPointerException.class);
+
+        requireNonNull(NULL_OBJECT);
+    }
+
+    @Test
+    public void requireNonNullWithMessage_SingleObjectCaseNotNullObject_Success() {
+        requireNonNull(NOT_NULL_OBJECT, TEST_EXCEPTION_MESSAGE);
+    }
+
+    @Test
+    public void requireNonNullWithMessage_SingleObjectCaseNullObject_NPEHasBeenThrownWithTestMessage() {
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage(TEST_EXCEPTION_MESSAGE);
+
+        requireNonNull(NULL_OBJECT, TEST_EXCEPTION_MESSAGE);
+    }
+
+    @Test
+    public void requireNonNullWithMessageSupplier_SingleObjectCaseNotNullObject_Success() {
+        requireNonNull(NOT_NULL_OBJECT, () -> TEST_EXCEPTION_MESSAGE);
+    }
+
+    @Test
+    public void requireNonNullWithMessageSupplier_SingleObjectCaseNullObject_NPEHasBeenThrownWithTestMessage() {
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage(TEST_EXCEPTION_MESSAGE);
+
+        requireNonNull(NULL_OBJECT, () -> TEST_EXCEPTION_MESSAGE);
+    }
+
+    @Test
+    public void requireNonNullWithMessageSupplier_SingleObjectCaseIllegalArgumentExceptionInSupplier_IllegalArgumentExceptionHasBeenThrown() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        requireNonNull(NULL_OBJECT, () -> {
+            throw new IllegalArgumentException();
+        });
+    }
+
 
 }

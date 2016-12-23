@@ -3,7 +3,6 @@ package com.dvelopp.functional.utils;
 import java.util.function.*;
 
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
-import static java.util.Objects.requireNonNull;
 
 public final class FunctionUtils {
 
