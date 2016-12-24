@@ -1,10 +1,13 @@
 package com.dvelopp.functional.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
+import static java.util.function.Function.identity;
 
 public class ObjectUtils {
 
@@ -21,9 +24,15 @@ public class ObjectUtils {
     }
 
     @SafeVarargs
-    public static <T> T[] requireNonNull(T... objectsToCheck) {
-        requireNonNull(asList(objectsToCheck));
-        return objectsToCheck;
+    @SuppressWarnings("unchecked")
+    public static <T> T[] requireNonNull(T firstObjectToCheck, T... otherObjectsToCheck) {
+        List<T> allObjects = new ArrayList<>();
+        allObjects.add(firstObjectToCheck);
+        if (otherObjectsToCheck != null && otherObjectsToCheck.length > 0) {
+            allObjects.addAll(asList(otherObjectsToCheck));
+        }
+        requireNonNull(allObjects);
+        return (T[]) allObjects.stream().map(identity()).toArray(Object[]::new);
     }
 
     @SafeVarargs
