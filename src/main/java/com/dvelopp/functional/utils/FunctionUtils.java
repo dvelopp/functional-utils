@@ -7,11 +7,11 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 public final class FunctionUtils {
 
     /**
-     * Negate given predicate
+     * Negate given predicate.
      *
-     * @param predicate given predicate value to negate
-     * @param <T>       predicate type
-     * @return negated predicate
+     * @param predicate The predicate to negated.
+     * @param <T>       The predicate type.
+     * @return The negated predicate.
      */
     public static <T> Predicate<T> not(Predicate<T> predicate) {
         requireNonNull(predicate);
