@@ -135,4 +135,19 @@ public class FunctionUtilsTest {
         assertThat(result[0]).isFalse();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void exceptionPredicate_IllegalArgumentException_IllegalArgumentExceptionHasBeenThrown() {
+        FunctionUtils.exceptionPredicate(IllegalArgumentException::new).test(true);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void exceptionPredicate_NPE_NPEHasBeenThrown() {
+        FunctionUtils.exceptionPredicate(NullPointerException::new).test(true);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void exceptionPredicate_NullArgument_NPEHasBeenThrown() {
+        FunctionUtils.exceptionPredicate(null).test(true);
+    }
+
 }
