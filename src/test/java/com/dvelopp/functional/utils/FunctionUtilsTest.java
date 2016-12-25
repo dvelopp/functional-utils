@@ -150,4 +150,9 @@ public class FunctionUtilsTest {
         FunctionUtils.exceptionPredicate(null).test(true);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void exceptionPredicate_NoParameters_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionPredicate().test(true);
+    }
+
 }
