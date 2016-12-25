@@ -48,11 +48,11 @@ public final class FunctionUtils {
         return o -> o;
     }
 
-    public static Predicate<Boolean> truePredicate() {
+    public static <T> Predicate<T> truePredicate() {
         return o -> true;
     }
 
-    public static Predicate<Boolean> falsePredicate() {
+    public static <T> Predicate<T> falsePredicate() {
         return o -> false;
     }
 
