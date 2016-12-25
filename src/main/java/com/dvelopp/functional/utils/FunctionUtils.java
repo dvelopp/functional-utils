@@ -56,6 +56,13 @@ public final class FunctionUtils {
         return o -> false;
     }
 
+    public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
+        requireNonNull(exceptionSupplier);
+        return o -> {
+            throw exceptionSupplier.get();
+        };
+    }
+
     public static <T> Consumer<T> emptyConsumer() {
         return o -> {
         };
