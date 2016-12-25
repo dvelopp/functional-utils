@@ -56,6 +56,12 @@ public final class FunctionUtils {
         return o -> false;
     }
 
+    public static <T> Predicate<T> exceptionPredicate() {
+        return o -> {
+            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+        };
+    }
+
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
         return o -> {
