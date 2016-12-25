@@ -44,6 +44,13 @@ public final class FunctionUtils {
         return () -> false;
     }
 
+    public static Supplier<Boolean> exceptionSupplier(Supplier<RuntimeException> exceptionSupplier) {
+        requireNonNull(exceptionSupplier);
+        return () -> {
+            throw exceptionSupplier.get();
+        };
+    }
+
     public static Predicate<Boolean> identityPredicate() {
         return o -> o;
     }
