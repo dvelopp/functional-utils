@@ -170,4 +170,9 @@ public class FunctionUtilsTest {
         FunctionUtils.exceptionSupplier(null).get();
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void exceptionSupplier_NoParameters_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionSupplier().get();
+    }
+
 }

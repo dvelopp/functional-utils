@@ -51,6 +51,12 @@ public final class FunctionUtils {
         };
     }
 
+    public static Supplier<Boolean> exceptionSupplier() {
+        return () -> {
+            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+        };
+    }
+
     public static Predicate<Boolean> identityPredicate() {
         return o -> o;
     }
