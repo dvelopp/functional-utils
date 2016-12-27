@@ -11,14 +11,23 @@ import static java.util.function.Function.identity;
 
 public class ObjectUtils {
 
+    /**
+     * Copy of original method not to have problems with static import ambiguity.
+     */
     public static <T> T requireNonNull(T obj) {
         return Objects.requireNonNull(obj);
     }
 
+    /**
+     * Copy of original method not to have problems with static import ambiguity.
+     */
     public static <T> T requireNonNull(T obj, String message) {
         return Objects.requireNonNull(obj, message);
     }
 
+    /**
+     * Copy of original method not to have problems with static import ambiguity.
+     */
     public static <T> T requireNonNull(T obj, Supplier<String> messageSupplier) {
         return Objects.requireNonNull(obj, messageSupplier);
     }
