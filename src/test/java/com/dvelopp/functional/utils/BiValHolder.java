@@ -3,8 +3,8 @@ package com.dvelopp.functional.utils;
 /**
  * Test class that holds pair of values in a way that is easy to use for testing using in lambdas.
  *
- * @param <T> first value type
- * @param <K> second value type
+ * @param <T> The first value type.
+ * @param <K> The second value type.
  */
 public class BiValHolder<T, K> {
 
