@@ -51,7 +51,7 @@ public final class FunctionUtils {
         };
     }
 
-    public static Supplier<Boolean> exceptionSupplier() {
+    public static <T> Supplier<T> exceptionSupplier() {
         return () -> {
             throw new IllegalStateException("Exception from deliberately forcing exception predicate");
         };

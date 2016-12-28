@@ -4,6 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static com.dvelopp.functional.utils.FunctionUtils.exceptionSupplier;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 import static java.util.Arrays.asList;
 
@@ -101,12 +102,10 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void requireNonNullWithMessageSupplier_ArrayCaseIllegalArgumentExceptionInSupplier_IllegalArgumentExceptionHasBeenThrown() {
-        expectedException.expect(IllegalArgumentException.class);
+    public void requireNonNullWithMessageSupplier_ArrayCaseIllegalStateExceptionInSupplier_IllegalStateExceptionHasBeenThrown() {
+        expectedException.expect(IllegalStateException.class);
 
-        requireNonNull(() -> {
-            throw new IllegalArgumentException();
-        }, NULL_OBJECT, NOT_NULL_OBJECT);
+        requireNonNull(exceptionSupplier(), NULL_OBJECT, NOT_NULL_OBJECT);
     }
 
     @Test
@@ -195,12 +194,10 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void requireNonNullWithMessageSupplier_CollectionCaseIllegalArgumentExceptionInSupplier_IllegalArgumentExceptionHasBeenThrown() {
-        expectedException.expect(IllegalArgumentException.class);
+    public void requireNonNullWithMessageSupplier_CollectionCaseIllegalStateExceptionInSupplier_IllegalStateExceptionHasBeenThrown() {
+        expectedException.expect(IllegalStateException.class);
         requireNonNull(new Object());
-        requireNonNull(() -> {
-            throw new IllegalArgumentException();
-        }, asList(NULL_OBJECT, NOT_NULL_OBJECT));
+        requireNonNull(exceptionSupplier(), asList(NULL_OBJECT, NOT_NULL_OBJECT));
     }
 
     @Test
@@ -242,13 +239,9 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void requireNonNullWithMessageSupplier_SingleObjectCaseIllegalArgumentExceptionInSupplier_IllegalArgumentExceptionHasBeenThrown() {
-        expectedException.expect(IllegalArgumentException.class);
+    public void requireNonNullWithMessageSupplier_SingleObjectCaseIllegalArgumentExceptionInSupplier_IllegalStateExceptionHasBeenThrown() {
+        expectedException.expect(IllegalStateException.class);
 
-        requireNonNull(NULL_OBJECT, () -> {
-            throw new IllegalArgumentException();
-        });
+        requireNonNull(NULL_OBJECT, exceptionSupplier());
     }
-
-
 }
