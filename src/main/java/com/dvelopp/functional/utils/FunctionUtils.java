@@ -53,7 +53,8 @@ public final class FunctionUtils {
 
     public static <T> Supplier<T> exceptionSupplier() {
         return () -> {
-            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+            throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
+            return null;
         };
     }
 
@@ -70,27 +71,22 @@ public final class FunctionUtils {
     }
 
     public static <T> Predicate<T> exceptionPredicate() {
-        return o -> {
-            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
-        };
+        return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
     }
 
     public static <T> Consumer<T> exceptionConsumer() {
-        return o -> {
-            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
-        };
+        return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
     }
 
     public static <T, R> Function<T, R> exceptionFunction() {
         return o -> {
-            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+            throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
+            return null;
         };
     }
 
     public static Runnable exceptionRunnable() {
-        return () -> {
-            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
-        };
+        return () -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
     }
 
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
@@ -103,6 +99,10 @@ public final class FunctionUtils {
     public static <T> Consumer<T> emptyConsumer() {
         return o -> {
         };
+    }
+
+    private static boolean throwAnExceptionForExceptionalCasesOfFunctionalInterfaces() {
+        throw new IllegalStateException("Exception from deliberately forcing exception predicate");
     }
 
     /**
