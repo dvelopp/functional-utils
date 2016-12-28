@@ -75,6 +75,24 @@ public final class FunctionUtils {
         };
     }
 
+    public static <T> Consumer<T> exceptionConsumer() {
+        return o -> {
+            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+        };
+    }
+
+    public static <T, R> Function<T, R> exceptionFunction() {
+        return o -> {
+            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+        };
+    }
+
+    public static Runnable exceptionRunnable() {
+        return () -> {
+            throw new IllegalStateException("Exception from deliberately forcing exception predicate");
+        };
+    }
+
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
         return o -> {
