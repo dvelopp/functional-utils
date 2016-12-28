@@ -34,32 +34,24 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsTrue_ExceptionInTheConditionCaseForSupplier_ClosureForExceptionCaseHasBeenExecuted() {
-        inCase(() -> {
-            throw new IllegalArgumentException();
-        }).isException(this::closureWithoutReturn);
+        inCase(exceptionSupplier()).isException(this::closureWithoutReturn);
 
         assertClosureWasExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void inCaseIsTrue_ExceptionInTheClosureCaseForSupplier_IllegalArgumentExceptionHasBeenThrown() {
-        inCase(trueSupplier()).isTrue(() -> {
-            throw new IllegalArgumentException();
-        });
+        inCase(trueSupplier()).isTrue(exceptionRunnable());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsTrue_ExceptionInTheClosureCaseForFunction_IllegalArgumentExceptionHasBeenThrown() {
-        inCase(identityPredicate(), true).isTrueMap((o) -> {
-            throw new IllegalArgumentException();
-        });
+    @Test(expected = IllegalStateException.class)
+    public void inCaseIsTrue_ExceptionInTheClosureCaseForFunction_IllegalStateExceptionHasBeenThrown() {
+        inCase(identityPredicate(), true).isTrueMap(exceptionFunction());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsTrue_ExceptionInTheClosureCaseForConsumer_IllegalArgumentExceptionHasBeenThrown() {
-        inCase(identityPredicate(), true).isTrue((o) -> {
-            throw new IllegalArgumentException();
-        });
+    @Test(expected = IllegalStateException.class)
+    public void inCaseIsTrue_ExceptionInTheClosureCaseForConsumer_IllegalStateExceptionHasBeenThrown() {
+        inCase(identityPredicate(), true).isTrue(exceptionConsumer());
     }
 
     @Test
@@ -78,18 +70,14 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsFalse_ExceptionInTheConditionCaseForSupplier_ClosureForExceptionCaseHasBeenExecuted() {
-        inCase(() -> {
-            throw new IllegalArgumentException();
-        }).isException(this::closureWithoutReturn);
+        inCase(exceptionSupplier()).isException(this::closureWithoutReturn);
 
         assertClosureWasExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsFalse_ExceptionInTheClosureCaseForSupplier_IllegalArgumentExceptionHasBeenThrown() {
-        inCase(falseSupplier()).isFalse(() -> {
-            throw new IllegalArgumentException();
-        });
+    @Test(expected = IllegalStateException.class)
+    public void inCaseIsFalse_ExceptionInTheClosureCaseForSupplier_IllegalStateExceptionHasBeenThrown() {
+        inCase(falseSupplier()).isFalse(exceptionRunnable());
     }
 
     @Test
@@ -387,18 +375,14 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsTrue_ExceptionInTheConditionCaseForPredicate_ClosureForExceptionCaseHasBeenExecuted() {
-        inCase(() -> {
-            throw new IllegalArgumentException();
-        }).isException(this::closureWithoutReturn);
+        inCase(exceptionSupplier()).isException(this::closureWithoutReturn);
 
         assertClosureWasExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsTrue_ExceptionInTheClosureForPredicate_IllegalArgumentExceptionHasBeenThrown() {
-        inCase(identityPredicate(), true).isTrue((o) -> {
-            throw new IllegalArgumentException();
-        });
+    @Test(expected = IllegalStateException.class)
+    public void inCaseIsTrue_ExceptionInTheClosureForPredicate_IllegalStateExceptionHasBeenThrown() {
+        inCase(identityPredicate(), true).isTrue(exceptionConsumer());
     }
 
     @Test
@@ -431,18 +415,14 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsFalse_ExceptionInTheConditionCaseForPredicate_ClosureForExceptionCaseHasBeenExecuted() {
-        inCase(() -> {
-            throw new IllegalArgumentException();
-        }).isException(this::closureWithoutReturn);
+        inCase(exceptionSupplier()).isException(this::closureWithoutReturn);
 
         assertClosureWasExecuted();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void inCaseIsFalse_ExceptionInTheClosureForPredicate_IllegalArgumentExceptionHasBeenThrown() {
-        inCase(identityPredicate(), false).isFalse((o) -> {
-            throw new IllegalArgumentException();
-        });
+    @Test(expected = IllegalStateException.class)
+    public void inCaseIsFalse_ExceptionInTheClosureForPredicate_IllegalStateExceptionHasBeenThrown() {
+        inCase(identityPredicate(), false).isFalse(exceptionConsumer());
     }
 
     @Test(expected = NullPointerException.class)
