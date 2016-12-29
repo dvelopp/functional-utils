@@ -175,4 +175,29 @@ public class FunctionUtilsTest {
         FunctionUtils.exceptionSupplier().get();
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void exceptionConsumer_NullArgument_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionConsumer().accept(null);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void exceptionConsumer_NotNullArgument_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionConsumer().accept(new Object());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void exceptionFunction_NullArgument_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionFunction().apply(null);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void exceptionFunction_NotNullArgument_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionFunction().apply(new Object());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void exceptionRunnable_NoParameters_IllegalStateExceptionHasBeenThrown() {
+        FunctionUtils.exceptionRunnable().run();
+    }
+
 }
