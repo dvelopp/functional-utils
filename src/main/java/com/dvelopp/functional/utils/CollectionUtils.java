@@ -334,6 +334,12 @@ public final class CollectionUtils {
         return (o, o2) -> o2;
     }
 
+    /**
+     * Copy of {@link Collectors#throwingMerger()}. Since original method has private access level and can't be accessed
+     * outside the class.
+     *
+     * {@link BinaryOperator} that throws {@link IllegalStateException}.
+     */
     public static <T> BinaryOperator<T> throwingMerger() {
         return (u, v) -> {
             throw new IllegalStateException(String.format("Duplicate key %s", u));
