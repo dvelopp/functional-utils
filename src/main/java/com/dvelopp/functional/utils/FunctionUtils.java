@@ -44,6 +44,18 @@ public final class FunctionUtils {
         return () -> false;
     }
 
+    public static Predicate<Boolean> identityPredicate() {
+        return o -> o;
+    }
+
+    public static <T> Predicate<T> truePredicate() {
+        return o -> true;
+    }
+
+    public static <T> Predicate<T> falsePredicate() {
+        return o -> false;
+    }
+
     public static Supplier<Boolean> exceptionSupplier(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
         return () -> {
@@ -58,23 +70,11 @@ public final class FunctionUtils {
         };
     }
 
-    public static Predicate<Boolean> identityPredicate() {
-        return o -> o;
-    }
-
-    public static <T> Predicate<T> truePredicate() {
-        return o -> true;
-    }
-
-    public static <T> Predicate<T> falsePredicate() {
-        return o -> false;
-    }
-
-    public static <T> Predicate<T> exceptionPredicate() {
+    public static <T> Consumer<T> exceptionConsumer() {
         return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
     }
 
-    public static <T> Consumer<T> exceptionConsumer() {
+    public static <T> Predicate<T> exceptionPredicate() {
         return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
     }
 
@@ -86,7 +86,7 @@ public final class FunctionUtils {
     }
 
     public static Runnable exceptionRunnable() {
-        return () -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
+        return FunctionUtils::throwAnExceptionForExceptionalCasesOfFunctionalInterfaces;
     }
 
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
