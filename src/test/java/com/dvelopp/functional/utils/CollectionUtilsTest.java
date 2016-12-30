@@ -488,6 +488,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void groupingBy_ClassifierWithTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
         testObject1 = new BiValHolder<>(KEY_1, VAL_1);
         testObject2 = new BiValHolder<>(KEY_1, VAL_2);
@@ -503,6 +504,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void groupingBy_ClassifierWithOneKeyAndFourValues_MapWithOneKeyAndFourValuesHasBeenCreated() {
         testObject1 = new BiValHolder<>(KEY_1, VAL_1);
         testObject2 = new BiValHolder<>(KEY_1, VAL_2);
