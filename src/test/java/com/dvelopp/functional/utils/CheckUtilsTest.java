@@ -456,6 +456,7 @@ public class CheckUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("ConstantConditions")
     public void check_CaseForExactValueWithNullExactValue_NoExceptionHasBeenThrown() {
         Object nullObject = null;
 
