@@ -198,7 +198,7 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsTrueOrFalseOrException_ExceptionCaseAndClosureOutside_ClosureHasNotBeenExecutedForExceptionCase() {
-        inCase(()-> {throw new IllegalArgumentException();})
+        inCase(exceptionSupplier())
                 .isTrue(this::closureWithoutReturn)
                 .isFalse(this::closureWithoutReturn)
                 .isException(() -> {});
