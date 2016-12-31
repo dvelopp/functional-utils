@@ -41,10 +41,10 @@ public class CollectionUtilsTest {
 
     @Test
     public void forEach_ChangeElementState_StateWasChangedForAllElements() {
-        List<BiValHolder<String, String>> list = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
         String expectedNewValue = "expectedNewValue";
 
-        forEach(list, BiValHolder::setVal2, expectedNewValue);
+        forEach(testObjects, BiValHolder::setVal2, expectedNewValue);
 
         assertThat(testObject1.getVal2()).isEqualTo(expectedNewValue);
         assertThat(testObject2.getVal2()).isEqualTo(expectedNewValue);
