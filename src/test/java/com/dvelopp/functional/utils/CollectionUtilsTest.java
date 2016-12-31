@@ -393,11 +393,11 @@ public class CollectionUtilsTest {
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
         Map<String, String> actualMap = mapToMap(testObjects,
-                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, HashMap::new);
 
         SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
         SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
-        assertThat(actualMap.getClass().isAssignableFrom(TestMap.class));
+        assertThat(actualMap.getClass().isAssignableFrom(HashMap.class));
         assertThat(actualMap).containsOnly(entry1, entry2);
     }
 
@@ -410,7 +410,7 @@ public class CollectionUtilsTest {
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
-                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+                BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, HashMap::new);
 
         SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getVal1(),
                 format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
@@ -421,22 +421,22 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullCollection_NPEHasBeenThrown() {
-        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullMergeFunction_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, null, TestMap::new);
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, null, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
@@ -448,27 +448,28 @@ public class CollectionUtilsTest {
     public void mapToMap_MapSupplier_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
         List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
 
-        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2, TestMap::new);
+        Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2,
+                (Supplier<HashMap<String, String>>) HashMap::new);
 
         SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
         SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
-        assertThat(actualMap.getClass().isAssignableFrom(TestMap.class));
+        assertThat(actualMap.getClass().isAssignableFrom(HashMap.class));
         assertThat(actualMap).containsOnly(entry1, entry2);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullCollection_NPEHasBeenThrown() {
-        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(nullBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, TestMap::new);
+        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
@@ -601,9 +602,6 @@ public class CollectionUtilsTest {
 
     private String testMerge(String o1, String o2) {
         return o1 + ";" + o2;
-    }
-
-    public static class TestMap<K, V> extends HashMap<K, V> {
     }
 
 }
