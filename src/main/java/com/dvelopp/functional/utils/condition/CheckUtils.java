@@ -37,4 +37,16 @@ public final class CheckUtils {
         return inCase(condition, arg);
     }
 
+    public static <R> NoArgumentsCheckResult<R> check(Supplier<Boolean> condition) {
+        return inCase(condition);
+    }
+
+    public static <R> NoArgumentsCheckResult<R> check(Boolean condition) {
+        return inCase(condition);
+    }
+
+    public static <T, R> OneArgumentCheckResult<T, R> check(Predicate<T> condition, T arg) {
+        return inCase(condition, arg);
+    }
+
 }
