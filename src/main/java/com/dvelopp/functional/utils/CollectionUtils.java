@@ -327,11 +327,11 @@ public final class CollectionUtils {
     }
 
     public static <U> BinaryOperator<U> usingNewMerger() {
-        return (key, value) -> value;
+        return (oldElement, newElement) -> newElement;
     }
 
     public static <U> BinaryOperator<U> usingOldMerger() {
-        return (key, value) -> value;
+        return (oldElement, newElement) -> oldElement;
     }
 
     /**
