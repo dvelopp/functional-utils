@@ -78,6 +78,14 @@ public final class FunctionUtils {
         return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
     }
 
+    public static <T> Predicate<T> checkedExceptionPredicate(Supplier<Exception> exceptionSupplier) throws Exception {
+        throw exceptionSupplier.get();
+    }
+
+    public static <T> Predicate<T> uncheckedExceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
+        throw exceptionSupplier.get();
+    }
+
     public static <T, R> Function<T, R> exceptionFunction() {
         return o -> {
             throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
