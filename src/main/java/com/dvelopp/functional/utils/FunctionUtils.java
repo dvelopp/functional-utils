@@ -89,6 +89,14 @@ public final class FunctionUtils {
         return FunctionUtils::throwAnExceptionForExceptionalCasesOfFunctionalInterfaces;
     }
 
+    public static Runnable checkedExceptionRunnable(Supplier<Exception> exceptionSupplier) throws Exception {
+        throw exceptionSupplier.get();
+    }
+
+    public static Runnable uncheckedExceptionRunnable(Supplier<RuntimeException> exceptionSupplier) {
+        throw exceptionSupplier.get();
+    }
+
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
         return o -> {
