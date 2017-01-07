@@ -194,6 +194,10 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
      * Indicates the state of the condition calculation.
      */
     public enum ConditionResult {
-        TRUE, FALSE, EXCEPTION, EXECUTED, NONE
+        TRUE,
+        FALSE,
+        EXCEPTION, //State after exception during the execution
+        EXECUTED, //State after success execution
+        NONE //Initial state
     }
 }
