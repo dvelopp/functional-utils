@@ -91,14 +91,11 @@ public final class FunctionUtils {
 
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
-        return o -> {
-            throw exceptionSupplier.get();
-        };
+        return o -> { throw exceptionSupplier.get(); };
     }
 
     public static <T> Consumer<T> emptyConsumer() {
-        return o -> {
-        };
+        return o -> {};
     }
 
     private static boolean throwAnExceptionForExceptionalCasesOfFunctionalInterfaces() {

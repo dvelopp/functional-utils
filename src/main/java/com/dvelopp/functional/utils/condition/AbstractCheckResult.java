@@ -133,7 +133,8 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
     }
 
     @SuppressWarnings("unchecked")
-    private <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS> performIfConditionIs(
+    private <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
+        performIfConditionIs(
             RR objectToReturn, ConditionResult expectedConditionValue) {
         if (needToExecuteCondition()) {
             if (expectedConditionValue == performCheck()) {
@@ -157,7 +158,8 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
     }
 
     @SuppressWarnings("unchecked")
-    private <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS> performIfConditionIs(
+    private <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
+        performIfConditionIs(
             Supplier<RR> closure, ConditionResult expectedConditionValue) {
         if (needToExecuteCondition()) {
             requireNonNull(closure);
