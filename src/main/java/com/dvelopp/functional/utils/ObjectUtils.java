@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 import static java.util.Arrays.asList;
 import static java.util.function.Function.identity;
 
-public class ObjectUtils {
+public final class ObjectUtils {
 
     /**
      * Copy of original method so as not to have problems with static import ambiguity.
