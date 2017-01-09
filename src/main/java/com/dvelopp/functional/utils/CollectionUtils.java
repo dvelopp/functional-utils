@@ -326,14 +326,6 @@ public final class CollectionUtils {
         return collection.stream().collect(Collectors.groupingBy(classifier, downstream));
     }
 
-    public static <U> BinaryOperator<U> usingNewMerger() {
-        return (oldElement, newElement) -> newElement;
-    }
-
-    public static <U> BinaryOperator<U> usingOldMerger() {
-        return (oldElement, newElement) -> oldElement;
-    }
-
     /**
      * Copy of {@link Collectors#throwingMerger()}. Since original method has private access level and can't be accessed
      * outside the class.
