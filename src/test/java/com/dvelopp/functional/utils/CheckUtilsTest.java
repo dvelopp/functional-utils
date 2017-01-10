@@ -189,8 +189,10 @@ public class CheckUtilsTest {
     @Test
     public void inCaseIsTrueOrFalseOrException_ExceptionCaseAndClosureInside_ClosureHasBeenExecutedForExceptionCase() {
         inCase(exceptionSupplier())
-                .isTrue(() -> {})
-                .isFalse(() -> {})
+                .isTrue(() -> {
+                })
+                .isFalse(() -> {
+                })
                 .isException(this::closureWithoutReturn);
 
         assertClosureWasExecuted();
@@ -201,7 +203,8 @@ public class CheckUtilsTest {
         inCase(exceptionSupplier())
                 .isTrue(this::closureWithoutReturn)
                 .isFalse(this::closureWithoutReturn)
-                .isException(() -> {});
+                .isException(() -> {
+                });
 
         assertClosureWasNotExecuted();
     }
@@ -371,6 +374,40 @@ public class CheckUtilsTest {
                 .value();
 
         assertThat(actualVal).isEqualTo(expectedValInFalseDefinition);
+    }
+
+    @Test
+    public void inCaseIsTrueOrFalse_TrueCaseForExactValueWithSeveralCasesForTrue_FirstValForTrueHasBeenReturned() {
+        Integer expectedValInTrueDefinition1 = 1;
+        Integer expectedValInTrueDefinition2 = 1;
+        Integer expectedValInFalseDefinition1 = 2;
+        Integer expectedValInFalseDefinition2 = 2;
+
+        Integer actualVal = inCase(identityPredicate(), true)
+                .isTrue(expectedValInTrueDefinition1)
+                .isTrue(expectedValInTrueDefinition2)
+                .isFalse(expectedValInFalseDefinition1)
+                .isFalse(expectedValInFalseDefinition2)
+                .value();
+
+        assertThat(actualVal).isEqualTo(expectedValInTrueDefinition1);
+    }
+
+    @Test
+    public void inCaseIsTrueOrFalse_FalseCaseForExactValueWithSeveralCasesForTrue_FirstValForFalseHasBeenReturned() {
+        Integer expectedValInTrueDefinition1 = 1;
+        Integer expectedValInTrueDefinition2 = 1;
+        Integer expectedValInFalseDefinition1 = 2;
+        Integer expectedValInFalseDefinition2 = 2;
+
+        Integer actualVal = inCase(identityPredicate(), false)
+                .isTrue(expectedValInTrueDefinition1)
+                .isTrue(expectedValInTrueDefinition2)
+                .isFalse(expectedValInFalseDefinition1)
+                .isFalse(expectedValInFalseDefinition2)
+                .value();
+
+        assertThat(actualVal).isEqualTo(expectedValInFalseDefinition1);
     }
 
     @Test
