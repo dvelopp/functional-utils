@@ -189,10 +189,8 @@ public class CheckUtilsTest {
     @Test
     public void inCaseIsTrueOrFalseOrException_ExceptionCaseAndClosureInside_ClosureHasBeenExecutedForExceptionCase() {
         inCase(exceptionSupplier())
-                .isTrue(() -> {
-                })
-                .isFalse(() -> {
-                })
+                .isTrue(emptyRunnable())
+                .isFalse(emptyRunnable())
                 .isException(this::closureWithoutReturn);
 
         assertClosureWasExecuted();
@@ -203,8 +201,7 @@ public class CheckUtilsTest {
         inCase(exceptionSupplier())
                 .isTrue(this::closureWithoutReturn)
                 .isFalse(this::closureWithoutReturn)
-                .isException(() -> {
-                });
+                .isException(emptyRunnable());
 
         assertClosureWasNotExecuted();
     }
