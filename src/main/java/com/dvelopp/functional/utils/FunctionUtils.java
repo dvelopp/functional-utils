@@ -56,6 +56,10 @@ public final class FunctionUtils {
         return o -> false;
     }
 
+    public static Runnable emptyRunnable() {
+        return () -> {};
+    }
+
     public static Supplier<Boolean> exceptionSupplier(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
         return () -> {
