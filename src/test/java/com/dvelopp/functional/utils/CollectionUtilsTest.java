@@ -23,14 +23,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class CollectionUtilsTest {
 
-    private static final String KEY_1 = "key1";
-    private static final String KEY_2 = "key2";
-    private static final String KEY_3 = "key3";
-    private static final String KEY_4 = "key4";
-    private static final String VAL_1 = "val1";
-    private static final String VAL_2 = "val2";
-    private static final String VAL_3 = "val3";
-    private static final String VAL_4 = "val4";
+    private static final String KEY_1 = "KEY_1";
+    private static final String KEY_2 = "KEY_2";
+    private static final String KEY_3 = "KEY_3";
+    private static final String KEY_4 = "KEY_4";
+    private static final String VAL_1 = "VAL_1";
+    private static final String VAL_2 = "VAL_2";
+    private static final String VAL_3 = "VAL_3";
+    private static final String VAL_4 = "VAL_4";
 
     private BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
     private BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
