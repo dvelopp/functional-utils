@@ -10,6 +10,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
 
 import static com.dvelopp.functional.utils.CollectionUtils.*;
 import static java.lang.String.format;
@@ -606,14 +607,16 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_ClassifierCaseWithNullCollection_NPEHasBeenThrown() {
-        final Collection<BiValHolder<String, String>> collection = null;
+        final Collection<BiValHolder<String, String>> nullCollection = null;
 
-        groupingBy(collection, BiValHolder::getVal1);
+        groupingBy(nullCollection, BiValHolder::getVal1);
     }
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_ClassifierCaseWithNullClassifier_NPEHasBeenThrown() {
-        groupingBy(validBiValList, null);
+        Function<? super BiValHolder<String, String>, ?> nullClassifier = null;
+
+        groupingBy(validBiValList, nullClassifier);
     }
 
     @Test(expected = NullPointerException.class)
@@ -623,12 +626,16 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_DownstreamCaseWithNullClassifier_NPEHasBeenThrown() {
-        groupingBy(validBiValList, null, mapping(identity(), toList()));
+        Function<? super BiValHolder<String, String>, ?> nullClassifier = null;
+
+        groupingBy(validBiValList, nullClassifier, mapping(identity(), toList()));
     }
 
     @Test(expected = NullPointerException.class)
     public void groupingBy_DownstreamCaseWithNullDownstream_NPEHasBeenThrown() {
-        groupingBy(validBiValList, BiValHolder::getVal1, null);
+        Collector<? super BiValHolder<String, String>, Object, Object> nullDownstream = null;
+
+        groupingBy(validBiValList, BiValHolder::getVal1, nullDownstream);
     }
 
     private String testMerge(String o1, String o2) {
