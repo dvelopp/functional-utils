@@ -86,9 +86,9 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToList_MapperIsNull_NPEHasBeenThrown() {
-        Function<? super BiValHolder<String, String>, ?> mapper = null;
+        Function<? super BiValHolder<String, String>, ?> nullMapper = null;
 
-        mapToList(validBiValList, mapper);
+        mapToList(validBiValList, nullMapper);
     }
 
     @Test
@@ -170,7 +170,9 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToSet_MapperIsNull_NPEHasBeenThrown() {
-        mapToSet(new HashSet<>(), null);
+        Function<? super Object, ?> nullMapper = null;
+
+        mapToSet(new HashSet<>(), nullMapper);
     }
 
     @Test
@@ -386,12 +388,16 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge);
+        Function<? super BiValHolder<String, String>, ?> nullKeyMapper = null;
+
+        mapToMap(validBiValList, nullKeyMapper, BiValHolder::getVal2, this::testMerge);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MergeFunctionCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge);
+        Function<? super BiValHolder<String, String>, ? extends String> nullValueMapper = null;
+
+        mapToMap(validBiValList, BiValHolder::getVal1, nullValueMapper, this::testMerge);
     }
 
     @Test(expected = NullPointerException.class)
@@ -439,22 +445,30 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, HashMap::new);
+        Function<? super BiValHolder<String, String>, ?> nullKeyMapper = null;
+
+        mapToMap(validBiValList, nullKeyMapper, BiValHolder::getVal2, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, HashMap::new);
+        Function<? super BiValHolder<String, String>, ? extends String> nullValueMapper = null;
+
+        mapToMap(validBiValList, BiValHolder::getVal1, nullValueMapper, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullMergeFunction_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, null, HashMap::new);
+        BinaryOperator<String> nullMergeFunction = null;
+
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, nullMergeFunction, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_SupplierMapAndMergeFunctionCaseNullSupplierMapCase_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, null);
+        Supplier<Map<String, String>> nullSupplier = null;
+
+        mapToMap(validBiValList, BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, nullSupplier);
     }
 
     @Test
@@ -477,12 +491,16 @@ public class CollectionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullKeyMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, null, BiValHolder::getVal2, this::testMerge, HashMap::new);
+        Function<? super BiValHolder<String, String>, ?> nullKeyMapper = null;
+
+        mapToMap(validBiValList, nullKeyMapper, BiValHolder::getVal2, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
     public void mapToMap_MapSupplierCaseNullValueMapper_NPEHasBeenThrown() {
-        mapToMap(validBiValList, BiValHolder::getVal1, null, this::testMerge, HashMap::new);
+        Function<? super BiValHolder<String, String>, ? extends String> nullValueMapper = null;
+
+        mapToMap(validBiValList, BiValHolder::getVal1, nullValueMapper, this::testMerge, HashMap::new);
     }
 
     @Test(expected = NullPointerException.class)
