@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("ConstantConditions")
 public class CollectionUtilsTest {
 
     private static final String KEY_1 = "KEY_1";
@@ -84,7 +85,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToList_MapperIsNull_NPEHasBeenThrown() {
         Function<? super BiValHolder<String, String>, ?> mapper = null;
 
@@ -200,7 +200,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToCollection_SetIsNull_NPEHasBeenThrown() {
         Function<BiValHolder<String, String>, String> mapper = BiValHolder::getVal1;
         Supplier<LinkedList<String>> collectionSupplier = LinkedList::new;
@@ -210,7 +209,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToCollection_MapperIsNull_NPEHasBeenThrown() {
         Set<BiValHolder<String, String>> testObjects = new HashSet<>();
         Supplier<LinkedList<String>> collectionSupplier = LinkedList::new;
@@ -220,7 +218,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToCollection_CollectionSupplierIsNull_NPEHasBeenThrown() {
         Set<BiValHolder<String, String>> testObjects = new HashSet<>();
         Function<BiValHolder<String, String>, String> mapper = BiValHolder::getVal1;
@@ -263,7 +260,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToArray_MapperIsNull_NPEHasBeenThrown() {
         HashSet<BiValHolder<String, String>> objects = new HashSet<>();
         Function<? super BiValHolder<String, String>, ? extends BiValHolder> nullMapper = null;
@@ -272,7 +268,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToArray_ArrayGeneratorIsNull_NPEHasBeenThrown() {
         HashSet<BiValHolder<String, String>> objects = new HashSet<>();
         IntFunction<String[]> nullGenerator = null;
@@ -323,7 +318,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToMap_NullKeyMapper_NPEHasBeenThrown() {
         Function<? super BiValHolder<String, String>, ?> nullKeyMapper = null;
 
@@ -331,7 +325,6 @@ public class CollectionUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    @SuppressWarnings("ConstantConditions")
     public void mapToMap_NullValueMapper_NPEHasBeenThrown() {
         Function<? super BiValHolder<String, String>, ?> nullValueMapper = null;
 
