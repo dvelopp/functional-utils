@@ -44,6 +44,10 @@ public final class FunctionUtils {
         return () -> false;
     }
 
+    public static Supplier<Boolean> nullSuppler() {
+        return identitySupplier(null);
+    }
+
     public static <T> Supplier<T> identitySupplier(T objectToSupply) {
         return () -> objectToSupply;
     }
