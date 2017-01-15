@@ -44,6 +44,10 @@ public final class FunctionUtils {
         return () -> false;
     }
 
+    public static <T> Supplier<T> identitySupplier(T objectToSupply) {
+        return () -> objectToSupply;
+    }
+
     public static Predicate<Boolean> identityPredicate() {
         return o -> o;
     }
