@@ -33,7 +33,7 @@ Predicate<Collection> isNotEmptyPredicate = not(isEmptyPredicate);
 assertThat(isEmptyPredicate.test(notEmptyList)).isFalse();
 assertThat(isNotEmptyPredicate.test(notEmptyList)).isTrue();
 ```
-- Concise condition handlings:
+- Concise condition handling:
 ```
 Integer expectedValInTrueDefinition = 1;
 Integer expectedValInFalseDefinition = 2;
