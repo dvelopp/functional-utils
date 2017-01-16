@@ -70,9 +70,7 @@ public final class FunctionUtils {
 
     public static Supplier<Boolean> exceptionSupplier(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
-        return () -> {
-            throw exceptionSupplier.get();
-        };
+        return () -> { throw exceptionSupplier.get(); };
     }
 
     public static <T> Supplier<T> exceptionSupplier() {
