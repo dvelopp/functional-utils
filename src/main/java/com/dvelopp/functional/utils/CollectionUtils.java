@@ -333,9 +333,7 @@ public final class CollectionUtils {
      * {@link BinaryOperator} that throws {@link IllegalStateException}.
      */
     public static <T> BinaryOperator<T> throwingMerger() {
-        return (key, value) -> {
-            throw new IllegalStateException(String.format("Duplicate key %s", key));
-        };
+        return (key, value) -> { throw new IllegalStateException(String.format("Duplicate key %s", key)); };
     }
 
     /**
