@@ -55,7 +55,8 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
      *                       type as with the implementation, not an abstract type.
      * @return The result implementation of {@link AbstractCheckResult} object.
      */
-    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS> isTrue(RR objectToReturn) {
+    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
+    isTrue(RR objectToReturn) {
         return performIfConditionIs(objectToReturn, TRUE);
     }
 
@@ -68,7 +69,8 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
      *                       type as with the implementation, not an abstract type.
      * @return The result implementation of {@link AbstractCheckResult} object.
      */
-    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS> isFalse(RR objectToReturn) {
+    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
+    isFalse(RR objectToReturn) {
         return performIfConditionIs(objectToReturn, FALSE);
     }
 
@@ -134,7 +136,7 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
 
     @SuppressWarnings("unchecked")
     private <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
-        performIfConditionIs(
+    performIfConditionIs(
             RR objectToReturn, ConditionResult expectedConditionValue) {
         if (needToExecuteCondition()) {
             if (expectedConditionValue == performCheck()) {
@@ -159,7 +161,7 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
 
     @SuppressWarnings("unchecked")
     private <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
-        performIfConditionIs(
+    performIfConditionIs(
             Supplier<RR> closure, ConditionResult expectedConditionValue) {
         if (needToExecuteCondition()) {
             requireNonNull(closure);
