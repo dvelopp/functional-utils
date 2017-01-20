@@ -113,7 +113,7 @@ public final class FunctionUtils {
     }
 
     /**
-     * Converts BiConsumer to Consumer
+     * Converts BiConsumer to Consumer.
      *
      * @param action The BiConsumer action to be converted to consumer.
      * @param arg    The second argument for BiConsumer.
@@ -128,7 +128,7 @@ public final class FunctionUtils {
     }
 
     /**
-     * Converts BiFunction to Function
+     * Converts BiFunction to Function.
      *
      * @param action The BiFunction to be converted to a function.
      * @param arg    The second argument for BiFunction.
