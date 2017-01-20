@@ -200,4 +200,11 @@ public class FunctionUtilsTest {
         FunctionUtils.exceptionRunnable().run();
     }
 
+    @Test
+    public void nullSupplier_NullHasBeenSupplied() {
+        Object actualSuppliedValue = nullSuppler().get();
+
+        assertThat(actualSuppliedValue).isNull();
+    }
+
 }
