@@ -201,8 +201,15 @@ public class FunctionUtilsTest {
     }
 
     @Test
-    public void nullSupplier_NullHasBeenSupplied() {
+    public void nullSupplier_NotParametrized_NullHasBeenSupplied() {
         Object actualSuppliedValue = nullSuppler().get();
+
+        assertThat(actualSuppliedValue).isNull();
+    }
+
+    @Test
+    public void nullSupplier_Parametrized_NullHasBeenSupplied() {
+        Testee actualSuppliedValue = FunctionUtils.<Testee>nullSuppler().get();
 
         assertThat(actualSuppliedValue).isNull();
     }
