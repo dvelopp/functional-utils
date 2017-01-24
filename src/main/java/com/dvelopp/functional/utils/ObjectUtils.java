@@ -1,13 +1,11 @@
 package com.dvelopp.functional.utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
 import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @since 1.0
@@ -33,6 +31,13 @@ public final class ObjectUtils {
      */
     public static <T> T requireNonNull(T obj, Supplier<String> messageSupplier) {
         return Objects.requireNonNull(obj, messageSupplier);
+    }
+
+    public static <T> List<T> requireNonNull(Map<T, String> notNullCheckMap) {
+        for (Map.Entry<T, String> entry : notNullCheckMap.entrySet()) {
+            Objects.requireNonNull(entry.getKey(), entry.getValue());
+        }
+        return notNullCheckMap.keySet().stream().collect(toList());
     }
 
     @SafeVarargs
