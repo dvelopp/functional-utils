@@ -16,6 +16,7 @@ import static java.util.Objects.requireNonNull;
  * @param <S> The type of returned instance of {@link AbstractCheckResult}. This type is used to always know what child
  *            class we work with. The main advantage of it is the fact that we don't need to cast the result even when
  *            the child doesn't provide its own implementation of the methods.
+ * @since 1.0
  */
 public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T, R, S>> {
 

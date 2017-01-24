@@ -7,6 +7,8 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 /**
  * Contains utils connected to the java.util.function package.
  * Makes it easier to you the components of this package as well as extend its functionality.
+ *
+ * @since 1.0
  */
 public final class FunctionUtils {
 

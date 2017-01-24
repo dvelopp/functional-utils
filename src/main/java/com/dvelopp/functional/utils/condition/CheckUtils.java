@@ -7,6 +7,8 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 
 /**
  * Utility class to build readable builder-based conditions using java 8 features like predicates/suppliers etc.
+ *
+ * @since 1.0
  */
 public final class CheckUtils {
 

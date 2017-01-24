@@ -9,6 +9,9 @@ import java.util.function.Supplier;
 import static java.util.Arrays.asList;
 import static java.util.function.Function.identity;
 
+/**
+ * @since 1.0
+ */
 public final class ObjectUtils {
 
     /**

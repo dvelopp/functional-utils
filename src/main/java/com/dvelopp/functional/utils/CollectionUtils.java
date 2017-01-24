@@ -18,6 +18,8 @@ import static java.util.stream.Collectors.*;
  * Set of useful methods to work with collections.
  * There are two types of methods. Some of the methods extend the functionality provided by Java while other methods
  * make invocations of the same things more concise and easier than in Java.
+ *
+ * @since 1.0
  */
 public final class CollectionUtils {
 
@@ -329,11 +331,13 @@ public final class CollectionUtils {
     /**
      * Copy of {@link Collectors#throwingMerger()}. Since original method has private access level and can't be accessed
      * outside the class.
-     *
+     * <p>
      * {@link BinaryOperator} that throws {@link IllegalStateException}.
      */
     public static <T> BinaryOperator<T> throwingMerger() {
-        return (key, value) -> { throw new IllegalStateException(String.format("Duplicate key %s", key)); };
+        return (key, value) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", key));
+        };
     }
 
     /**

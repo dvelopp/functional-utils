@@ -4,6 +4,9 @@ import java.util.function.Supplier;
 
 import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.*;
 
+/**
+ * @since 1.0
+ */
 public class NoArgumentsCheckResult<R> extends AbstractCheckResult<Supplier<Boolean>, R, NoArgumentsCheckResult<R>> {
 
     NoArgumentsCheckResult(Supplier<Boolean> condition) {

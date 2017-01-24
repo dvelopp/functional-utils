@@ -7,6 +7,9 @@ import java.util.function.Predicate;
 import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.*;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * @since 1.0
+ */
 public class OneArgumentCheckResult<T, R> extends AbstractCheckResult<Predicate<T>, R, OneArgumentCheckResult<T, R>> {
 
     private T arg;
