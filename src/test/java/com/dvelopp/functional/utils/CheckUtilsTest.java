@@ -532,7 +532,7 @@ public class CheckUtilsTest {
     }
 
     /**
-     * Mock for closure without return. It could be any method.
+     * Mock for the closure without return. It could be any method.
      * We just need it in order to know whether closureWithoutReturn was executed or not.
      */
     private void closureWithoutReturn() {
@@ -540,8 +540,8 @@ public class CheckUtilsTest {
     }
 
     /**
-     * Mock for closure with return. It could be any method.
-     * We just need it in order to know whether closureWithoutReturn was executed or not and test return value.
+     * Mock for the closure with return. It could be any method.
+     * We just need it in order to know whether closureWithoutReturn was executed or not and test the return value.
      */
     private Integer closureWithReturn(Integer objectToReturn) {
         testee.voidMethod();

@@ -9,6 +9,8 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 
 /**
+ * Provides utils to simplify working with the objects.
+ *
  * @since 1.0
  */
 public final class ObjectUtils {
