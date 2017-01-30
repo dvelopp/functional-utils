@@ -11,6 +11,10 @@ public class BiValHolder<T, K> {
     private T val1;
     private K val2;
 
+    private BiValHolder(){
+        throw new UnsupportedOperationException();
+    }
+
     public BiValHolder(T val1, K val2) {
         this.val1 = val1;
         this.val2 = val2;
