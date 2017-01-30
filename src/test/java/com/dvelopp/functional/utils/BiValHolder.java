@@ -6,7 +6,7 @@ package com.dvelopp.functional.utils;
  * @param <T> The first value type.
  * @param <K> The second value type.
  */
-public class BiValHolder<T, K> {
+public final class BiValHolder<T, K> {
 
     private T val1;
     private K val2;
