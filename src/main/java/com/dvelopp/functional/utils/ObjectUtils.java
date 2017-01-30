@@ -3,7 +3,6 @@ package com.dvelopp.functional.utils;
 import java.util.*;
 import java.util.function.Supplier;
 
-import static com.dvelopp.functional.utils.FunctionUtils.with;
 import static java.util.Arrays.asList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
@@ -46,7 +45,8 @@ public final class ObjectUtils {
     @SafeVarargs
     @SuppressWarnings("unchecked")
     public static <T> T[] requireNonNull(T firstObjectToCheck, T... otherObjectsToCheck) {
-        List<T> allObjects = with(new ArrayList<>(), it -> it.add(firstObjectToCheck));
+        ArrayList<T> allObjects = new ArrayList<>();
+        allObjects.add(firstObjectToCheck);
         if (otherObjectsToCheck != null && otherObjectsToCheck.length > 0) {
             allObjects.addAll(asList(otherObjectsToCheck));
         }
