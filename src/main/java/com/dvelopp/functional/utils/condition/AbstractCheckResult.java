@@ -24,16 +24,19 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
      * Condition to be calculated to get a {@link ConditionResult object}.
      */
     private T condition;
+
     /**
      * Indicates whether condition was calculated and if it was, then it's not calculated more. Except for performance
      * optimization, it also allows to indicate the result of condition to take specific action for different states of
      * the {@link ConditionResult object}.
      */
     ConditionResult conditionResult = NONE;
+
     /**
      * Used to return values from the statement. An alternative for the ternary operator.
      */
     R valueToReturn;
+
     /**
      * Useful to get information about the exception and to take specific actions when it happens.
      */
@@ -56,8 +59,8 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
      *                       type as with the implementation, not an abstract type.
      * @return The result implementation of {@link AbstractCheckResult} object.
      */
-    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
-    isTrue(RR objectToReturn) {
+    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS> isTrue(
+            RR objectToReturn) {
         return performIfConditionIs(objectToReturn, TRUE);
     }
 
@@ -70,8 +73,8 @@ public abstract class AbstractCheckResult<T, R, S extends AbstractCheckResult<T,
      *                       type as with the implementation, not an abstract type.
      * @return The result implementation of {@link AbstractCheckResult} object.
      */
-    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS>
-    isFalse(RR objectToReturn) {
+    public <RR extends R, SS extends AbstractCheckResult<T, RR, SS>> AbstractCheckResult<T, RR, SS> isFalse(
+            RR objectToReturn) {
         return performIfConditionIs(objectToReturn, FALSE);
     }
 
