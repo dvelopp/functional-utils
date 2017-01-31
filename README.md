@@ -48,5 +48,6 @@ assertThat(actualVal).isEqualTo(expectedValInTrueDefinition);
 
 ... and many other features are already here. 
 
-First version has been released! 
-Updated: Snapshot has fixes for the bug in the previous version. I'll make a small release soon. 
+First version has been released!
+ 
+###### Updated: Snapshot has fixes for the bug in the previous version. I'll make a small release soon. 
