@@ -14,6 +14,10 @@ import static java.util.stream.Collectors.toList;
  */
 public final class ObjectUtils {
 
+    private ObjectUtils(){
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * Copy of original method so as not to have problems with static import ambiguity.
      */

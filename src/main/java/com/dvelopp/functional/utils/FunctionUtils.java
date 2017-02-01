@@ -12,6 +12,10 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
  */
 public final class FunctionUtils {
 
+    private FunctionUtils(){
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * Negate given predicate.
      *
