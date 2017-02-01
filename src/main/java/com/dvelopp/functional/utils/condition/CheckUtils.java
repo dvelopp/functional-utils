@@ -12,6 +12,10 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
  */
 public final class CheckUtils {
 
+    private CheckUtils(){
+        throw new UnsupportedOperationException();
+    }
+    
     public static <R> NoArgumentsCheckResult<R> inCase(Supplier<Boolean> condition) {
         requireNonNull(condition);
         return new NoArgumentsCheckResult<>(condition);
