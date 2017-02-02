@@ -23,10 +23,10 @@ import static java.util.stream.Collectors.*;
  */
 public final class CollectionUtils {
 
-    private CollectionUtils(){
+    private CollectionUtils() {
         throw new UnsupportedOperationException();
     }
-    
+
     /**
      * For each loop that consumes BiConsumer function.
      * That is made to provide default for each statement with ability to have an additional argument to the function

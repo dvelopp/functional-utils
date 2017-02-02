@@ -12,7 +12,7 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
  */
 public final class FunctionUtils {
 
-    private FunctionUtils(){
+    private FunctionUtils() {
         throw new UnsupportedOperationException();
     }
 
@@ -71,12 +71,15 @@ public final class FunctionUtils {
     }
 
     public static Runnable emptyRunnable() {
-        return () -> {};
+        return () -> {
+        };
     }
 
     public static Supplier<Boolean> exceptionSupplier(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
-        return () -> { throw exceptionSupplier.get(); };
+        return () -> {
+            throw exceptionSupplier.get();
+        };
     }
 
     public static <T> Supplier<T> exceptionSupplier() {
@@ -107,11 +110,14 @@ public final class FunctionUtils {
 
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
         requireNonNull(exceptionSupplier);
-        return o -> { throw exceptionSupplier.get(); };
+        return o -> {
+            throw exceptionSupplier.get();
+        };
     }
 
     public static <T> Consumer<T> emptyConsumer() {
-        return o -> {};
+        return o -> {
+        };
     }
 
     private static boolean throwAnExceptionForExceptionalCasesOfFunctionalInterfaces() {

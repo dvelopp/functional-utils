@@ -12,7 +12,7 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
  */
 public final class CheckUtils {
 
-    private CheckUtils(){
+    private CheckUtils() {
         throw new UnsupportedOperationException();
     }
 

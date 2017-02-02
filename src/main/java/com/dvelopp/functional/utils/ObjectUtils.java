@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
  */
 public final class ObjectUtils {
 
-    private ObjectUtils(){
+    private ObjectUtils() {
         throw new UnsupportedOperationException();
     }
 
