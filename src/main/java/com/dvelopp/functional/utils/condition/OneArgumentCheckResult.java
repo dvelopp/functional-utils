@@ -16,8 +16,7 @@ public class OneArgumentCheckResult<T, R> extends AbstractCheckResult<Predicate<
 
     OneArgumentCheckResult(Predicate<T> condition, T arg) {
         setCondition(condition);
-        requireNonNull(arg);
-        this.arg = arg;
+        this.arg = requireNonNull(arg);
     }
 
     public OneArgumentCheckResult<T, R> isTrue(Consumer<T> closure) {
