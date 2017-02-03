@@ -157,47 +157,47 @@ public class FunctionUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void exceptionSupplier_IllegalArgumentException_IllegalArgumentExceptionHasBeenThrown() {
-        FunctionUtils.exceptionSupplier(IllegalArgumentException::new).get();
+        exceptionSupplier(IllegalArgumentException::new).get();
     }
 
     @Test(expected = NullPointerException.class)
     public void exceptionSupplier_NPE_NPEHasBeenThrown() {
-        FunctionUtils.exceptionSupplier(NullPointerException::new).get();
+        exceptionSupplier(NullPointerException::new).get();
     }
 
     @Test(expected = NullPointerException.class)
     public void exceptionSupplier_NullArgument_NPEHasBeenThrown() {
-        FunctionUtils.exceptionSupplier(null).get();
+        exceptionSupplier(null).get();
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionSupplier_NoParameters_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionSupplier().get();
+        exceptionSupplier().get();
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionConsumer_NullArgument_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionConsumer().accept(null);
+        exceptionConsumer().accept(null);
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionConsumer_NotNullArgument_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionConsumer().accept(new Object());
+        exceptionConsumer().accept(new Object());
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionFunction_NullArgument_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionFunction().apply(null);
+        exceptionFunction().apply(null);
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionFunction_NotNullArgument_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionFunction().apply(new Object());
+        exceptionFunction().apply(new Object());
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionRunnable_NoParameters_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionRunnable().run();
+        exceptionRunnable().run();
     }
 
     @Test
