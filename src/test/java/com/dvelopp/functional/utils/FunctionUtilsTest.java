@@ -137,22 +137,22 @@ public class FunctionUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void exceptionPredicate_IllegalArgumentException_IllegalArgumentExceptionHasBeenThrown() {
-        FunctionUtils.exceptionPredicate(IllegalArgumentException::new).test(true);
+        exceptionPredicate(IllegalArgumentException::new).test(true);
     }
 
     @Test(expected = NullPointerException.class)
     public void exceptionPredicate_NPE_NPEHasBeenThrown() {
-        FunctionUtils.exceptionPredicate(NullPointerException::new).test(true);
+        exceptionPredicate(NullPointerException::new).test(true);
     }
 
     @Test(expected = NullPointerException.class)
     public void exceptionPredicate_NullArgument_NPEHasBeenThrown() {
-        FunctionUtils.exceptionPredicate(null).test(true);
+        exceptionPredicate(null).test(true);
     }
 
     @Test(expected = IllegalStateException.class)
     public void exceptionPredicate_NoParameters_IllegalStateExceptionHasBeenThrown() {
-        FunctionUtils.exceptionPredicate().test(true);
+        exceptionPredicate().test(true);
     }
 
     @Test(expected = IllegalArgumentException.class)
