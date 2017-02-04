@@ -117,6 +117,7 @@ public class FunctionUtilsTest {
     @Test
     public void function_BiFunctionThatAddsSecArgumentToFirst_ArgumentsHaveBeenAddedToEachOther() {
         Function<Integer, Integer> function = function(Math::addExact, 100);
+
         Integer actualResult = function.apply(1);
 
         assertThat(actualResult).isEqualTo(101);
