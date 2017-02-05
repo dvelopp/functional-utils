@@ -48,6 +48,11 @@ public class FunctionUtilsTest {
     }
 
     @Test
+    public void not_ExceptionInPredicate_ExceptionHasNotBeenThrownSinceNotDoesNotExecutePredicateFunction() {
+        not(exceptionPredicate());
+    }
+
+    @Test
     public void with_ModifyObjectWithFirstValue_ObjectHasBeenModified() {
         BiValHolder<String, String> testObject = new BiValHolder<>("initialFirstValue", "initialSecondValue");
 
