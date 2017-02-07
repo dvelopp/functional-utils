@@ -1,6 +1,7 @@
 package com.dvelopp.functional.utils;
 
 import java.util.function.*;
+import java.util.stream.Stream;
 
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 
@@ -39,6 +40,12 @@ public final class FunctionUtils {
     public static <T> T with(T self, Consumer<T> closure) {
         requireNonNull(self, closure);
         closure.accept(self);
+        return self;
+    }
+
+    public static <T> T with(T self, Consumer<T>... closures) {
+        requireNonNull(self, closures);
+        Stream.of(closures).forEach(closure -> closure.accept(self));
         return self;
     }
 
