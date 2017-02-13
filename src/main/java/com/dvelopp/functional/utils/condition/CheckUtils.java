@@ -7,7 +7,6 @@ import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 
 /**
  * Utility class to build readable builder-based conditions using java 8 features like predicates/suppliers etc.
- *
  * @since 1.0
  */
 public final class CheckUtils {
@@ -29,30 +28,6 @@ public final class CheckUtils {
     public static <T, R> OneArgumentCheckResult<T, R> inCase(Predicate<T> condition, T arg) {
         requireNonNull(condition);
         return new OneArgumentCheckResult<>(condition, arg);
-    }
-
-    public static <R> NoArgumentsCheckResult<R> when(Supplier<Boolean> condition) {
-        return inCase(condition);
-    }
-
-    public static <R> NoArgumentsCheckResult<R> when(Boolean condition) {
-        return inCase(condition);
-    }
-
-    public static <T, R> OneArgumentCheckResult<T, R> when(Predicate<T> condition, T arg) {
-        return inCase(condition, arg);
-    }
-
-    public static <R> NoArgumentsCheckResult<R> check(Supplier<Boolean> condition) {
-        return inCase(condition);
-    }
-
-    public static <R> NoArgumentsCheckResult<R> check(Boolean condition) {
-        return inCase(condition);
-    }
-
-    public static <T, R> OneArgumentCheckResult<T, R> check(Predicate<T> condition, T arg) {
-        return inCase(condition, arg);
     }
 
 }

@@ -138,7 +138,7 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsTrue_TrueCaseForSupplier_SupplierHasBeenExecutedAndReturnedExpectedVal() {
-        Integer expectedVal = 5;
+        Integer expectedVal = 1;
 
         Integer actualVal = inCase(identityPredicate(), true).isTrueGet(() -> closureWithReturn(expectedVal)).value();
 
@@ -156,7 +156,7 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsFalse_TrueCaseForSupplier_SupplierHasNotBeenExecutedAndReturnedNull() {
-        Integer actualVal = inCase(identityPredicate(), true).isFalseGet(() -> closureWithReturn(5)).value();
+        Integer actualVal = inCase(identityPredicate(), true).isFalseGet(() -> closureWithReturn(1)).value();
 
         assertClosureWasNotExecuted();
         assertThat(actualVal).isNull();
@@ -164,9 +164,9 @@ public class CheckUtilsTest {
 
     @Test
     public void inCaseIsFalse_FalseCaseForSupplier_SupplierHasBeenExecutedAndReturnedExpectedVal() {
-        Integer expectedVal = 5;
+        Integer expectedVal = 1;
 
-        Integer actualVal = inCase(identityPredicate(), false).isFalseGet(() -> closureWithReturn(5)).value();
+        Integer actualVal = inCase(identityPredicate(), false).isFalseGet(() -> closureWithReturn(1)).value();
 
         assertClosureWasExecuted();
         assertThat(actualVal).isEqualTo(expectedVal);
