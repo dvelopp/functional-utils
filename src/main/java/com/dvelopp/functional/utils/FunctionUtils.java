@@ -1,5 +1,7 @@
 package com.dvelopp.functional.utils;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import java.util.function.*;
 import java.util.stream.Stream;
 
@@ -48,6 +50,9 @@ public final class FunctionUtils {
      */
     public static <T> T with(T self, Consumer<T>... closures) {
         requireNonNull(self, closures);
+        if(closures.length == 0){
+            throw new NullPointerException();
+        }
         Stream.of(closures).forEach(closure -> closure.accept(self));
         return self;
     }
