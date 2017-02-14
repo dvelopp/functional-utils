@@ -43,6 +43,9 @@ public final class FunctionUtils {
         return self;
     }
 
+    /**
+     * TODO Test it
+     */
     public static <T> T with(T self, Consumer<T>... closures) {
         requireNonNull(self, closures);
         Stream.of(closures).forEach(closure -> closure.accept(self));
