@@ -1,7 +1,5 @@
 package com.dvelopp.functional.utils;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import java.util.function.*;
 import java.util.stream.Stream;
 
@@ -46,7 +44,12 @@ public final class FunctionUtils {
     }
 
     /**
-     * TODO Test it
+     * Execute a collection of closures on the object.
+     *
+     * @param self    The object to work with.
+     * @param closures The list of actions to do on the object.
+     * @param <T>     The object type.
+     * @return The modified object.
      */
     public static <T> T with(T self, Consumer<T>... closures) {
         requireNonNull(self, closures);
