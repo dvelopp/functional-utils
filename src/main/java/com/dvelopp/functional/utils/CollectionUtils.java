@@ -43,6 +43,17 @@ public final class CollectionUtils {
         collection.forEach(consumer(action, arg));
     }
 
+    /**
+     * For each loop that consumes BiConsumer function.
+     * That is made to provide default for each statement with ability to have an additional argument to the function
+     * in order to allow developers to implement such cases in functional style.
+     *
+     * @param array  The array to iterated over.
+     * @param action The action to be performed for each element.
+     * @param arg    The argument that is considered second argument in the function.
+     * @param <T>    The elements type for collection.
+     * @param <R>    The argument type.
+     */
     public static <T, R> void forEach(T[] array, BiConsumer<? super T, R> action, R arg) {
         requireNonNull(array, action);
         Stream.of(array).forEach(consumer(action, arg));
