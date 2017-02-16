@@ -43,6 +43,11 @@ public final class CollectionUtils {
         collection.forEach(consumer(action, arg));
     }
 
+    public static <T, R> void forEach(T[] array, BiConsumer<? super T, R> action, R arg) {
+        requireNonNull(array, action);
+        Stream.of(array).forEach(consumer(action, arg));
+    }
+
     /**
      * Returns a list consisting of the results of applying the given function to the elements of the given collection.
      *
