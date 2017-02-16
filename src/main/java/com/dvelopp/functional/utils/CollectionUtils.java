@@ -55,6 +55,14 @@ public final class CollectionUtils {
      * @param <R>    The argument type.
      */
     public static <T, R> void forEach(T[] array, BiConsumer<? super T, R> action, R arg) {
+        forEachWithArray(action, arg, array);
+    }
+
+    public static <T, R> void forEach(BiConsumer<? super T, R> action, R arg, T ... array) {
+        forEachWithArray(action, arg, array);
+    }
+
+    private static <T, R> void forEachWithArray(BiConsumer<? super T, R> action, R arg, T[] array) {
         requireNonNull(array, action);
         Stream.of(array).forEach(consumer(action, arg));
     }
