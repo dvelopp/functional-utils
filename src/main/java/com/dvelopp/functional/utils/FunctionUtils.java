@@ -1,8 +1,8 @@
 package com.dvelopp.functional.utils;
 
 import java.util.function.*;
-import java.util.stream.Stream;
 
+import static com.dvelopp.functional.utils.CollectionUtils.forEach;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 
 /**
@@ -56,7 +56,7 @@ public final class FunctionUtils {
         if(closures.length == 0){
             throw new NullPointerException();
         }
-        Stream.of(closures).forEach(closure -> closure.accept(self));
+        forEach(closures, Consumer::accept, self);
         return self;
     }
 
