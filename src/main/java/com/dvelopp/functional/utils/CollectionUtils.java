@@ -69,6 +69,7 @@ public final class CollectionUtils {
      * @param <T>    The elements type for collection.
      * @param <R>    The argument type.
      */
+    @SafeVarargs
     public static <T, R> void forEach(BiConsumer<? super T, R> action, R arg, T ... array) {
         forEachWithArray(action, arg, array);
     }
