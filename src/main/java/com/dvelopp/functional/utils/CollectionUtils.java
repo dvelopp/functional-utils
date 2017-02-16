@@ -58,6 +58,17 @@ public final class CollectionUtils {
         forEachWithArray(action, arg, array);
     }
 
+    /**
+     * For each loop that consumes BiConsumer function.
+     * That is made to provide default for each statement with ability to have an additional argument to the function
+     * in order to allow developers to implement such cases in functional style.
+     *
+     * @param action The action to be performed for each element.
+     * @param arg    The argument that is considered second argument in the function.
+     * @param array  The array to iterated over(varargs).
+     * @param <T>    The elements type for collection.
+     * @param <R>    The argument type.
+     */
     public static <T, R> void forEach(BiConsumer<? super T, R> action, R arg, T ... array) {
         forEachWithArray(action, arg, array);
     }
