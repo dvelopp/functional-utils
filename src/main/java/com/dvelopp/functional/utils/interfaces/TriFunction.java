@@ -3,7 +3,6 @@ package com.dvelopp.functional.utils.interfaces;
 @FunctionalInterface
 public interface TriFunction<T1, T2, T3, R> {
 
-
     /**
      * Applies this function to the given arguments.
      *
@@ -39,12 +38,12 @@ public interface TriFunction<T1, T2, T3, R> {
     }
 
     /**
-     * Returns a TriFunction that always returns its second input argument.
+     * Returns a TriFunction that always returns its third input argument.
      *
      * @param <T1> first arg type.
      * @param <T2> second arg type.
      * @param <T3> the type of the input and output objects to the function.
-     * @return a function that always returns its second input argument.
+     * @return a function that always returns its third input argument.
      */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T3> thirdArgIdentity() {
         return (t1, t2, t3) -> t3;
