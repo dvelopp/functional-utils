@@ -1,5 +1,6 @@
 package com.dvelopp.functional.utils.interfaces;
 
+@FunctionalInterface
 public interface TriConsumer <T1, T2, T3> {
 
     /**
