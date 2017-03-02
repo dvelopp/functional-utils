@@ -14,4 +14,15 @@ public interface TriFunction<T1, T2, T3, R> {
      */
     R apply(T1 t1, T2 t2, T3 t3);
 
+    static <T1, T2, T3> TriFunction<T1, T2, T3, T1> firstArgIdentity() {
+        return (t1, t2, t3) -> t1;
+    }
+
+    static <T1, T2, T3> TriFunction<T1, T2, T3, T2> secondArgIdentity() {
+        return (t1, t2, t3) -> t2;
+    }
+
+    static <T1, T2, T3> TriFunction<T1, T2, T3, T3> thirdArgIdentity() {
+        return (t1, t2, t3) -> t3;
+    }
 }
