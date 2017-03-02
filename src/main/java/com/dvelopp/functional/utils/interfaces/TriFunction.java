@@ -38,6 +38,14 @@ public interface TriFunction<T1, T2, T3, R> {
         return (t1, t2, t3) -> t2;
     }
 
+    /**
+     * Returns a TriFunction that always returns its second input argument.
+     *
+     * @param <T1> first arg type.
+     * @param <T2> second arg type.
+     * @param <T3> the type of the input and output objects to the function.
+     * @return a function that always returns its second input argument.
+     */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T3> thirdArgIdentity() {
         return (t1, t2, t3) -> t3;
     }
