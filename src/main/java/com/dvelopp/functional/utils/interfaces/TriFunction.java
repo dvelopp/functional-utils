@@ -1,5 +1,6 @@
 package com.dvelopp.functional.utils.interfaces;
 
+@FunctionalInterface
 public interface TriFunction<T1, T2, T3, R> {
 
 
@@ -11,5 +12,5 @@ public interface TriFunction<T1, T2, T3, R> {
      * @param t3 the third input argument.
      */
     R apply(T1 t1, T2 t2, T3 t3);
-    
+
 }
