@@ -25,6 +25,10 @@ public interface TriFunction<T1, T2, T3, R> {
         return (t1, t2, t3) -> t1;
     }
 
+    static <T1, T2, T3> TriFunction<T1, T2, T3, T1> identity() {
+        return firstArgIdentity();
+    }
+
     /**
      * Returns a TriFunction that always returns its second input argument.
      *
