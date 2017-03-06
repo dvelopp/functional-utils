@@ -6,12 +6,12 @@ public interface TriFunction<T1, T2, T3, R> {
     /**
      * Applies this function to the given arguments.
      *
-     * @param t1 the first input argument.
-     * @param t2 the second input argument.
-     * @param t3 the third input argument.
+     * @param firstArgument the first input argument.
+     * @param secondArgument the second input argument.
+     * @param thirdArgument the third input argument.
      * @return the function result
      */
-    R apply(T1 t1, T2 t2, T3 t3);
+    R apply(T1 firstArgument, T2 secondArgument, T3 thirdArgument);
 
     /**
      * Returns a TriFunction that always returns its first input argument.
@@ -22,7 +22,7 @@ public interface TriFunction<T1, T2, T3, R> {
      * @return a function that always returns its first input argument.
      */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T1> firstArgIdentity() {
-        return (t1, t2, t3) -> t1;
+        return (firstArgument, secondArgument, thirdArgument) -> firstArgument;
     }
 
     static <T1, T2, T3> TriFunction<T1, T2, T3, T1> identity() {
@@ -38,7 +38,7 @@ public interface TriFunction<T1, T2, T3, R> {
      * @return a function that always returns its second input argument.
      */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T2> secondArgIdentity() {
-        return (t1, t2, t3) -> t2;
+        return (firstArgument, secondArgument, thirdArgument) -> secondArgument;
     }
 
     /**
@@ -50,6 +50,6 @@ public interface TriFunction<T1, T2, T3, R> {
      * @return a function that always returns its third input argument.
      */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T3> thirdArgIdentity() {
-        return (t1, t2, t3) -> t3;
+        return (firstArgument, secondArgument, thirdArgument) -> thirdArgument;
     }
 }
