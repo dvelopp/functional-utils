@@ -25,6 +25,9 @@ public interface TriFunction<T1, T2, T3, R> {
         return (firstArgument, secondArgument, thirdArgument) -> firstArgument;
     }
 
+    /**
+     * @see this#firstArgIdentity()
+     */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T1> identity() {
         return firstArgIdentity();
     }
