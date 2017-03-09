@@ -1,5 +1,7 @@
 package com.dvelopp.functional.utils;
 
+import com.dvelopp.functional.utils.interfaces.TriConsumer;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +79,12 @@ public final class CollectionUtils {
     private static <T, R> void forEachWithArray(BiConsumer<? super T, R> action, R arg, T[] array) {
         requireNonNull(array, action);
         Stream.of(array).forEach(consumer(action, arg));
+    }
+
+    public static <T, R1, R2> void forEach(Collection<T> collection, TriConsumer<? super T, R1, R2> action,
+                                           R1 firstArg, R2 secondArg) {
+        requireNonNull(collection, action);
+        collection.forEach(consumer(action, firstArg, secondArg));
     }
 
     /**

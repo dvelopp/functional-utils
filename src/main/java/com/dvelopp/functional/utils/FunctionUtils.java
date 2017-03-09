@@ -1,5 +1,7 @@
 package com.dvelopp.functional.utils;
 
+import com.dvelopp.functional.utils.interfaces.TriConsumer;
+
 import java.util.function.*;
 
 import static com.dvelopp.functional.utils.CollectionUtils.forEach;
@@ -46,14 +48,14 @@ public final class FunctionUtils {
     /**
      * Execute a collection of closures on the object.
      *
-     * @param self    The object to work with.
+     * @param self     The object to work with.
      * @param closures The list of actions to do on the object.
-     * @param <T>     The object type.
+     * @param <T>      The object type.
      * @return The modified object.
      */
     public static <T> T with(T self, Consumer<T>... closures) {
         requireNonNull(self, closures);
-        if(closures.length == 0){
+        if (closures.length == 0) {
             throw new NullPointerException();
         }
         forEach(closures, Consumer::accept, self);
@@ -155,6 +157,11 @@ public final class FunctionUtils {
     public static <T, R> Consumer<T> consumer(BiConsumer<T, R> action, R arg) {
         requireNonNull(action);
         return e -> action.accept(e, arg);
+    }
+
+    public static <T, R1, R2> Consumer<T> consumer(TriConsumer<T, R1, R2> action, R1 firstArg, R2 secondArg) {
+        requireNonNull(action);
+        return e -> action.accept(e, firstArg, secondArg);
     }
 
     /**
