@@ -81,10 +81,21 @@ public final class CollectionUtils {
         Stream.of(array).forEach(consumer(action, arg));
     }
 
+    private static <T, R1, R2> void forEachWithArray(TriConsumer<? super T, R1, R2> action,
+                                                     R1 firstArg, R2 secondArg, T[] array) {
+        requireNonNull(array, action);
+        Stream.of(array).forEach(consumer(action, firstArg, secondArg));
+    }
+
     public static <T, R1, R2> void forEach(Collection<T> collection, TriConsumer<? super T, R1, R2> action,
                                            R1 firstArg, R2 secondArg) {
         requireNonNull(collection, action);
         collection.forEach(consumer(action, firstArg, secondArg));
+    }
+
+    public static <T, R1, R2> void forEach(T[] array, TriConsumer<? super T, R1, R2> action,
+                                           R1 firstArg, R2 secondArg) {
+        forEachWithArray(action, firstArg, secondArg, array);
     }
 
     /**
