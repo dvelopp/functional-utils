@@ -35,27 +35,46 @@ public class CollectionUtilsTest {
     private static final String VAL_3 = "VAL_3";
     private static final String VAL_4 = "VAL_4";
 
-    private BiValHolder<String, String> testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-    private BiValHolder<String, String> testObject2 = new BiValHolder<>(KEY_2, VAL_2);
-    private BiValHolder<String, String> testObject3 = new BiValHolder<>(KEY_3, VAL_3);
-    private BiValHolder<String, String> testObject4 = new BiValHolder<>(KEY_4, VAL_4);
+    private BiValHolder<String, String> biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+    private BiValHolder<String, String> biValHolder2 = new BiValHolder<>(KEY_2, VAL_2);
+    private BiValHolder<String, String> biValHolder3 = new BiValHolder<>(KEY_3, VAL_3);
+    private BiValHolder<String, String> biValHolder4 = new BiValHolder<>(KEY_4, VAL_4);
+    private TriValHolder<String, String, String> triValHolder1 = new TriValHolder<>(KEY_1, VAL_1, VAL_2);
+    private TriValHolder<String, String, String> triValHolder2 = new TriValHolder<>(KEY_1, VAL_2, VAL_3);
     private final List<BiValHolder<String, String>> validBiValList = new ArrayList<>();
     private final List<BiValHolder<String, String>> nullBiValList = null;
 
     @Test
     public void forEach_ChangeElementState_StateWasChangedForAllElements() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
         String expectedNewValue = "expectedNewValue";
 
         forEach(testObjects, BiValHolder::setVal2, expectedNewValue);
 
-        assertThat(testObject1.getVal2()).isEqualTo(expectedNewValue);
-        assertThat(testObject2.getVal2()).isEqualTo(expectedNewValue);
+        assertThat(biValHolder1.getVal2()).isEqualTo(expectedNewValue);
+        assertThat(biValHolder2.getVal2()).isEqualTo(expectedNewValue);
     }
 
     @Test
+    public void forEach_ChangeElementState_StateWasChangedForAllElements2() {
+        List<TriValHolder<String, String, String >> testObjects = asList(triValHolder1, triValHolder2);
+        String expectedNewValue = "expectedNewValue";
+
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2) , "test1", "test2");
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3) , "test3", "test4");
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal3("test") , "test5", "test6");
+
+        testObjects.forEach(o->{
+            assertThat(o.getVal1()).isEqualTo("test1");
+            assertThat(o.getVal2()).isEqualTo("test3");
+            assertThat(o.getVal3()).isEqualTo("test");
+        });
+    }
+
+
+    @Test
     public void mapToList_ListWithObjects_ObjectsMappedToTheList() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         List<String> mappedObjects = mapToList(testObjects, BiValHolder::getVal2);
 
@@ -64,7 +83,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToList_SetWithObjects_ObjectsMappedToTheList() {
-        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(biValHolder1, biValHolder2));
 
         List<String> mappedObjects = mapToList(testObjects, BiValHolder::getVal2);
 
@@ -73,7 +92,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void map_ListWithObjects_ObjectsMappedToTheList() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         List<String> mappedObjects = map(testObjects, BiValHolder::getVal2);
 
@@ -94,7 +113,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToSet_SetWithObjects_ObjectsMappedToTheSet() {
-        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(biValHolder1, biValHolder2));
 
         Set<String> mappedObjects = mapToSet(testObjects, BiValHolder::getVal2);
 
@@ -103,7 +122,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToSet_ListWithObjects_ObjectsMappedToTheSet() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Set<String> mappedObjects = mapToSet(testObjects, BiValHolder::getVal2);
 
@@ -121,7 +140,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void map_SetWithObjects_ObjectsMappedToTheSet() {
-        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(biValHolder1, biValHolder2));
 
         Set<String> mappedObjects = map(testObjects, BiValHolder::getVal2);
 
@@ -186,7 +205,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToCollection_SetToLinkedList_ObjectsFromTheSetHaveBeenMappedToTheLinkedList() {
-        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(biValHolder1, biValHolder2));
 
         LinkedList<String> mappedObjects = mapToCollection(testObjects, BiValHolder::getVal2, LinkedList::new);
 
@@ -195,7 +214,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToCollection_LinkedListToTreeSet_ObjectsFromTheLinkedListHaveBeenMappedToTheHashSet() {
-        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(biValHolder1, biValHolder2));
 
         Set<String> mappedObjects = mapToCollection(testObjects, BiValHolder::getVal2, HashSet::new);
 
@@ -239,7 +258,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToArray_ListWithObjects_ObjectsMappedToTheArray() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         String[] mappedObjects = mapToArray(testObjects, BiValHolder::getVal2, String[]::new);
 
@@ -248,7 +267,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToArray_SetWithObjects_ObjectsMappedToTheArray() {
-        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(testObject1, testObject2));
+        Set<BiValHolder<String, String>> testObjects = new HashSet<>(asList(biValHolder1, biValHolder2));
 
         String[] mappedObjects = mapToArray(testObjects, BiValHolder::getVal2, String[]::new);
 
@@ -280,30 +299,30 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_OneObjectAndValidMappers_ObjectHasBeenMappedToMapAccordingToMappers() {
-        List<BiValHolder<String, String>> testObjects = singletonList(testObject1);
+        List<BiValHolder<String, String>> testObjects = singletonList(biValHolder1);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
 
-        assertThat(actualMap).containsOnly(new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2()));
+        assertThat(actualMap).containsOnly(new SimpleEntry<>(biValHolder1.getVal1(), biValHolder1.getVal2()));
     }
 
     @Test
     public void mapToMap_TwoObjectsAndValidMappers_ObjectsHasBeenMappedToMapAccordingToMappers() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
 
         assertThat(actualMap)
-                .containsOnly(new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2()),
-                        new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2()));
+                .containsOnly(new SimpleEntry<>(biValHolder1.getVal1(), biValHolder1.getVal2()),
+                        new SimpleEntry<>(biValHolder2.getVal1(), biValHolder2.getVal2()));
     }
 
     @Test(expected = IllegalStateException.class)
     public void mapToMap_DuplicateKey_IllegalStateExceptionHasBeenThrown() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_1, VAL_2);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_1, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3);
 
         mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
     }
@@ -336,49 +355,49 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MergeFunctionAndOneDuplicate_ObjectsHaveBeenMappedToMapAccordingToMappersAndDuplicatesMerged() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3);
 
         Map<String, String> actualMap = mapToMap(testObjects,
                 BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge);
 
-        SimpleEntry<String, String> mergedEntry = new SimpleEntry<>(testObject1.getVal1(),
-                format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
-        SimpleEntry<String, String> uniqueEntry = new SimpleEntry<>(testObject3.getVal1(), testObject3.getVal2());
+        SimpleEntry<String, String> mergedEntry = new SimpleEntry<>(biValHolder1.getVal1(),
+                format("%s;%s", biValHolder1.getVal2(), biValHolder2.getVal2()));
+        SimpleEntry<String, String> uniqueEntry = new SimpleEntry<>(biValHolder3.getVal1(), biValHolder3.getVal2());
         assertThat(actualMap).containsOnly(mergedEntry, uniqueEntry);
     }
 
     @Test
     public void mapToMap_MergeFunctionAndOnlyDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappersAndAllMerged() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        testObject4 = new BiValHolder<>(KEY_2, VAL_2);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
+        biValHolder4 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
                 BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge);
 
-        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getVal1(),
-                format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
-        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(testObject3.getVal1(),
-                format("%s;%s", testObject3.getVal2(), testObject4.getVal2()));
+        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(biValHolder1.getVal1(),
+                format("%s;%s", biValHolder1.getVal2(), biValHolder2.getVal2()));
+        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(biValHolder3.getVal1(),
+                format("%s;%s", biValHolder3.getVal2(), biValHolder4.getVal2()));
         assertThat(actualMap).containsOnly(mergedEntry1, mergedEntry2);
     }
 
     @Test
     public void mapToMap_NoDuplicates_ObjectsHaveBeenMappedToMapAccordingToMappers() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_2, VAL_2);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2,
                 this::testMerge);
 
-        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
-        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
+        SimpleEntry<String, String> entry1 = new SimpleEntry<>(biValHolder1.getVal1(), biValHolder1.getVal2());
+        SimpleEntry<String, String> entry2 = new SimpleEntry<>(biValHolder2.getVal1(), biValHolder2.getVal2());
         assertThat(actualMap).containsOnly(entry1, entry2);
     }
 
@@ -410,32 +429,32 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MapSupplierWithMergeFunction_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Map<String, String> actualMap = mapToMap(testObjects,
                 BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, HashMap::new);
 
-        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
-        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
+        SimpleEntry<String, String> entry1 = new SimpleEntry<>(biValHolder1.getVal1(), biValHolder1.getVal2());
+        SimpleEntry<String, String> entry2 = new SimpleEntry<>(biValHolder2.getVal1(), biValHolder2.getVal2());
         assertThat(actualMap.getClass().isAssignableFrom(HashMap.class));
         assertThat(actualMap).containsOnly(entry1, entry2);
     }
 
     @Test
     public void mapToMap_MapSupplierWithMergeFunctionAndOnlyDuplicates_DuplicatesHaveBeenHandledAndAddedToGivenMap() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        testObject4 = new BiValHolder<>(KEY_2, VAL_2);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
+        biValHolder4 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
 
         Map<String, String> actualMap = mapToMap(testObjects,
                 BiValHolder::getVal1, BiValHolder::getVal2, this::testMerge, HashMap::new);
 
-        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(testObject1.getVal1(),
-                format("%s;%s", testObject1.getVal2(), testObject2.getVal2()));
-        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(testObject3.getVal1(),
-                format("%s;%s", testObject3.getVal2(), testObject4.getVal2()));
+        SimpleEntry<String, String> mergedEntry1 = new SimpleEntry<>(biValHolder1.getVal1(),
+                format("%s;%s", biValHolder1.getVal2(), biValHolder2.getVal2()));
+        SimpleEntry<String, String> mergedEntry2 = new SimpleEntry<>(biValHolder3.getVal1(),
+                format("%s;%s", biValHolder3.getVal2(), biValHolder4.getVal2()));
         assertThat(actualMap).containsOnly(mergedEntry1, mergedEntry2);
     }
 
@@ -474,13 +493,13 @@ public class CollectionUtilsTest {
 
     @Test
     public void mapToMap_MapSupplier_MapProvidedBySupplierHasBeenFilledWithNewObjects() {
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2,
                 (Supplier<HashMap<String, String>>) HashMap::new);
 
-        SimpleEntry<String, String> entry1 = new SimpleEntry<>(testObject1.getVal1(), testObject1.getVal2());
-        SimpleEntry<String, String> entry2 = new SimpleEntry<>(testObject2.getVal1(), testObject2.getVal2());
+        SimpleEntry<String, String> entry1 = new SimpleEntry<>(biValHolder1.getVal1(), biValHolder1.getVal2());
+        SimpleEntry<String, String> entry2 = new SimpleEntry<>(biValHolder2.getVal1(), biValHolder2.getVal2());
         assertThat(actualMap.getClass().isAssignableFrom(HashMap.class));
         assertThat(actualMap).containsOnly(entry1, entry2);
     }
@@ -523,32 +542,32 @@ public class CollectionUtilsTest {
     @Test
     @SuppressWarnings("unchecked")
     public void groupingBy_ClassifierWithTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_2, VAL_1);
-        testObject4 = new BiValHolder<>(KEY_2, VAL_2);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
+        biValHolder4 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
 
         Map<String, List<BiValHolder<String, String>>> groupedValues = groupingBy(testObjects, BiValHolder::getVal1);
 
         assertThat(groupedValues).hasSize(2);
-        assertThat(groupedValues.get(KEY_1)).containsOnly(testObject1, testObject2);
-        assertThat(groupedValues.get(KEY_2)).containsOnly(testObject3, testObject4);
+        assertThat(groupedValues.get(KEY_1)).containsOnly(biValHolder1, biValHolder2);
+        assertThat(groupedValues.get(KEY_2)).containsOnly(biValHolder3, biValHolder4);
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void groupingBy_ClassifierWithOneKeyAndFourValues_MapWithOneKeyAndFourValuesHasBeenCreated() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_1, VAL_3);
-        testObject4 = new BiValHolder<>(KEY_1, VAL_4);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_1, VAL_3);
+        biValHolder4 = new BiValHolder<>(KEY_1, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
 
         Map<String, List<BiValHolder<String, String>>> groupedValues = groupingBy(testObjects, BiValHolder::getVal1);
 
         assertThat(groupedValues).hasSize(1);
-        assertThat(groupedValues.get(KEY_1)).containsOnly(testObject1, testObject2, testObject3, testObject4);
+        assertThat(groupedValues.get(KEY_1)).containsOnly(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
     }
 
     @Test
@@ -563,9 +582,9 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_DownstreamCaseWithOneKeyAndTwoValues_OneKeyWithListsOfTwoElementsHasBeenCreated() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Map<String, List<String>> actualMap =
                 groupingBy(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
@@ -576,11 +595,11 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_DownstreamCaseWithTwoKeysAndTwoValuesPerEach_TwoKeysWithListsOfTwoElementsHaveBeenCreated() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_2, VAL_3);
-        testObject4 = new BiValHolder<>(KEY_2, VAL_4);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_3);
+        biValHolder4 = new BiValHolder<>(KEY_2, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
 
         Map<String, List<String>> actualMap =
                 groupingBy(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
@@ -592,11 +611,11 @@ public class CollectionUtilsTest {
 
     @Test
     public void groupingBy_DownstreamCaseWithOneKeyAndFourValues_OneKeyWithListsOfFourElementsHasBeenCreated() {
-        testObject1 = new BiValHolder<>(KEY_1, VAL_1);
-        testObject2 = new BiValHolder<>(KEY_1, VAL_2);
-        testObject3 = new BiValHolder<>(KEY_1, VAL_3);
-        testObject4 = new BiValHolder<>(KEY_1, VAL_4);
-        List<BiValHolder<String, String>> testObjects = asList(testObject1, testObject2, testObject3, testObject4);
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_1, VAL_3);
+        biValHolder4 = new BiValHolder<>(KEY_1, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
 
         Map<String, List<String>> actualMap =
                 groupingBy(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
