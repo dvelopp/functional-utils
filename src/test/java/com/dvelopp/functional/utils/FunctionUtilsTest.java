@@ -63,7 +63,7 @@ public class FunctionUtilsTest {
 
     @Test(expected = NullPointerException.class)
     public void with_NullClosure_NPEHasBeenThrown() {
-        with(mock(Testee.class), new Consumer[]{null});
+        with(mock(Testee.class), null, new Consumer[]{null});
     }
 
     @Test(expected = NullPointerException.class)

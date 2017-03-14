@@ -53,7 +53,7 @@ public final class FunctionUtils {
      * @param <T>      The object type.
      * @return The modified object.
      */
-    public static <T> T with(T self, Consumer<T>... closures) {
+    public static <T> T with(T self, Consumer<T> closure, Consumer<T>... closures) {
         requireNonNull(self, closures);
         if (closures.length == 0) {
             throw new NullPointerException();
