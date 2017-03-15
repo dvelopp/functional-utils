@@ -98,6 +98,7 @@ public final class CollectionUtils {
         forEachWithArray(action, firstArg, secondArg, array);
     }
 
+    @SafeVarargs
     public static <T, R1, R2> void forEach(TriConsumer<? super T, R1, R2> action,
                                            R1 firstArg, R2 secondArg, T ... array) {
         forEachWithArray(action, firstArg, secondArg, array);
