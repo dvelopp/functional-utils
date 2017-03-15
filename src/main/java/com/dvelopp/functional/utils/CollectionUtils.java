@@ -98,6 +98,11 @@ public final class CollectionUtils {
         forEachWithArray(action, firstArg, secondArg, array);
     }
 
+    public static <T, R1, R2> void forEach(TriConsumer<? super T, R1, R2> action,
+                                           R1 firstArg, R2 secondArg, T ... array) {
+        forEachWithArray(action, firstArg, secondArg, array);
+    }
+
     /**
      * Returns a list consisting of the results of applying the given function to the elements of the given collection.
      *
