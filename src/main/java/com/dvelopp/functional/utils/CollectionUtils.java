@@ -72,7 +72,7 @@ public final class CollectionUtils {
      * @param <R>    The argument type.
      */
     @SafeVarargs
-    public static <T, R> void forEach(BiConsumer<? super T, R> action, R arg, T ... array) {
+    public static <T, R> void forEach(BiConsumer<? super T, R> action, R arg, T... array) {
         forEachWithArray(action, arg, array);
     }
 
@@ -81,27 +81,67 @@ public final class CollectionUtils {
         Stream.of(array).forEach(consumer(action, arg));
     }
 
-    private static <T, R1, R2> void forEachWithArray(TriConsumer<? super T, R1, R2> action,
-                                                     R1 firstArg, R2 secondArg, T[] array) {
-        requireNonNull(array, action);
-        Stream.of(array).forEach(consumer(action, firstArg, secondArg));
-    }
 
+    /**
+     * For each loop that consumes TriConsumer function.
+     * That is made to provide default for each statement with ability to have two additional arguments to the function
+     * in order to allow developers to implement such cases in functional style.
+     *
+     * @param collection The collection to iterated over(elements of the collections are the first argument)
+     * @param action     The action to be performed for each element.
+     * @param firstArg   The argument that is considered second argument in the function.
+     * @param secondArg  The argument that is considered third argument in the function.
+     * @param <T>        The elements type for collection.
+     * @param <R1>       The first argument type. (second logical argument)
+     * @param <R2>       The second argument type. (third logical argument)
+     */
     public static <T, R1, R2> void forEach(Collection<T> collection, TriConsumer<? super T, R1, R2> action,
                                            R1 firstArg, R2 secondArg) {
         requireNonNull(collection, action);
         collection.forEach(consumer(action, firstArg, secondArg));
     }
 
+    /**
+     * For each loop that consumes TriConsumer function.
+     * That is made to provide default for each statement with ability to have two additional arguments to the function
+     * in order to allow developers to implement such cases in functional style.
+     *
+     * @param array     The array to iterated over. (elements of the array are the first argument)
+     * @param action    The action to be performed for each element.
+     * @param firstArg  The argument that is considered second argument in the function.
+     * @param secondArg The argument that is considered third argument in the function.
+     * @param <T>       The elements type for collection.
+     * @param <R1>      The first argument type. (second logical argument)
+     * @param <R2>      The second argument type. (third logical argument)
+     */
     public static <T, R1, R2> void forEach(T[] array, TriConsumer<? super T, R1, R2> action,
                                            R1 firstArg, R2 secondArg) {
         forEachWithArray(action, firstArg, secondArg, array);
     }
 
+    /**
+     * For each loop that consumes TriConsumer function and varargs way to specify an array.
+     * That is made to provide default for each statement with ability to have two additional arguments to the function
+     * in order to allow developers to implement such cases in functional style.
+     *
+     * @param array     The array to iterated over. (elements of the array are the first argument)
+     * @param action    The action to be performed for each element.
+     * @param firstArg  The argument that is considered second argument in the function.
+     * @param secondArg The argument that is considered third argument in the function.
+     * @param <T>       The elements type for collection.
+     * @param <R1>      The first argument type. (second logical argument)
+     * @param <R2>      The second argument type. (third logical argument)
+     */
     @SafeVarargs
     public static <T, R1, R2> void forEach(TriConsumer<? super T, R1, R2> action,
-                                           R1 firstArg, R2 secondArg, T ... array) {
+                                           R1 firstArg, R2 secondArg, T... array) {
         forEachWithArray(action, firstArg, secondArg, array);
+    }
+
+    private static <T, R1, R2> void forEachWithArray(TriConsumer<? super T, R1, R2> action,
+                                                     R1 firstArg, R2 secondArg, T[] array) {
+        requireNonNull(array, action);
+        Stream.of(array).forEach(consumer(action, firstArg, secondArg));
     }
 
     /**
