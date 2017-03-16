@@ -45,7 +45,7 @@ public class CollectionUtilsTest {
     private final List<BiValHolder<String, String>> nullBiValList = null;
 
     @Test
-    public void forEach_ChangeElementState_StateWasChangedForAllElements() {
+    public void forEach_BiConsumerWithCollectionChangeElementState_StateWasChangedForAllElements() {
         List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
         String expectedNewValue = "expectedNewValue";
 
@@ -56,9 +56,8 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void forEach_ChangeElementState_StateWasChangedForAllElements2() {
+    public void forEach_TriConsumerWithCollectionChangeElementStateCase_StateWasChangedForAllElements() {
         List<TriValHolder<String, String, String >> testObjects = asList(triValHolder1, triValHolder2);
-        String expectedNewValue = "expectedNewValue";
 
         forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2) , "test1", "test2");
         forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3) , "test3", "test4");
@@ -66,11 +65,10 @@ public class CollectionUtilsTest {
 
         testObjects.forEach(o->{
             assertThat(o.getVal1()).isEqualTo("test1");
-            assertThat(o.getVal2()).isEqualTo("test3");
+            assertThat(o.getVal2()).isEqualTo("test4");
             assertThat(o.getVal3()).isEqualTo("test");
         });
     }
-
 
     @Test
     public void mapToList_ListWithObjects_ObjectsMappedToTheList() {

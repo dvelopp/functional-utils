@@ -81,7 +81,6 @@ public final class CollectionUtils {
         Stream.of(array).forEach(consumer(action, arg));
     }
 
-
     /**
      * For each loop that consumes TriConsumer function.
      * That is made to provide default for each statement with ability to have two additional arguments to the function
