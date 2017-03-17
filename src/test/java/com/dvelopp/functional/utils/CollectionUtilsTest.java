@@ -66,6 +66,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("Duplicates")
     public void forEach_TriConsumerWithArrayChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
@@ -77,6 +78,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("Duplicates")
     public void forEach_TriConsumerWithVarArgsChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
