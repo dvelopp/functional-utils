@@ -682,8 +682,8 @@ public class CollectionUtilsTest {
         groupingBy(validBiValList, BiValHolder::getVal1, nullDownstream);
     }
 
-    private String testMerge(String o1, String o2) {
-        return o1 + ";" + o2;
+    private String testMerge(String firstArgument, String secondArgument) {
+        return firstArgument + ";" + secondArgument;
     }
 
 }
