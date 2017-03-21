@@ -15,6 +15,7 @@ import java.util.stream.Collector;
 import static com.dvelopp.functional.utils.CollectionUtils.*;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static java.util.function.Function.identity;
@@ -90,7 +91,7 @@ public class CollectionUtilsTest {
     }
 
     private void assertValuesChangedForTriConsumer(TriValHolder[] testObjects) {
-        Arrays.stream(testObjects).forEach(o -> {
+        stream(testObjects).forEach(o -> {
             assertThat(o.getVal1()).isEqualTo("test1");
             assertThat(o.getVal2()).isEqualTo("test4");
             assertThat(o.getVal3()).isEqualTo("test");
