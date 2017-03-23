@@ -35,6 +35,9 @@ public class CollectionUtilsTest {
     private static final String VAL_2 = "VAL_2";
     private static final String VAL_3 = "VAL_3";
     private static final String VAL_4 = "VAL_4";
+    private static final String VAL_5 = "VAL_5";
+    private static final String VAL_6 = "VAL_6";
+    private static final String VAL_7 = "VAL_7";
 
     private BiValHolder<String, String> biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
     private BiValHolder<String, String> biValHolder2 = new BiValHolder<>(KEY_2, VAL_2);
@@ -60,9 +63,9 @@ public class CollectionUtilsTest {
     public void forEach_TriConsumerWithCollectionChangeElementStateCase_StateWasChangedForAllElements() {
         List<TriValHolder<String, String, String>> testObjects = asList(triValHolder1, triValHolder2);
 
-        forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2), "test1", "test2");
-        forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3), "test3", "test4");
-        forEach(testObjects, (o1, o2, o3) -> o1.setVal3("test"), "test5", "test6");
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2), VAL_1, VAL_2);
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3), VAL_3, VAL_4);
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal3(VAL_5), VAL_6, VAL_7);
         assertValuesChangedForTriConsumer((TriValHolder[]) testObjects.toArray());
     }
 
@@ -71,9 +74,9 @@ public class CollectionUtilsTest {
     public void forEach_TriConsumerWithArrayChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
-        forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2), "test1", "test2");
-        forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3), "test3", "test4");
-        forEach(testObjects, (o1, o2, o3) -> o1.setVal3("test"), "test5", "test6");
+        forEach(testObjects, (o1, o2, o3) ->  o1.setVal1(o2), VAL_1, VAL_2);
+        forEach(testObjects, (o1, o2, o3) ->  o1.setVal2(o3), VAL_3, VAL_4);
+        forEach(testObjects, (o1, o2, o3) ->  o1.setVal3(VAL_5), VAL_6, VAL_7);
 
         assertValuesChangedForTriConsumer(testObjects);
     }
@@ -83,18 +86,18 @@ public class CollectionUtilsTest {
     public void forEach_TriConsumerWithVarArgsChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
-        forEach((o1, o2, o3) -> o1.setVal1(o2), "test1", "test2", testObjects);
-        forEach((o1, o2, o3) -> o1.setVal2(o3), "test3", "test4", testObjects);
-        forEach((o1, o2, o3) -> o1.setVal3("test"), "test5", "test6", testObjects);
+        forEach((o1, o2, o3) ->  o1.setVal1(o2), VAL_1, VAL_2,testObjects);
+        forEach((o1, o2, o3) ->  o1.setVal2(o3), VAL_3, VAL_4,testObjects);
+        forEach((o1, o2, o3) ->  o1.setVal3(VAL_5), VAL_6, VAL_7,testObjects);
 
         assertValuesChangedForTriConsumer(testObjects);
     }
 
     private void assertValuesChangedForTriConsumer(TriValHolder[] testObjects) {
         stream(testObjects).forEach(o -> {
-            assertThat(o.getVal1()).isEqualTo("test1");
-            assertThat(o.getVal2()).isEqualTo("test4");
-            assertThat(o.getVal3()).isEqualTo("test");
+            assertThat(o.getVal1()).isEqualTo(VAL_1);
+            assertThat(o.getVal2()).isEqualTo(VAL_4);
+            assertThat(o.getVal3()).isEqualTo(VAL_5);
         });
     }
 
