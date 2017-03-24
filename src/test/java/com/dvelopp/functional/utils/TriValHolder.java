@@ -13,9 +13,6 @@ public final class TriValHolder<T, K, R> {
     private K val2;
     private R val3;
 
-    public TriValHolder() {
-    }
-
     public TriValHolder(T val1, K val2, R val3) {
         this.val1 = val1;
         this.val2 = val2;
