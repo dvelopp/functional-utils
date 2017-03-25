@@ -433,6 +433,40 @@ public final class CollectionUtils {
     }
 
     /**
+     * Concurrent implementation of {@link this#groupingBy(Collection, Function)} method.
+     *
+     * @param collection The source collection.
+     * @param classifier The classifier function to apply to each element to get a key.
+     * @param <T>        The source and target inner collection elements type.
+     * @param <K>        The target map keys type.
+     * @return the new map containing mapped key/value pairs of grouped result.
+     */
+    public static <T, K> Map<K, List<T>> groupingByConcurrent(Collection<T> collection,
+                                                    Function<? super T, ? extends K> classifier) {
+        requireNonNull(collection, classifier);
+        return collection.stream().collect(Collectors.groupingByConcurrent(classifier));
+    }
+
+    /**
+     * Concurrent implementation of {@link this#groupingBy(Collection, Function, Collector)} method.
+     *
+     * @param collection The source collection.
+     * @param classifier The classifier function to apply to each element to get a key.
+     * @param downstream The collector to map collection in the value.
+     * @param <T>        The source and target inner collection elements type.
+     * @param <K>        The target map keys type.
+     * @param <A>        The intermediate accumulation type of the downstream collector.
+     * @param <D>        The result type of the downstream reduction.
+     * @return the new map containing mapped key/value pairs of grouped result after reduction.
+     */
+    public static <T, K, A, D> Map<K, D> groupingByConcurrent(Collection<T> collection,
+                                                    Function<? super T, ? extends K> classifier,
+                                                    Collector<? super T, A, D> downstream) {
+        requireNonNull(collection, classifier, downstream);
+        return collection.stream().collect(Collectors.groupingByConcurrent(classifier, downstream));
+    }
+
+    /**
      * Copy of {@link Collectors#throwingMerger()}. Since original method has private access level and can't be accessed
      * outside the class.
      * <p>
