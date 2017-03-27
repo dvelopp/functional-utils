@@ -5,9 +5,10 @@ package com.dvelopp.functional.utils.interfaces;
  * of the same type as the operands.  This is a specialization of
  * {@link TriFunction} for the case where the operands and the result are all of
  * the same type.
- * @param <T>
+ *
+ * @param <T> the type of the operands and result of the operator.
  */
 @FunctionalInterface
-public interface TriOperator<T> extends TriFunction<T,T,T,T> {
+public interface TriOperator<T> extends TriFunction<T, T, T, T> {
 
 }
