@@ -567,6 +567,7 @@ public class CollectionUtilsTest {
         Map<String, List<BiValHolder<String, String>>> actualMap = groupingBy(testObjects, BiValHolder::getVal1);
 
         assertThat(actualMap).isEmpty();
+        assertThat(actualMap).isInstanceOf(HashMap.class);
     }
 
     @Test
@@ -583,6 +584,7 @@ public class CollectionUtilsTest {
         assertThat(groupedValues).hasSize(2);
         assertThat(groupedValues.get(KEY_1)).containsOnly(biValHolder1, biValHolder2);
         assertThat(groupedValues.get(KEY_2)).containsOnly(biValHolder3, biValHolder4);
+        assertThat(groupedValues).isInstanceOf(HashMap.class);
     }
 
     @Test
@@ -598,6 +600,7 @@ public class CollectionUtilsTest {
 
         assertThat(groupedValues).hasSize(1);
         assertThat(groupedValues.get(KEY_1)).containsOnly(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
+        assertThat(groupedValues).isInstanceOf(HashMap.class);
     }
 
     @Test
@@ -608,6 +611,7 @@ public class CollectionUtilsTest {
                 groupingBy(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
 
         assertThat(actualMap).isEmpty();
+        assertThat(actualMap).isInstanceOf(HashMap.class);
     }
 
     @Test
@@ -621,6 +625,7 @@ public class CollectionUtilsTest {
 
         assertThat(actualMap).hasSize(1);
         assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2);
+        assertThat(actualMap).isInstanceOf(HashMap.class);
     }
 
     @Test
@@ -637,6 +642,7 @@ public class CollectionUtilsTest {
         assertThat(actualMap).hasSize(2);
         assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2);
         assertThat(actualMap.get(KEY_2)).containsOnly(VAL_3, VAL_4);
+        assertThat(actualMap).isInstanceOf(HashMap.class);
     }
 
     @Test
@@ -652,6 +658,7 @@ public class CollectionUtilsTest {
 
         assertThat(actualMap).hasSize(1);
         assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2, VAL_3, VAL_4);
+        assertThat(actualMap).isInstanceOf(HashMap.class);
     }
 
     @Test(expected = NullPointerException.class)
