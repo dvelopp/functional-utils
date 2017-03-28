@@ -6,6 +6,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
@@ -74,9 +75,9 @@ public class CollectionUtilsTest {
     public void forEach_TriConsumerWithArrayChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
-        forEach(testObjects, (o1, o2, o3) ->  o1.setVal1(o2), VAL_1, VAL_2);
-        forEach(testObjects, (o1, o2, o3) ->  o1.setVal2(o3), VAL_3, VAL_4);
-        forEach(testObjects, (o1, o2, o3) ->  o1.setVal3(VAL_5), VAL_6, VAL_7);
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2), VAL_1, VAL_2);
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3), VAL_3, VAL_4);
+        forEach(testObjects, (o1, o2, o3) -> o1.setVal3(VAL_5), VAL_6, VAL_7);
 
         assertValuesChangedForTriConsumer(testObjects);
     }
@@ -86,9 +87,9 @@ public class CollectionUtilsTest {
     public void forEach_TriConsumerWithVarArgsChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
-        forEach((o1, o2, o3) ->  o1.setVal1(o2), VAL_1, VAL_2,testObjects);
-        forEach((o1, o2, o3) ->  o1.setVal2(o3), VAL_3, VAL_4,testObjects);
-        forEach((o1, o2, o3) ->  o1.setVal3(VAL_5), VAL_6, VAL_7,testObjects);
+        forEach((o1, o2, o3) -> o1.setVal1(o2), VAL_1, VAL_2, testObjects);
+        forEach((o1, o2, o3) -> o1.setVal2(o3), VAL_3, VAL_4, testObjects);
+        forEach((o1, o2, o3) -> o1.setVal3(VAL_5), VAL_6, VAL_7, testObjects);
 
         assertValuesChangedForTriConsumer(testObjects);
     }
@@ -684,6 +685,143 @@ public class CollectionUtilsTest {
         Collector<? super BiValHolder<String, String>, Object, Object> nullDownstream = null;
 
         groupingBy(validBiValList, BiValHolder::getVal1, nullDownstream);
+    }
+
+    @Test
+    public void groupingByConcurrent_ClassifierWithEmptyList_EmptyMapHasBeenCreated() {
+        List<BiValHolder<String, String>> testObjects = emptyList();
+
+        Map<String, List<BiValHolder<String, String>>> actualMap
+                = groupingByConcurrent(testObjects, BiValHolder::getVal1);
+
+        assertThat(actualMap).isEmpty();
+        assertThat(actualMap).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void groupingByConcurrent_ClassifierWithTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
+        biValHolder4 = new BiValHolder<>(KEY_2, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
+
+        Map<String, List<BiValHolder<String, String>>> groupedValues =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1);
+
+        assertThat(groupedValues).hasSize(2);
+        assertThat(groupedValues.get(KEY_1)).containsOnly(biValHolder1, biValHolder2);
+        assertThat(groupedValues.get(KEY_2)).containsOnly(biValHolder3, biValHolder4);
+        assertThat(groupedValues).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void groupingByConcurrent_ClassifierWithOneKeyAndFourValues_MapWithOneKeyAndFourValuesHasBeenCreated() {
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_1, VAL_3);
+        biValHolder4 = new BiValHolder<>(KEY_1, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
+
+        Map<String, List<BiValHolder<String, String>>> groupedValues =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1);
+
+        assertThat(groupedValues).hasSize(1);
+        assertThat(groupedValues.get(KEY_1)).containsOnly(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
+        assertThat(groupedValues).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    public void groupingByConcurrent_DownstreamCaseWithEmptyList_EmptyMapHasBeenCreated() {
+        List<BiValHolder<String, String>> testObjects = emptyList();
+
+        Map<String, List<String>> actualMap =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
+
+        assertThat(actualMap).isEmpty();
+        assertThat(actualMap).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    public void groupingByConcurrent_DownstreamCaseWithOneKeyAndTwoValues_OneKeyWithListsOfTwoElementsHasBeenCreated() {
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
+
+        Map<String, List<String>> actualMap =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
+
+        assertThat(actualMap).hasSize(1);
+        assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2);
+        assertThat(actualMap).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    public void groupingByConcurrent_DownstreamCaseWithTwoKeysAndTwoValuesPerEach_TwoKeysWithListsOfTwoElementsHaveBeenCreated() {
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_2, VAL_3);
+        biValHolder4 = new BiValHolder<>(KEY_2, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
+
+        Map<String, List<String>> actualMap =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
+
+        assertThat(actualMap).hasSize(2);
+        assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2);
+        assertThat(actualMap.get(KEY_2)).containsOnly(VAL_3, VAL_4);
+        assertThat(actualMap).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    public void groupingByConcurrent_DownstreamCaseWithOneKeyAndFourValues_OneKeyWithListsOfFourElementsHasBeenCreated() {
+        biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
+        biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
+        biValHolder3 = new BiValHolder<>(KEY_1, VAL_3);
+        biValHolder4 = new BiValHolder<>(KEY_1, VAL_4);
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2, biValHolder3, biValHolder4);
+
+        Map<String, List<String>> actualMap =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1, mapping(BiValHolder::getVal2, toList()));
+
+        assertThat(actualMap).hasSize(1);
+        assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2, VAL_3, VAL_4);
+        assertThat(actualMap).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void groupingByConcurrent_ClassifierCaseWithNullCollection_NPEHasBeenThrown() {
+        final Collection<BiValHolder<String, String>> nullCollection = null;
+
+        groupingByConcurrent(nullCollection, BiValHolder::getVal1);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void groupingByConcurrent_ClassifierCaseWithNullClassifier_NPEHasBeenThrown() {
+        Function<? super BiValHolder<String, String>, ?> nullClassifier = null;
+
+        groupingByConcurrent(validBiValList, nullClassifier);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void groupingByConcurrent_DownstreamCaseWithNullCollection_NPEHasBeenThrown() {
+        groupingByConcurrent(nullBiValList, BiValHolder::getVal1, mapping(identity(), toList()));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void groupingByConcurrent_DownstreamCaseWithNullClassifier_NPEHasBeenThrown() {
+        Function<? super BiValHolder<String, String>, ?> nullClassifier = null;
+
+        groupingByConcurrent(validBiValList, nullClassifier, mapping(identity(), toList()));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void groupingByConcurrent_DownstreamCaseWithNullDownstream_NPEHasBeenThrown() {
+        Collector<? super BiValHolder<String, String>, Object, Object> nullDownstream = null;
+
+        groupingByConcurrent(validBiValList, BiValHolder::getVal1, nullDownstream);
     }
 
     private String testMerge(String firstArgument, String secondArgument) {
