@@ -337,7 +337,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void mapToMap_TwoObjectsAndValidMappers_ObjectsHasBeenMappedToMapAccordingToMappers() {
+    public void mapToMap_2ObjectsAndValidMappers_ObjectsHasBeenMappedToMapAccordingToMappers() {
         List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
 
         Map<String, String> actualMap = mapToMap(testObjects, BiValHolder::getVal1, BiValHolder::getVal2);
@@ -572,7 +572,7 @@ public class CollectionUtilsTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void groupingBy_ClassifierWithTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
+    public void groupingBy_ClassifierWith2Keys2ValuesPerEach_MapWith2KeysAnd2ValuesForEachHasBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
@@ -615,7 +615,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void groupingBy_DownstreamCaseWithOneKeyAndTwoValues_OneKeyWithListsOfTwoElementsHasBeenCreated() {
+    public void groupingBy_DownstreamCaseWithOneKeyAnd2Values_OneKeyWithListsOf2ElementsHasBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
@@ -629,7 +629,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void groupingBy_DownstreamCaseWithTwoKeysAndTwoValuesPerEach_TwoKeysWithListsOfTwoElementsHaveBeenCreated() {
+    public void groupingBy_DownstreamCaseWith2KeysAnd2ValuesPerEach_2KeysWithListsOf2ElementsHaveBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         biValHolder3 = new BiValHolder<>(KEY_2, VAL_3);
@@ -707,7 +707,7 @@ public class CollectionUtilsTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void groupingByConcurrent_ClassifierWithTwoKeysTwoValuesPerEach_MapWithTwoKeysAndTwoValuesForEachHasBeenCreated() {
+    public void groupingByConcurrent_ClassifierWith2Keys2ValuesPerEach_MapWith2KeysAnd2ValuesForEachHasBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         biValHolder3 = new BiValHolder<>(KEY_2, VAL_1);
@@ -752,7 +752,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void groupingByConcurrent_DownstreamCaseWithOneKeyAndTwoValues_OneKeyWithListsOfTwoElementsHasBeenCreated() {
+    public void groupingByConcurrent_DownstreamCaseWithOneKeyAnd2Values_1KeyWithListsOf2ElementsHasBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
@@ -766,7 +766,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void groupingByConcurrent_DownstreamCaseWithTwoKeysAndTwoValuesPerEach_TwoKeysWithListsOfTwoElementsHaveBeenCreated() {
+    public void groupingByConcurrent_DownstreamCaseWith2KeysAnd2ValuesPerEach_2KeysWith2ElementsListsHaveBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         biValHolder3 = new BiValHolder<>(KEY_2, VAL_3);
@@ -783,7 +783,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void groupingByConcurrent_DownstreamCaseWithOneKeyAndFourValues_OneKeyWithListsOfFourElementsHasBeenCreated() {
+    public void groupingByConcurrent_DownstreamCaseWith1KeyAnd4Values_1KeyWithListsOfFourElementsHasBeenCreated() {
         biValHolder1 = new BiValHolder<>(KEY_1, VAL_1);
         biValHolder2 = new BiValHolder<>(KEY_1, VAL_2);
         biValHolder3 = new BiValHolder<>(KEY_1, VAL_3);
