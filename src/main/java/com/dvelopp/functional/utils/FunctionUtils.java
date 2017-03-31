@@ -23,7 +23,7 @@ public final class FunctionUtils {
      * Negate given predicate.
      *
      * @param predicate The predicate to negated.
-     * @param <T>       The predicate type.
+     * @param <T>       The argument type for predicate.
      * @return The negated predicate.
      */
     public static <T> Predicate<T> not(Predicate<T> predicate) {
