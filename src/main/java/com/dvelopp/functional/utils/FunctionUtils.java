@@ -2,10 +2,14 @@ package com.dvelopp.functional.utils;
 
 import com.dvelopp.functional.utils.interfaces.TriConsumer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.*;
 
 import static com.dvelopp.functional.utils.CollectionUtils.forEach;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
+import static java.util.Arrays.asList;
 
 /**
  * Contains utils connected to the java.util.function package.
@@ -54,11 +58,14 @@ public final class FunctionUtils {
      * @return The modified object.
      */
     public static <T> T with(T self, Consumer<T> closure, Consumer<T>... closures) {
+        List<Consumer<T>> allClosures = new ArrayList<>();
+        allClosures.add(closure);
+        allClosures.addAll(asList(closures));
         requireNonNull(self, closures);
         if (closures.length == 0) {
             throw new NullPointerException();
         }
-        forEach(closures, Consumer::accept, self);
+        forEach(allClosures, Consumer::accept, self);
         return self;
     }
 
