@@ -3,7 +3,6 @@ package com.dvelopp.functional.utils;
 import com.dvelopp.functional.utils.interfaces.TriConsumer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.*;
 
