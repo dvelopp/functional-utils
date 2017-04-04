@@ -43,7 +43,7 @@ public final class ObjectUtils {
         for (Map.Entry<T, String> entry : notNullCheckMap.entrySet()) {
             Objects.requireNonNull(entry.getKey(), entry.getValue());
         }
-        return notNullCheckMap.keySet().stream().collect(toList());
+        return new ArrayList<>(notNullCheckMap.keySet());
     }
 
     @SafeVarargs
@@ -54,7 +54,7 @@ public final class ObjectUtils {
         if (otherObjectsToCheck != null && otherObjectsToCheck.length > 0) {
             allObjects.addAll(asList(otherObjectsToCheck));
         }
-        return (T[]) requireNonNull(allObjects).stream().map(identity()).toArray(Object[]::new);
+        return (T[]) requireNonNull(allObjects).toArray();
     }
 
     @SafeVarargs
