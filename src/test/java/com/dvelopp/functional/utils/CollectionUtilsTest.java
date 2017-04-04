@@ -46,8 +46,8 @@ public class CollectionUtilsTest {
     private BiValHolder<String, String> biValHolder4 = new BiValHolder<>(KEY_4, VAL_4);
     private TriValHolder<String, String, String> triValHolder1 = new TriValHolder<>(KEY_1, VAL_1, VAL_2);
     private TriValHolder<String, String, String> triValHolder2 = new TriValHolder<>(KEY_1, VAL_2, VAL_3);
-    private final List<BiValHolder<String, String>> validBiValList = new ArrayList<>();
-    private final List<BiValHolder<String, String>> nullBiValList = null;
+    private List<BiValHolder<String, String>> validBiValList = new ArrayList<>();
+    private List<BiValHolder<String, String>> nullBiValList = null;
 
     @Test
     public void forEach_BiConsumerWithCollectionChangeElementState_StateWasChangedForAllElements() {
