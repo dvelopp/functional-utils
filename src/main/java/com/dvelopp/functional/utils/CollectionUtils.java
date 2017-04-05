@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -472,6 +473,13 @@ public final class CollectionUtils {
                                                               Collector<? super T, A, D> downstream) {
         requireNonNull(collection, classifier, downstream);
         return collection.stream().collect(Collectors.groupingByConcurrent(classifier, downstream));
+    }
+
+    public static <T, K, A, D, M extends ConcurrentMap<K, D>> Map<K, D> groupingByConcurrent(
+            Collection<T> collection, Function<? super T, ? extends K> classifier,
+            Supplier<M> mapFactory, Collector<? super T, A, D> downstream) {
+        requireNonNull(collection, classifier, downstream);
+        return collection.stream().collect(Collectors.groupingByConcurrent(classifier, mapFactory, downstream));
     }
 
     /**
