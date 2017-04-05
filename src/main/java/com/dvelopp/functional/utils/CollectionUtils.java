@@ -432,6 +432,14 @@ public final class CollectionUtils {
         return collection.stream().collect(Collectors.groupingBy(classifier, downstream));
     }
 
+    public static <T, K, A, D, M extends Map<K, D>> Map<K, D> groupingBy(Collection<T> collection,
+                                                                         Function<? super T, ? extends K> classifier,
+                                                                         Supplier<M> mapFactory,
+                                                                         Collector<? super T, A, D> downstream) {
+        requireNonNull(collection, classifier, downstream);
+        return collection.stream().collect(Collectors.groupingBy(classifier, mapFactory, downstream));
+    }
+
     /**
      * Concurrent implementation of {@link this#groupingBy(Collection, Function)} method.
      *
@@ -442,7 +450,7 @@ public final class CollectionUtils {
      * @return the new map containing mapped key/value pairs of grouped result.
      */
     public static <T, K> Map<K, List<T>> groupingByConcurrent(Collection<T> collection,
-                                                    Function<? super T, ? extends K> classifier) {
+                                                              Function<? super T, ? extends K> classifier) {
         requireNonNull(collection, classifier);
         return collection.stream().collect(Collectors.groupingByConcurrent(classifier));
     }
@@ -460,8 +468,8 @@ public final class CollectionUtils {
      * @return the new map containing mapped key/value pairs of grouped result after reduction.
      */
     public static <T, K, A, D> Map<K, D> groupingByConcurrent(Collection<T> collection,
-                                                    Function<? super T, ? extends K> classifier,
-                                                    Collector<? super T, A, D> downstream) {
+                                                              Function<? super T, ? extends K> classifier,
+                                                              Collector<? super T, A, D> downstream) {
         requireNonNull(collection, classifier, downstream);
         return collection.stream().collect(Collectors.groupingByConcurrent(classifier, downstream));
     }
