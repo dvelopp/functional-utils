@@ -491,6 +491,21 @@ public final class CollectionUtils {
         return collection.stream().collect(Collectors.groupingByConcurrent(classifier, downstream));
     }
 
+    /**
+     * Concurrent implementation of {@link this#groupingBy(Collection, Function, Supplier, Collector)} method.
+     *
+     * @param collection The source collection.
+     * @param classifier The classifier function to apply to each element to get a key.
+     * @param mapFactory The function which, when called, produces a new empty {@code ConcurrentMap}
+     *                   of the desired type.
+     * @param downstream The collector to map collection in the value.
+     * @param <T>        The source and target inner collection elements type.
+     * @param <K>        The target map keys type.
+     * @param <A>        The intermediate accumulation type of the downstream collector.
+     * @param <D>        The result type of the downstream reduction.
+     * @param <M>        The type of the resulting {@code ConcurrentMap}.
+     * @return the new map containing mapped key/value pairs of grouped result after reduction.
+     */
     public static <T, K, A, D, M extends ConcurrentMap<K, D>> Map<K, D> groupingByConcurrent(
             Collection<T> collection, Function<? super T, ? extends K> classifier,
             Supplier<M> mapFactory, Collector<? super T, A, D> downstream) {
