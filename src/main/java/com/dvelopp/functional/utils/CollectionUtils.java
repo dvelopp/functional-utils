@@ -433,6 +433,22 @@ public final class CollectionUtils {
         return collection.stream().collect(Collectors.groupingBy(classifier, downstream));
     }
 
+    /**
+     * Returns a new map that is provided by map factory that contains grouped result of applying classifier function
+     * on the elements. The classifier determines how to create a group - key. According the created key a list
+     * is collected containing as a value all the elements mapped according to downstream function.
+     *
+     * @param collection The source collection.
+     * @param classifier The classifier function to apply to each element to get a key.
+     * @param mapFactory The function which, when called, produces a new empty {@code Map} of the desired type.
+     * @param downstream The collector to map collection in the value.
+     * @param <T>        The source and target inner collection elements type.
+     * @param <K>        The target map keys type.
+     * @param <A>        The intermediate accumulation type of the downstream collector.
+     * @param <D>        The result type of the downstream reduction.
+     * @param <M>        The type of the resulting {@code Map}.
+     * @return the new map containing mapped key/value pairs of grouped result after reduction.
+     */
     public static <T, K, A, D, M extends Map<K, D>> Map<K, D> groupingBy(Collection<T> collection,
                                                                          Function<? super T, ? extends K> classifier,
                                                                          Supplier<M> mapFactory,
