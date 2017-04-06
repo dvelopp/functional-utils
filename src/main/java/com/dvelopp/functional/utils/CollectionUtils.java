@@ -453,7 +453,7 @@ public final class CollectionUtils {
                                                                          Function<? super T, ? extends K> classifier,
                                                                          Supplier<M> mapFactory,
                                                                          Collector<? super T, A, D> downstream) {
-        requireNonNull(collection, classifier, downstream);
+        requireNonNull(collection, classifier, downstream, mapFactory);
         return collection.stream().collect(Collectors.groupingBy(classifier, mapFactory, downstream));
     }
 
@@ -509,7 +509,7 @@ public final class CollectionUtils {
     public static <T, K, A, D, M extends ConcurrentMap<K, D>> Map<K, D> groupingByConcurrent(
             Collection<T> collection, Function<? super T, ? extends K> classifier,
             Supplier<M> mapFactory, Collector<? super T, A, D> downstream) {
-        requireNonNull(collection, classifier, downstream);
+        requireNonNull(collection, classifier, downstream, mapFactory);
         return collection.stream().collect(Collectors.groupingByConcurrent(classifier, mapFactory, downstream));
     }
 
