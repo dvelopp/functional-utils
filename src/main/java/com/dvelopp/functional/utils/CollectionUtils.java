@@ -434,6 +434,7 @@ public final class CollectionUtils {
     }
 
     /**
+     * TODO Add tests
      * Returns a new map that is provided by map factory that contains grouped result of applying classifier function
      * on the elements. The classifier determines how to create a group - key. According the created key a list
      * is collected containing as a value all the elements mapped according to downstream function.
@@ -492,6 +493,7 @@ public final class CollectionUtils {
     }
 
     /**
+     * TODO Add tests
      * Concurrent implementation of {@link this#groupingBy(Collection, Function, Supplier, Collector)} method.
      *
      * @param collection The source collection.
