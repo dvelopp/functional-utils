@@ -1,19 +1,36 @@
 package com.dvelopp.functional.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import java.util.AbstractMap.SimpleEntry;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.dvelopp.functional.utils.CollectionUtils.*;
+import static com.dvelopp.functional.utils.CollectionUtils.forEach;
+import static com.dvelopp.functional.utils.CollectionUtils.groupingBy;
+import static com.dvelopp.functional.utils.CollectionUtils.groupingByConcurrent;
+import static com.dvelopp.functional.utils.CollectionUtils.map;
+import static com.dvelopp.functional.utils.CollectionUtils.mapToArray;
+import static com.dvelopp.functional.utils.CollectionUtils.mapToCollection;
+import static com.dvelopp.functional.utils.CollectionUtils.mapToList;
+import static com.dvelopp.functional.utils.CollectionUtils.mapToMap;
+import static com.dvelopp.functional.utils.CollectionUtils.mapToSet;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
@@ -661,6 +678,17 @@ public class CollectionUtilsTest {
         assertThat(actualMap).isInstanceOf(HashMap.class);
     }
 
+    @Test
+    public void groupingBy_MapSupplierCase_ActualMapHasSupplierProductType() {
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
+
+        Map<String, List<String>> actualMap =
+                groupingBy(testObjects, BiValHolder::getVal1, LinkedHashMap::new,
+                        mapping(BiValHolder::getVal2, toList()));
+
+        assertThat(actualMap).isInstanceOf(LinkedHashMap.class);
+    }
+
     @Test(expected = NullPointerException.class)
     public void groupingBy_ClassifierCaseWithNullCollection_NPEHasBeenThrown() {
         final Collection<BiValHolder<String, String>> nullCollection = null;
@@ -796,6 +824,17 @@ public class CollectionUtilsTest {
         assertThat(actualMap).hasSize(1);
         assertThat(actualMap.get(KEY_1)).containsOnly(VAL_1, VAL_2, VAL_3, VAL_4);
         assertThat(actualMap).isInstanceOf(ConcurrentHashMap.class);
+    }
+
+    @Test
+    public void groupingByConcurrent_MapSupplierCase_ActualMapHasSupplierProductType() {
+        List<BiValHolder<String, String>> testObjects = asList(biValHolder1, biValHolder2);
+
+        Map<String, List<String>> actualMap =
+                groupingByConcurrent(testObjects, BiValHolder::getVal1, ConcurrentSkipListMap::new,
+                        mapping(BiValHolder::getVal2, toList()));
+
+        assertThat(actualMap).isInstanceOf(ConcurrentSkipListMap.class);
     }
 
     @Test(expected = NullPointerException.class)
