@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toList;
 
 /**
  * Provides utils to simplify working with the objects.
@@ -46,6 +44,14 @@ public final class ObjectUtils {
         return new ArrayList<>(notNullCheckMap.keySet());
     }
 
+    /**
+     * Checks that the specified objects are not {@code null}.
+     *
+     * @param firstObjectToCheck  First or just one object to check.
+     * @param otherObjectsToCheck Other objects to check.
+     * @param <T>                 The type of the reference.
+     * @return array of the checked entries.
+     */
     @SafeVarargs
     @SuppressWarnings("unchecked")
     public static <T> T[] requireNonNull(T firstObjectToCheck, T... otherObjectsToCheck) {
