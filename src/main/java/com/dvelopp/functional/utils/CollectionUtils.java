@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 import static com.dvelopp.functional.utils.FunctionUtils.consumer;
 import static com.dvelopp.functional.utils.FunctionUtils.function;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
+import static java.lang.String.format;
 import static java.util.stream.Collectors.*;
 
 /**
@@ -522,7 +523,7 @@ public final class CollectionUtils {
      */
     public static <T> BinaryOperator<T> throwingMerger() {
         return (key, value) -> {
-            throw new IllegalStateException(String.format("Duplicate key %s", key));
+            throw new IllegalStateException(format("Duplicate key %s", key));
         };
     }
 
