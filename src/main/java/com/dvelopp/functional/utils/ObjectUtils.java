@@ -94,7 +94,8 @@ public final class ObjectUtils {
     }
 
     public static <T> Collection<T> requireNonNull(Supplier<String> messageSupplier, Collection<T> objectsToCheck) {
-        Objects.requireNonNull(objectsToCheck).forEach(o -> Objects.requireNonNull(o, messageSupplier));
+        Objects.requireNonNull(objectsToCheck).forEach(objectToCheck -> Objects.requireNonNull(objectToCheck,
+                messageSupplier));
         return objectsToCheck;
     }
 
