@@ -19,22 +19,22 @@ public final class ObjectUtils {
     /**
      * Copy of original method so as not to have problems with static import ambiguity.
      */
-    public static <T> T requireNonNull(T obj) {
-        return Objects.requireNonNull(obj);
+    public static <T> T requireNonNull(T objectToCheck) {
+        return Objects.requireNonNull(objectToCheck);
     }
 
     /**
      * Copy of original method so as not to have problems with static import ambiguity.
      */
-    public static <T> T requireNonNull(T obj, String message) {
-        return Objects.requireNonNull(obj, message);
+    public static <T> T requireNonNull(T objectToCheck, String message) {
+        return Objects.requireNonNull(objectToCheck, message);
     }
 
     /**
      * Copy of original method so as not to have problems with static import ambiguity.
      */
-    public static <T> T requireNonNull(T obj, Supplier<String> messageSupplier) {
-        return Objects.requireNonNull(obj, messageSupplier);
+    public static <T> T requireNonNull(T objectToCheck, Supplier<String> messageSupplier) {
+        return Objects.requireNonNull(objectToCheck, messageSupplier);
     }
 
     public static <T> List<T> requireNonNull(Map<T, String> notNullCheckMap) {
