@@ -1,7 +1,13 @@
 package com.dvelopp.functional.utils.interfaces;
 
+/**
+ * @param <T1>
+ * @param <T2>
+ * @param <T3>
+ * @since 1.3
+ */
 @FunctionalInterface
-public interface TriConsumer <T1, T2, T3> {
+public interface TriConsumer<T1, T2, T3> {
 
     /**
      * Performs this operation on the given arguments.

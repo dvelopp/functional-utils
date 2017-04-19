@@ -1,14 +1,21 @@
 package com.dvelopp.functional.utils.interfaces;
 
+/**
+ * @param <T1>
+ * @param <T2>
+ * @param <T3>
+ * @param <R>
+ * @since 1.3
+ */
 @FunctionalInterface
 public interface TriFunction<T1, T2, T3, R> {
 
     /**
      * Applies this function to the given arguments.
      *
-     * @param firstArgument the first input argument.
+     * @param firstArgument  the first input argument.
      * @param secondArgument the second input argument.
-     * @param thirdArgument the third input argument.
+     * @param thirdArgument  the third input argument.
      * @return the function result
      */
     R apply(T1 firstArgument, T2 secondArgument, T3 thirdArgument);

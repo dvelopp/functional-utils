@@ -7,6 +7,7 @@ package com.dvelopp.functional.utils.interfaces;
  * the same type.
  *
  * @param <T> the type of the operands and result of the operator.
+ * @since 1.3
  */
 @FunctionalInterface
 public interface TriOperator<T> extends TriFunction<T, T, T, T> {
