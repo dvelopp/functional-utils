@@ -20,9 +20,9 @@ public interface TriPredicate<T1, T2, T3> {
     /**
      * Evaluates this predicate on the given arguments.
      *
-     * @param t1 the first input argument.
-     * @param t2 the second input argument.
-     * @param t3 the third input argument.
+     * @param t1 The first input argument.
+     * @param t2 The second input argument.
+     * @param t3 The third input argument.
      * @return {@code true} if the input arguments match the predicate,
      * otherwise {@code false}
      */
