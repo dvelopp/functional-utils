@@ -1,10 +1,10 @@
 package com.dvelopp.functional.utils.interfaces;
 
 /**
- * @param <T1>
- * @param <T2>
- * @param <T3>
- * @param <R>
+ * @param <T1> The type of the first argument to the function.
+ * @param <T2> The type of the second argument to the function.
+ * @param <T3> The type of the third argument to the function.
+ * @param <R>  The type of the result of the function.
  * @since 1.3
  */
 @FunctionalInterface
