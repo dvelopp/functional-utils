@@ -1,9 +1,9 @@
 package com.dvelopp.functional.utils.interfaces;
 
 /**
- * @param <T1>
- * @param <T2>
- * @param <T3>
+ * @param <T1> The type of the first argument to the predicate.
+ * @param <T2> The type of the second argument to the predicate.
+ * @param <T3> The type of the third argument to the predicate.
  * @since 1.3
  */
 @FunctionalInterface
