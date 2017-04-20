@@ -1,6 +1,13 @@
 package com.dvelopp.functional.utils.interfaces;
 
+import java.util.function.Consumer;
+
 /**
+ * Represents an operation that accepts three input arguments and returns no
+ * result.  This is the three-arity specialization of {@link Consumer}.
+ * Unlike most other functional interfaces, {@code ThreeConsumer} is expected
+ * to operate via side-effects.
+ *
  * @param <T1> The type of the first argument to the operation.
  * @param <T2> The type of the second argument to the operation.
  * @param <T3> The type of the third argument to the operation.
