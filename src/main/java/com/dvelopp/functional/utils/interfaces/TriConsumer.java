@@ -1,9 +1,9 @@
 package com.dvelopp.functional.utils.interfaces;
 
 /**
- * @param <T1>
- * @param <T2>
- * @param <T3>
+ * @param <T1> The type of the first argument to the operation.
+ * @param <T2> The type of the second argument to the operation.
+ * @param <T3> The type of the third argument to the operation.
  * @since 1.3
  */
 @FunctionalInterface
