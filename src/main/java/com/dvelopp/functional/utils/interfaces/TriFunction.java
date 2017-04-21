@@ -38,6 +38,8 @@ public interface TriFunction<T1, T2, T3, R> {
     }
 
     /**
+     * Short form of this#firstArgIdentity().
+     *
      * @see this#firstArgIdentity()
      */
     static <T1, T2, T3> TriFunction<T1, T2, T3, T1> identity() {
