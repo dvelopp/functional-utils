@@ -61,6 +61,7 @@ public class FunctionUtilsTest {
         assertThat(testObject.getVal1()).isEqualTo("modifiedFirstValue");
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected = NullPointerException.class)
     public void with_NullClosure_NPEHasBeenThrown() {
         with(mock(Testee.class), null, (Consumer[]) null);
