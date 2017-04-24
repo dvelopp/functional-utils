@@ -6,7 +6,7 @@ package com.dvelopp.functional.utils.interfaces;
  * {@link TriFunction} for the case where the operands and the result are all of
  * the same type.
  *
- * @param <T> the type of the operands and result of the operator.
+ * @param <T> The type of the operands and result of the operator.
  * @since 1.3
  */
 @FunctionalInterface
