@@ -121,12 +121,21 @@ public class FunctionUtilsTest {
     }
 
     @Test
-    public void function_BiFunctionThatAddsSecArgumentToFirst_ArgumentsHaveBeenAddedToEachOther() {
+    public void function_FirstCaseBiFunctionThatAddsSecArgumentToFirst_ArgumentsHaveBeenAddedToEachOther() {
         Function<Integer, Integer> function = function(Math::addExact, 100);
 
         Integer actualResult = function.apply(1);
 
         assertThat(actualResult).isEqualTo(101);
+    }
+
+    @Test
+    public void function_SecondCaseBiFunctionThatAddsSecArgumentToFirst_ArgumentsHaveBeenAddedToEachOther() {
+        Function<Integer, Integer> function = function(Math::addExact, 100);
+
+        Integer actualResult = function.apply(3);
+
+        assertThat(actualResult).isEqualTo(103);
     }
 
     @Test
