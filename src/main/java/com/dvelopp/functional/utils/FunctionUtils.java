@@ -141,6 +141,16 @@ public final class FunctionUtils {
         };
     }
 
+    /**
+     * TODO Implement
+     */
+  /*  public static <T> Predicate<T> exceptionPredicate(Supplier<Exception> exceptionSupplier) {
+        requireNonNull(exceptionSupplier);
+        return o -> {
+          o  throw exceptionSupplier.get();
+        };
+    }*/
+
     public static <T> Consumer<T> emptyConsumer() {
         return o -> {
         };
