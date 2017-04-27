@@ -172,12 +172,12 @@ public final class FunctionUtils {
      */
     public static <T, R> Consumer<T> consumer(BiConsumer<T, R> action, R arg) {
         requireNonNull(action);
-        return e -> action.accept(e, arg);
+        return o -> action.accept(o, arg);
     }
 
     public static <T, R1, R2> Consumer<T> consumer(TriConsumer<T, R1, R2> action, R1 firstArg, R2 secondArg) {
         requireNonNull(action);
-        return e -> action.accept(e, firstArg, secondArg);
+        return o -> action.accept(o, firstArg, secondArg);
     }
 
     /**
@@ -193,7 +193,7 @@ public final class FunctionUtils {
      */
     public static <T, R, S> Function<T, R> function(BiFunction<T, S, R> action, S arg) {
         requireNonNull(action);
-        return e -> action.apply(e, arg);
+        return o -> action.apply(o, arg);
     }
 
 }
