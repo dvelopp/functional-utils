@@ -347,7 +347,8 @@ public final class CollectionUtils {
      * @return the new map containing mapped key/value pairs.
      */
     public static <T, K, U> Map<K, U> mapToMap(Collection<T> collection, Function<? super T, ? extends K> keyMapper,
-                                               Function<? super T, ? extends U> valueMapper, BinaryOperator<U> mergeFunction) {
+                                               Function<? super T, ? extends U> valueMapper,
+                                               BinaryOperator<U> mergeFunction) {
         requireNonNull(collection, keyMapper, valueMapper, mergeFunction);
         return collection.stream().collect(toMap(keyMapper, valueMapper, mergeFunction));
     }
