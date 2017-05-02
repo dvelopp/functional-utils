@@ -1,22 +1,32 @@
 package com.dvelopp.functional.utils;
 
-import com.dvelopp.functional.utils.interfaces.TriConsumer;
-
 import java.util.Collection;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.dvelopp.functional.utils.interfaces.TriConsumer;
 
 import static com.dvelopp.functional.utils.FunctionUtils.consumer;
 import static com.dvelopp.functional.utils.FunctionUtils.function;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 import static java.lang.String.format;
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * Set of useful methods to work with collections.
@@ -397,6 +407,12 @@ public final class CollectionUtils {
         return collection.stream().collect(toMap(keyMapper, valueMapper, throwingMerger(), mapSupplier));
     }
 
+    public static <T> IntSummaryStatistics getSummaryStatistics(Collection<T> collection,
+                                                                ToIntFunction<? super T> toIntFunctionMapper) {
+        requireNonNull(collection, toIntFunctionMapper);
+        return collection.stream().mapToInt(toIntFunctionMapper).summaryStatistics();
+    }
+
     /**
      * Returns a new map that contains grouped result of applying classifier function on the elements. The classifier
      * determines how to create a group - key. According the created key a list is collected containing as a value all
@@ -507,7 +523,6 @@ public final class CollectionUtils {
      * @param <D>        The result type of the downstream reduction.
      * @param <M>        The type of the resulting {@code ConcurrentMap}.
      * @return the new map containing mapped key/value pairs of grouped result after reduction.
-     *
      */
     public static <T, K, A, D, M extends ConcurrentMap<K, D>> Map<K, D> groupingByConcurrent(
             Collection<T> collection, Function<? super T, ? extends K> classifier,
