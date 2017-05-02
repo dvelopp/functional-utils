@@ -1,6 +1,7 @@
 package com.dvelopp.functional.utils;
 
 import java.util.Collection;
+import java.util.DoubleSummaryStatistics;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
+import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -408,9 +410,15 @@ public final class CollectionUtils {
     }
 
     public static <T> IntSummaryStatistics getSummaryStatistics(Collection<T> collection,
-                                                                ToIntFunction<? super T> toIntFunctionMapper) {
-        requireNonNull(collection, toIntFunctionMapper);
-        return collection.stream().mapToInt(toIntFunctionMapper).summaryStatistics();
+                                                                ToIntFunction<? super T> toIntMapper) {
+        requireNonNull(collection, toIntMapper);
+        return collection.stream().mapToInt(toIntMapper).summaryStatistics();
+    }
+
+    public static <T> DoubleSummaryStatistics getSummaryStatistics(Collection<T> collection,
+                                                                   ToDoubleFunction<? super T> toDoubleMapper) {
+        requireNonNull(collection, toDoubleMapper);
+        return collection.stream().mapToDouble(toDoubleMapper).summaryStatistics();
     }
 
     /**
