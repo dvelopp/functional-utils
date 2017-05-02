@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
 import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.LongSummaryStatistics;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
@@ -15,6 +16,7 @@ import java.util.function.IntFunction;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -419,6 +421,12 @@ public final class CollectionUtils {
                                                                    ToDoubleFunction<? super T> toDoubleMapper) {
         requireNonNull(collection, toDoubleMapper);
         return collection.stream().mapToDouble(toDoubleMapper).summaryStatistics();
+    }
+
+    public static <T> LongSummaryStatistics getSummaryStatistics(Collection<T> collection,
+                                                                 ToLongFunction<? super T> toLongMapper) {
+        requireNonNull(collection, toLongMapper);
+        return collection.stream().mapToLong(toLongMapper).summaryStatistics();
     }
 
     /**
