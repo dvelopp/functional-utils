@@ -432,6 +432,19 @@ public final class CollectionUtils {
         return collection.stream().mapToDouble(toDoubleMapper).summaryStatistics();
     }
 
+    /**
+     * Returns an {@code LongSummaryStatistics} describing various
+     * summary data about the elements of this stream.  This is a special
+     * case of a <a href="package-summary.html#Reduction">reduction</a>.
+     *
+     * @param collection  The source collection.
+     * @param toLongMapper The <a href="package-summary.html#NonInterference">non-interfering</a>,
+     *                    <a href="package-summary.html#Statelessness">stateless</a>
+     *                    function to apply to each element
+     * @param <T>         The source collection elements type.
+     * @return The {@code LongSummaryStatistics} describing various summary data
+     * about the elements of this stream
+     */
     public static <T> LongSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                  ToLongFunction<? super T> toLongMapper) {
         requireNonNull(collection, toLongMapper);
