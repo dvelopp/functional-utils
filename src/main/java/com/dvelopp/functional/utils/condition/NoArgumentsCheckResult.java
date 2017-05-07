@@ -2,7 +2,10 @@ package com.dvelopp.functional.utils.condition;
 
 import java.util.function.Supplier;
 
-import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.*;
+import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.EXCEPTION;
+import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.FALSE;
+import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.NONE;
+import static com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult.TRUE;
 
 /**
  * @since 1.0
@@ -13,6 +16,11 @@ public class NoArgumentsCheckResult<R> extends AbstractCheckResult<Supplier<Bool
         setCondition(condition);
     }
 
+    /**
+     * Performs selected check and sets conditionResult.
+     *
+     * @return conditionResult.
+     */
     @Override
     protected ConditionResult performCheck() {
         if (conditionResult != NONE) {
