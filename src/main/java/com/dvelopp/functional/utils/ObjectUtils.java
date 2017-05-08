@@ -1,6 +1,10 @@
 package com.dvelopp.functional.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
@@ -77,6 +81,14 @@ public final class ObjectUtils {
         return objectsToCheck;
     }
 
+    /**
+     * Checks that the specified objects are not {@code null}.
+     *
+     * @param messageSupplier The exception message supplier in case at least on object is null.
+     * @param objectsToCheck  The objects to check.
+     * @param <T>             The type of the reference.
+     * @return array of the checked entries.
+     */
     @SafeVarargs
     public static <T> T[] requireNonNull(Supplier<String> messageSupplier, T... objectsToCheck) {
         requireNonNull(messageSupplier, asList(objectsToCheck));
