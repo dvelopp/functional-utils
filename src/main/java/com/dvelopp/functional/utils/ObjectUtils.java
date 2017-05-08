@@ -95,6 +95,13 @@ public final class ObjectUtils {
         return objectsToCheck;
     }
 
+    /**
+     * Checks that the specified objects in collection are not {@code null}.
+     *
+     * @param objectsToCheck The collection to check.
+     * @param <T>            The type of the reference.
+     * @return the same collection.
+     */
     public static <T> Collection<T> requireNonNull(Collection<T> objectsToCheck) {
         Objects.requireNonNull(objectsToCheck).forEach(Objects::requireNonNull);
         return objectsToCheck;
