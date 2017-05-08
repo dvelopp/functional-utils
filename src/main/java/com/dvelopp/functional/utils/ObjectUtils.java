@@ -107,6 +107,14 @@ public final class ObjectUtils {
         return objectsToCheck;
     }
 
+    /**
+     * Checks that the specified objects in collection are not {@code null}.
+     *
+     * @param message        The exception message in case at least on object is null.
+     * @param objectsToCheck The collection to check.
+     * @param <T>            The type of the reference.
+     * @return the same collection.
+     */
     public static <T> Collection<T> requireNonNull(String message, Collection<T> objectsToCheck) {
         Objects.requireNonNull(objectsToCheck).forEach(objectToCheck -> Objects.requireNonNull(objectToCheck, message));
         return objectsToCheck;
