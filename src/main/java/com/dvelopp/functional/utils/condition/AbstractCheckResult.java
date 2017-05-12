@@ -14,7 +14,7 @@ import static java.util.Objects.requireNonNull;
  * @param <T> The condition to be calculated.
  * @param <R> The return value type.
  * @param <S> The type of returned instance of {@link AbstractCheckResult}. This type is used to always know what child
- *            class we work with. The main advantage of it is the fact that we don't need to cast the result even when
+ *            class we work with. The main advantage of this is the fact that we don't need to cast the result even when
  *            the child doesn't provide its own implementation of the methods.
  * @since 1.0
  */
