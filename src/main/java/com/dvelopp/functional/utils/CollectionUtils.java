@@ -1,19 +1,36 @@
 package com.dvelopp.functional.utils;
 
-import com.dvelopp.functional.utils.interfaces.TriConsumer;
-
-import java.util.*;
+import java.util.Collection;
+import java.util.DoubleSummaryStatistics;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.LongSummaryStatistics;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.dvelopp.functional.utils.interfaces.TriConsumer;
 
 import static com.dvelopp.functional.utils.FunctionUtils.consumer;
 import static com.dvelopp.functional.utils.FunctionUtils.function;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
 import static java.lang.String.format;
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * Set of useful methods to work with collections.
@@ -418,11 +435,11 @@ public final class CollectionUtils {
      * summary data about the elements of this stream.  This is a special
      * case of a <a href="package-summary.html#Reduction">reduction</a>.
      *
-     * @param collection  The source collection.
+     * @param collection     The source collection.
      * @param toDoubleMapper The <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function to apply to each element
-     * @param <T>         The source collection elements type.
+     *                       <a href="package-summary.html#Statelessness">stateless</a>
+     *                       function to apply to each element
+     * @param <T>            The source collection elements type.
      * @return The {@code DoubleSummaryStatistics} describing various summary data
      * about the elements of this stream
      */
@@ -437,11 +454,11 @@ public final class CollectionUtils {
      * summary data about the elements of this stream.  This is a special
      * case of a <a href="package-summary.html#Reduction">reduction</a>.
      *
-     * @param collection  The source collection.
+     * @param collection   The source collection.
      * @param toLongMapper The <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function to apply to each element
-     * @param <T>         The source collection elements type.
+     *                     <a href="package-summary.html#Statelessness">stateless</a>
+     *                     function to apply to each element
+     * @param <T>          The source collection elements type.
      * @return The {@code LongSummaryStatistics} describing various summary data
      * about the elements of this stream
      */
@@ -581,6 +598,10 @@ public final class CollectionUtils {
         };
     }
 
+    public static <T> Stream<T> safeStream(Collection<T> collection) {
+        return collection == null ? Stream.empty() : collection.stream();
+    }
+    
     /**
      * Shortcut for getting stream from collection and mapping it using the mapper function.
      *
