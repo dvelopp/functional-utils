@@ -30,8 +30,7 @@ public final class FunctionUtils {
      * @return The negated predicate.
      */
     public static <T> Predicate<T> not(Predicate<T> predicate) {
-        requireNonNull(predicate);
-        return predicate.negate();
+        return requireNonNull(predicate).negate();
     }
 
     /**
@@ -102,9 +101,8 @@ public final class FunctionUtils {
     }
 
     public static Supplier<Boolean> exceptionSupplier(Supplier<RuntimeException> exceptionSupplier) {
-        requireNonNull(exceptionSupplier);
         return () -> {
-            throw exceptionSupplier.get();
+            throw requireNonNull(exceptionSupplier).get();
         };
     }
 
@@ -141,16 +139,6 @@ public final class FunctionUtils {
         };
     }
 
-    /**
-     * TODO Implement
-     */
-  /*  public static <T> Predicate<T> exceptionPredicate(Supplier<Exception> exceptionSupplier) {
-        requireNonNull(exceptionSupplier);
-        return o -> {
-          o  throw exceptionSupplier.get();
-        };
-    }*/
-
     public static <T> Consumer<T> emptyConsumer() {
         return o -> {
         };
@@ -171,13 +159,11 @@ public final class FunctionUtils {
      * in the BiConsumer method invocation.
      */
     public static <T, R> Consumer<T> consumer(BiConsumer<T, R> action, R arg) {
-        requireNonNull(action);
-        return o -> action.accept(o, arg);
+        return o -> requireNonNull(action).accept(o, arg);
     }
 
     public static <T, R1, R2> Consumer<T> consumer(TriConsumer<T, R1, R2> action, R1 firstArg, R2 secondArg) {
-        requireNonNull(action);
-        return o -> action.accept(o, firstArg, secondArg);
+        return o -> requireNonNull(action).accept(o, firstArg, secondArg);
     }
 
     /**
@@ -192,8 +178,6 @@ public final class FunctionUtils {
      * in BiFunction method invocation.
      */
     public static <T, R, S> Function<T, R> function(BiFunction<T, S, R> action, S arg) {
-        requireNonNull(action);
-        return o -> action.apply(o, arg);
+        return o -> requireNonNull(action).apply(o, arg);
     }
-
 }
