@@ -601,7 +601,7 @@ public final class CollectionUtils {
     public static <T> Stream<T> safeStream(Collection<T> collection) {
         return collection == null ? Stream.empty() : collection.stream();
     }
-    
+
     /**
      * Shortcut for getting stream from collection and mapping it using the mapper function.
      *
