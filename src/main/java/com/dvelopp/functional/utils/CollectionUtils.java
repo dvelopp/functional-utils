@@ -598,6 +598,13 @@ public final class CollectionUtils {
         };
     }
 
+    /**
+     * Create a stream for collection. If collection is null, then empty stream is returned.
+     *
+     * @param collection The collection to create a stream from.
+     * @param <T>        The type of the elements.
+     * @return a valid stream for the collection.
+     */
     public static <T> Stream<T> safeStream(Collection<T> collection) {
         return collection == null ? Stream.empty() : collection.stream();
     }
