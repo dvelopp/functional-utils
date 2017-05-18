@@ -18,6 +18,8 @@ import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -88,7 +90,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    @SuppressWarnings({"Duplicates", "unchecked"})
+    @SuppressWarnings( {"Duplicates", "unchecked"})
     public void forEach_TriConsumerWithArrayChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
@@ -100,7 +102,7 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    @SuppressWarnings({"Duplicates", "unchecked"})
+    @SuppressWarnings( {"Duplicates", "unchecked"})
     public void forEach_TriConsumerWithVarArgsChangeElementStateCase_StateWasChangedForAllElements() {
         TriValHolder[] testObjects = {triValHolder1, triValHolder2};
 
@@ -868,6 +870,15 @@ public class CollectionUtilsTest {
         Collector<? super BiValHolder<String, String>, Object, Object> nullDownstream = null;
 
         groupingByConcurrent(validBiValList, BiValHolder::getVal1, nullDownstream);
+    }
+
+    @Test
+    public void safeStream() {
+        Collection<String> nullCollection = new ArrayList<>();
+
+        Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
+
+        assertThat(actualStream).isEmpty();
     }
 
     private String testMerge(String firstArgument, String secondArgument) {
