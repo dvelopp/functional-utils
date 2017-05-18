@@ -575,7 +575,7 @@ public final class CollectionUtils {
      * <p>
      * {@link BinaryOperator} that throws {@link IllegalStateException}.
      */
-    public static <T> BinaryOperator<T> throwingMerger() {
+    private static <T> BinaryOperator<T> throwingMerger() {
         return (key, value) -> {
             throw new IllegalStateException(format("Duplicate key %s", key));
         };
