@@ -16,18 +16,15 @@ public final class CheckUtils {
     }
 
     public static <R> NoArgumentsCheckResult<R> inCase(Supplier<Boolean> condition) {
-        requireNonNull(condition);
-        return new NoArgumentsCheckResult<>(condition);
+        return new NoArgumentsCheckResult<>(requireNonNull(condition));
     }
 
     public static <R> NoArgumentsCheckResult<R> inCase(Boolean condition) {
-        requireNonNull(condition);
-        return new NoArgumentsCheckResult<>(() -> condition);
+        return new NoArgumentsCheckResult<>(() -> requireNonNull(condition));
     }
 
     public static <T, R> OneArgumentCheckResult<T, R> inCase(Predicate<T> condition, T arg) {
-        requireNonNull(condition);
-        return new OneArgumentCheckResult<>(condition, arg);
+        return new OneArgumentCheckResult<>(requireNonNull(condition), arg);
     }
 
 }
