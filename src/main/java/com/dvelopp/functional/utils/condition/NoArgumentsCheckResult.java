@@ -19,7 +19,8 @@ public class NoArgumentsCheckResult<R> extends AbstractCheckResult<Supplier<Bool
     /**
      * Performs selected check and sets conditionResult.
      *
-     * @return conditionResult.
+     * @return a {@link com.dvelopp.functional.utils.condition.AbstractCheckResult.ConditionResult} object that
+     * describes the condition result after performing an action with {@link CheckUtils}.
      */
     @Override
     protected ConditionResult performCheck() {
