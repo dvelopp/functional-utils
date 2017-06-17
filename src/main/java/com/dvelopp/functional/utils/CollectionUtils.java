@@ -582,7 +582,7 @@ public final class CollectionUtils {
     }
 
     /**
-     * Create a stream for collection. If collection is null, then empty stream is returned.
+     * Create a stream for the collection. If collection is null, then empty stream is returned.
      *
      * @param collection The collection to create a stream from.
      * @param <T>        The type of the elements.
