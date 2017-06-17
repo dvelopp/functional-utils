@@ -88,10 +88,20 @@ public class FunctionUtilsTest {
     }
 
     @Test
-    public void with_CheckReturnValue_ReturnedTheSameObjectThatIsPassedAsArg() {
+    public void with_CheckReturnValueSingleClosure_ReturnedTheSameObjectThatIsPassedAsArg() {
         BiValHolder<String, String> testObject = new BiValHolder<>("initialFirstValue", "initialSecondValue");
 
         BiValHolder<String, String> actualReturnValue = with(testObject, o -> o.setVal1("modifiedFirstValue"));
+
+        assertThat(actualReturnValue).isEqualTo(testObject);
+    }
+
+    @Test
+    public void with_CheckReturnValueForSeveralClosures_ReturnedTheSameObjectThatIsPassedAsArg() {
+        BiValHolder<String, String> testObject = new BiValHolder<>("initialFirstValue", "initialSecondValue");
+
+        BiValHolder<String, String> actualReturnValue = with(testObject, o -> o.setVal1("modifiedFirstValue"),
+                o -> o.setVal1("modifiedFirstValue"));
 
         assertThat(actualReturnValue).isEqualTo(testObject);
     }
