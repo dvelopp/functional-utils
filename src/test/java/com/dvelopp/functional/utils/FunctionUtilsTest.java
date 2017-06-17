@@ -1,9 +1,5 @@
 package com.dvelopp.functional.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
@@ -11,7 +7,26 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static com.dvelopp.functional.utils.FunctionUtils.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static com.dvelopp.functional.utils.FunctionUtils.consumer;
+import static com.dvelopp.functional.utils.FunctionUtils.emptyConsumer;
+import static com.dvelopp.functional.utils.FunctionUtils.exceptionConsumer;
+import static com.dvelopp.functional.utils.FunctionUtils.exceptionFunction;
+import static com.dvelopp.functional.utils.FunctionUtils.exceptionPredicate;
+import static com.dvelopp.functional.utils.FunctionUtils.exceptionRunnable;
+import static com.dvelopp.functional.utils.FunctionUtils.exceptionSupplier;
+import static com.dvelopp.functional.utils.FunctionUtils.falsePredicate;
+import static com.dvelopp.functional.utils.FunctionUtils.falseSupplier;
+import static com.dvelopp.functional.utils.FunctionUtils.function;
+import static com.dvelopp.functional.utils.FunctionUtils.identityPredicate;
+import static com.dvelopp.functional.utils.FunctionUtils.not;
+import static com.dvelopp.functional.utils.FunctionUtils.nullSuppler;
+import static com.dvelopp.functional.utils.FunctionUtils.truePredicate;
+import static com.dvelopp.functional.utils.FunctionUtils.trueSupplier;
+import static com.dvelopp.functional.utils.FunctionUtils.with;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,6 +85,15 @@ public class FunctionUtilsTest {
     @Test(expected = NullPointerException.class)
     public void with_NullSelfLink_NPEHasBeenThrown() {
         with(null, emptyConsumer());
+    }
+
+    @Test
+    public void with_CheckReturnValue_ReturnedTheSameObjectThatIsPassedAsArg() {
+        BiValHolder<String, String> testObject = new BiValHolder<>("initialFirstValue", "initialSecondValue");
+
+        BiValHolder<String, String> actualReturnValue = with(testObject, o -> o.setVal1("modifiedFirstValue"));
+
+        assertThat(actualReturnValue).isEqualTo(testObject);
     }
 
     @Test
