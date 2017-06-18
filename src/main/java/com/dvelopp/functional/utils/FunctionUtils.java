@@ -1,10 +1,15 @@
 package com.dvelopp.functional.utils;
 
-import com.dvelopp.functional.utils.interfaces.TriConsumer;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+import com.dvelopp.functional.utils.interfaces.TriConsumer;
 
 import static com.dvelopp.functional.utils.CollectionUtils.forEach;
 import static com.dvelopp.functional.utils.ObjectUtils.requireNonNull;
@@ -55,6 +60,7 @@ public final class FunctionUtils {
      * @param <T>      The object type.
      * @return The modified object.
      */
+    @SafeVarargs
     public static <T> T with(T self, Consumer<T> closure, Consumer<T>... closures) {
         List<Consumer<T>> allClosures = new ArrayList<>();
         allClosures.add(closure);
