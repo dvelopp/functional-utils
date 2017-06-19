@@ -85,6 +85,7 @@ public final class FunctionUtils {
         return identitySupplier(null);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static <T> Supplier<T> identitySupplier(T objectToSupply) {
         return () -> objectToSupply;
     }
