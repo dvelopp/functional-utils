@@ -592,6 +592,10 @@ public final class CollectionUtils {
         return collection == null ? Stream.empty() : collection.stream();
     }
 
+    public static <T> Stream<T> safeParallelStream(Collection<T> collection) {
+        return collection == null ? Stream.empty() : collection.parallelStream();
+    }
+
     /**
      * Shortcut for getting stream from collection and mapping it using the mapper function.
      *
