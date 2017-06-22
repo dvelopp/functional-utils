@@ -596,6 +596,11 @@ public final class CollectionUtils {
         return collection == null ? Stream.empty() : collection.parallelStream();
     }
 
+    public static <T> Stream<T> concatSafeStream(Collection<T> collection1, Collection<T> collection2) {
+        return Stream.concat(safeStream(collection1), safeStream(collection2));
+    }
+
+
     /**
      * Shortcut for getting stream from collection and mapping it using the mapper function.
      *
