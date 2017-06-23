@@ -592,6 +592,13 @@ public final class CollectionUtils {
         return collection == null ? Stream.empty() : collection.stream();
     }
 
+    /**
+     * Create a parallel stream for the collection. If collection is null, then empty stream is returned.
+     *
+     * @param collection The collection to create a stream from.
+     * @param <T>        The type of the elements.
+     * @return a valid parallel stream for the collection.
+     */
     public static <T> Stream<T> safeParallelStream(Collection<T> collection) {
         return collection == null ? Stream.empty() : collection.parallelStream();
     }
