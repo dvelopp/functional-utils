@@ -19,6 +19,11 @@ public class CheckUtilsTest {
     @Mock private Testee testee;
 
     @Test
+    public void init_UnsupportedException(){
+        //TODO add framework to check constructors
+    }
+
+    @Test
     public void inCaseIsTrue_TrueCaseForSupplier_ClosureHasBeenExecuted() {
         inCase(trueSupplier()).isTrue(this::closureWithoutReturn);
 
