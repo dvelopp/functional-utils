@@ -607,7 +607,6 @@ public final class CollectionUtils {
         return Stream.concat(safeStream(collection1), safeStream(collection2));
     }
 
-
     /**
      * Shortcut for getting stream from collection and mapping it using the mapper function.
      *
