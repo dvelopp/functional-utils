@@ -603,6 +603,18 @@ public final class CollectionUtils {
         return collection == null ? Stream.empty() : collection.parallelStream();
     }
 
+    /**
+     * Creates a lazily concatenated stream whose elements are all the
+     * elements of the first collection followed by all the elements of the
+     * second collection.  The resulting stream is ordered if both
+     * of the input collections are ordered, and parallel if either of the input
+     * collection is parallel.
+     *
+     * @param <T> The type of stream elements.
+     * @param collection1 The first stream.
+     * @param collection2 The second stream.
+     * @return the concatenation of the two input collections.
+     */
     public static <T> Stream<T> concatSafeStream(Collection<T> collection1, Collection<T> collection2) {
         return Stream.concat(safeStream(collection1), safeStream(collection2));
     }
