@@ -406,6 +406,7 @@ public final class CollectionUtils {
      * @param <T>         The source collection elements type.
      * @return The {@code IntSummaryStatistics} describing various summary data
      * about the elements of this stream
+     * TODO add tests
      */
     public static <T> IntSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                 ToIntFunction<? super T> toIntMapper) {
@@ -425,6 +426,7 @@ public final class CollectionUtils {
      * @param <T>            The source collection elements type.
      * @return The {@code DoubleSummaryStatistics} describing various summary data
      * about the elements of this stream
+     * TODO add tests
      */
     public static <T> DoubleSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                    ToDoubleFunction<? super T> toDoubleMapper) {
@@ -444,6 +446,7 @@ public final class CollectionUtils {
      * @param <T>          The source collection elements type.
      * @return The {@code LongSummaryStatistics} describing various summary data
      * about the elements of this stream
+     * TODO add tests
      */
     public static <T> LongSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                  ToLongFunction<? super T> toLongMapper) {
