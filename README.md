@@ -13,7 +13,7 @@ For now the project includes some utilities connected to:
 
 I'm going to make as more as possible useful utilities that can help everyone during the development. 
 
-For now there are about 180 unit tests that can demonstrate the functionality.
+For now there are about 212 unit tests that can demonstrate the functionality.
 
 ##### Examples
 
