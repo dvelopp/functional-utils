@@ -406,6 +406,7 @@ public final class CollectionUtils {
      * @param <T>         The source collection elements type.
      * @return The {@code IntSummaryStatistics} describing various summary data
      * about the elements of this stream
+     * TODO add tests
      */
     public static <T> IntSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                 ToIntFunction<? super T> toIntMapper) {
@@ -425,6 +426,7 @@ public final class CollectionUtils {
      * @param <T>            The source collection elements type.
      * @return The {@code DoubleSummaryStatistics} describing various summary data
      * about the elements of this stream
+     * TODO add tests
      */
     public static <T> DoubleSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                    ToDoubleFunction<? super T> toDoubleMapper) {
@@ -444,6 +446,7 @@ public final class CollectionUtils {
      * @param <T>          The source collection elements type.
      * @return The {@code LongSummaryStatistics} describing various summary data
      * about the elements of this stream
+     * TODO add tests
      */
     public static <T> LongSummaryStatistics getSummaryStatistics(Collection<T> collection,
                                                                  ToLongFunction<? super T> toLongMapper) {
@@ -590,6 +593,35 @@ public final class CollectionUtils {
      */
     public static <T> Stream<T> safeStream(Collection<T> collection) {
         return collection == null ? Stream.empty() : collection.stream();
+    }
+
+    /**
+     * Create a parallel stream for the collection. If collection is null, then empty stream is returned.
+     *
+     * @param collection The collection to create a stream from.
+     * @param <T>        The type of the elements.
+     * @return a valid parallel stream for the collection.
+     * TODO add tests
+     */
+    public static <T> Stream<T> safeParallelStream(Collection<T> collection) {
+        return collection == null ? Stream.empty() : collection.parallelStream();
+    }
+
+    /**
+     * Creates a lazily concatenated stream whose elements are all the
+     * elements of the first collection followed by all the elements of the
+     * second collection.  The resulting stream is ordered if both
+     * of the input collections are ordered, and parallel if either of the input
+     * collection is parallel.
+     *
+     * @param <T> The type of stream elements.
+     * @param collection1 The first stream.
+     * @param collection2 The second stream.
+     * @return the concatenation of the two input collections.
+     * TODO add tests
+     */
+    public static <T> Stream<T> concatSafeStream(Collection<T> collection1, Collection<T> collection2) {
+        return Stream.concat(safeStream(collection1), safeStream(collection2));
     }
 
     /**
