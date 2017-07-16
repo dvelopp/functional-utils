@@ -873,10 +873,29 @@ public class CollectionUtilsTest {
     }
 
     @Test
-    public void safeStream() {
-        Collection<String> nullCollection = new ArrayList<>();
+    public void safeStream_CollectionIsNotEmpty_StreamWithElementsIsReturned() {
+        String expectedElement = "Test element";
+        Collection<String> nullCollection = singletonList(expectedElement);
 
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
+
+        assertThat(actualStream).containsExactly(expectedElement);
+    }
+
+    @Test
+    public void safeStream_CollectionIsNull_EmptyStreamIsReturned() {
+        Collection<String> nullCollection = null;
+
+        Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
+
+        assertThat(actualStream).isEmpty();
+    }
+
+    @Test
+    public void safeStream_CollectionIsEmpty_EmptyStreamIsReturned() {
+        Collection<String> emptyCollection = new ArrayList<>();
+
+        Stream<String> actualStream = CollectionUtils.safeStream(emptyCollection);
 
         assertThat(actualStream).isEmpty();
     }
