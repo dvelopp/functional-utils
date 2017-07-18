@@ -1,16 +1,11 @@
 package com.dvelopp.functional.utils;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.BinaryOperator;
@@ -20,24 +15,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import static com.dvelopp.functional.utils.CollectionUtils.forEach;
-import static com.dvelopp.functional.utils.CollectionUtils.groupingBy;
-import static com.dvelopp.functional.utils.CollectionUtils.groupingByConcurrent;
-import static com.dvelopp.functional.utils.CollectionUtils.map;
-import static com.dvelopp.functional.utils.CollectionUtils.mapToArray;
-import static com.dvelopp.functional.utils.CollectionUtils.mapToCollection;
-import static com.dvelopp.functional.utils.CollectionUtils.mapToList;
-import static com.dvelopp.functional.utils.CollectionUtils.mapToMap;
-import static com.dvelopp.functional.utils.CollectionUtils.mapToSet;
+import static com.dvelopp.functional.utils.CollectionUtils.*;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import static java.util.Collections.*;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
@@ -876,6 +858,16 @@ public class CollectionUtilsTest {
     public void safeStream_CollectionIsNotEmpty_StreamWithElementsIsReturned() {
         String expectedElement = "Test element";
         Collection<String> nullCollection = singletonList(expectedElement);
+
+        Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
+
+        assertThat(actualStream).containsExactly(expectedElement);
+    }
+
+    @Test
+    public void safeStream_UnmodifiableCollectionIsNotEmpty_StreamWithElementsIsReturned() {
+        String expectedElement = "Test element";
+        Collection<String> nullCollection = unmodifiableList(singletonList(expectedElement));
 
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
