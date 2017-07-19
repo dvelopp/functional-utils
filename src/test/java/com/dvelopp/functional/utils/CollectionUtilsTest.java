@@ -892,6 +892,16 @@ public class CollectionUtilsTest {
         assertThat(actualStream).isEmpty();
     }
 
+    @Test
+    public void safeStream_CollectionWithNullElement_StreamWithNullElementIsReturned() {
+        String expectedElement = null;
+        Collection<String> nullCollection = singletonList(expectedElement);
+
+        Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
+
+        assertThat(actualStream).containsNull();
+    }
+
     private String testMerge(String firstArgument, String secondArgument) {
         return firstArgument + ";" + secondArgument;
     }
