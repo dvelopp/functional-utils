@@ -142,7 +142,7 @@ public final class FunctionUtils {
     }
 
     public static <T> Consumer<T> emptyConsumer() {
-        return o -> {
+        return emptyClosure -> {
         };
     }
 
