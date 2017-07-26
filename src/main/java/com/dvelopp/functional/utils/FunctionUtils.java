@@ -51,7 +51,7 @@ public final class FunctionUtils {
      * Execute a collection of closures on the object.
      *
      * @param self     The object to work with.
-     * @param closures The list of actions to do on the object.
+     * @param closures The list of actions to perform on the object.
      * @param <T>      The object type.
      * @return The modified object.
      */
