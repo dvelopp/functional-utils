@@ -18,6 +18,7 @@ import static java.util.Arrays.asList;
  */
 public final class FunctionUtils {
 
+    //TODO test it
     private FunctionUtils() {
         throw new UnsupportedOperationException();
     }
