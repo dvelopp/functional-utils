@@ -214,7 +214,7 @@ public final class CollectionUtils {
      * Returns a list consisting of the results of applying the given function to the elements of the given list.
      * Short form of invocation.
      *
-     * @param list   The source collection.
+     * @param list   The source list.
      * @param mapper The function to apply to each element.
      * @param <T>    The source collection elements type.
      * @param <R>    The target list elements type.
@@ -229,7 +229,7 @@ public final class CollectionUtils {
      * Returns a set consisting of the results of applying the given function to the elements of the given set.
      * Short form of invocation.
      *
-     * @param set    The source collection.
+     * @param set    The source set.
      * @param mapper The function to apply to each element.
      * @param <T>    The source collection elements type.
      * @param <R>    The target set elements type.
@@ -246,7 +246,7 @@ public final class CollectionUtils {
      * with two arguments or just method with one argument, but on instance variable. It helps to write a lambda or
      * method reference cleaner in that case.
      *
-     * @param list   The source collection.
+     * @param list   The source list.
      * @param mapper The function to apply to each element.
      * @param arg    The second argument that is used for {@link BiFunction}.
      * @param <T>    The source collection elements type.
@@ -264,7 +264,7 @@ public final class CollectionUtils {
      * with two arguments or just method with one argument, but on instance variable. It helps to write a lambda or
      * method reference cleaner in that case.
      *
-     * @param set    The source collection.
+     * @param set    The source set.
      * @param mapper The function to apply to each element.
      * @param arg    The second argument that is used for {@link BiFunction}.
      * @param <T>    The source collection elements type.
