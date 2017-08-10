@@ -862,6 +862,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -872,6 +873,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -881,6 +883,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -890,6 +893,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(emptyCollection);
 
         assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -900,6 +904,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).containsNull();
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
