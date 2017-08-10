@@ -934,6 +934,16 @@ public class CollectionUtilsTest {
         assertThat(actualStream.isParallel()).isTrue();
     }
 
+    @Test
+    public void safeParallelStream_CollectionIsEmpty_EmptyParallelStreamIsReturned() {
+        Collection<String> emptyCollection = new ArrayList<>();
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(emptyCollection);
+
+        assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isTrue();
+    }
+
     private String testMerge(String firstArgument, String secondArgument) {
         return firstArgument + ";" + secondArgument;
     }
