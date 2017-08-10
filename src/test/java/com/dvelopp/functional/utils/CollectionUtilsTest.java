@@ -866,7 +866,7 @@ public class CollectionUtilsTest {
 
     @Test
     public void safeStream_UnmodifiableCollectionIsNotEmpty_StreamWithElementsIsReturned() {
-        String expectedElement = "Test element";
+        String expectedElement = VAL_1;
         Collection<String> nullCollection = unmodifiableList(singletonList(expectedElement));
 
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
@@ -911,6 +911,18 @@ public class CollectionUtilsTest {
 
         assertThat(actualStream).containsExactly(expectedElement);
         assertThat(actualStream.isParallel()).isTrue();
+    }
+
+    @Test
+    public void safeParallelStream_UnmodifiableCollectionIsNotEmpty_ParallelStreamWithElementsIsReturned() {
+        String expectedElement = VAL_1;
+        Collection<String> nullCollection = unmodifiableList(singletonList(expectedElement));
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(nullCollection);
+
+        assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isTrue();
+
     }
 
     private String testMerge(String firstArgument, String secondArgument) {
