@@ -634,6 +634,7 @@ public final class CollectionUtils {
      * @param collection1 The first stream.
      * @param collection2 The second stream.
      * @return the concatenation of the two input collections.
+     * //TODO tests
      */
     public static <T> Stream<T> concatSafeStream(Collection<T> collection1, Collection<T> collection2) {
         return Stream.concat(safeStream(collection1), safeStream(collection2));
