@@ -601,7 +601,6 @@ public final class CollectionUtils {
      * @param collection The collection to create a stream from.
      * @param <T>        The type of the elements.
      * @return a valid parallel stream for the collection.
-     * TODO add tests
      */
     public static <T> Stream<T> safeParallelStream(Collection<T> collection) {
         return collection == null ? Stream.empty() : collection.parallelStream();
@@ -618,7 +617,6 @@ public final class CollectionUtils {
      * @param collection1 The first stream.
      * @param collection2 The second stream.
      * @return the concatenation of the two input collections.
-     * TODO add tests
      */
     public static <T> Stream<T> concatSafeStream(Collection<T> collection1, Collection<T> collection2) {
         return Stream.concat(safeStream(collection1), safeStream(collection2));
