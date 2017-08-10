@@ -922,8 +922,9 @@ public class CollectionUtilsTest {
 
         assertThat(actualStream).containsExactly(expectedElement);
         assertThat(actualStream.isParallel()).isTrue();
-
     }
+
+
 
     private String testMerge(String firstArgument, String secondArgument) {
         return firstArgument + ";" + secondArgument;
