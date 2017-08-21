@@ -614,11 +614,10 @@ public final class CollectionUtils {
      * of the input collections are ordered, and parallel if either of the input
      * collection is parallel.
      *
-     * @param <T> The type of stream elements.
+     * @param <T>         The type of stream elements.
      * @param collection1 The first stream.
      * @param collection2 The second stream.
      * @return the concatenation of the two input collections.
-     * TODO add tests
      */
     public static <T> Stream<T> concatSafeStream(Collection<T> collection1, Collection<T> collection2) {
         return Stream.concat(safeStream(collection1), safeStream(collection2));
