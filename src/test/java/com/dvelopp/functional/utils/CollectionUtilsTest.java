@@ -856,22 +856,24 @@ public class CollectionUtilsTest {
 
     @Test
     public void safeStream_CollectionIsNotEmpty_StreamWithElementsIsReturned() {
-        String expectedElement = "Test element";
+        String expectedElement = VAL_1;
         Collection<String> nullCollection = singletonList(expectedElement);
 
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
     public void safeStream_UnmodifiableCollectionIsNotEmpty_StreamWithElementsIsReturned() {
-        String expectedElement = "Test element";
+        String expectedElement = VAL_1;
         Collection<String> nullCollection = unmodifiableList(singletonList(expectedElement));
 
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -881,6 +883,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -890,6 +893,7 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(emptyCollection);
 
         assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isFalse();
     }
 
     @Test
@@ -900,6 +904,60 @@ public class CollectionUtilsTest {
         Stream<String> actualStream = CollectionUtils.safeStream(nullCollection);
 
         assertThat(actualStream).containsNull();
+        assertThat(actualStream.isParallel()).isFalse();
+    }
+
+    @Test
+    public void safeParallelStream_CollectionIsNotEmpty_ParallelStreamWithElementsIsReturned() {
+        String expectedElement = VAL_1;
+        Collection<String> nullCollection = singletonList(expectedElement);
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(nullCollection);
+
+        assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isTrue();
+    }
+
+    @Test
+    public void safeParallelStream_UnmodifiableCollectionIsNotEmpty_ParallelStreamWithElementsIsReturned() {
+        String expectedElement = VAL_1;
+        Collection<String> nullCollection = unmodifiableList(singletonList(expectedElement));
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(nullCollection);
+
+        assertThat(actualStream).containsExactly(expectedElement);
+        assertThat(actualStream.isParallel()).isTrue();
+    }
+
+    @Test
+    public void safeParallelStream_CollectionIsNull_EmptyParallelStreamIsReturned() {
+        Collection<String> nullCollection = null;
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(nullCollection);
+
+        assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isTrue();
+    }
+
+    @Test
+    public void safeParallelStream_CollectionIsEmpty_EmptyParallelStreamIsReturned() {
+        Collection<String> emptyCollection = new ArrayList<>();
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(emptyCollection);
+
+        assertThat(actualStream).isEmpty();
+        assertThat(actualStream.isParallel()).isTrue();
+    }
+
+    @Test
+    public void safeParallelStream_CollectionWithNullElement_ParallelStreamWithNullElementIsReturned() {
+        String expectedElement = null;
+        Collection<String> nullCollection = singletonList(expectedElement);
+
+        Stream<String> actualStream = CollectionUtils.safeParallelStream(nullCollection);
+
+        assertThat(actualStream).containsNull();
+        assertThat(actualStream.isParallel()).isTrue();
     }
 
     private String testMerge(String firstArgument, String secondArgument) {
