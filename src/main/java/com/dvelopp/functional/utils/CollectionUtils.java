@@ -572,7 +572,7 @@ public final class CollectionUtils {
     /**
      * Copy of {@link Collectors#throwingMerger()}. Since original method has private access level and can't be accessed
      * outside the class.
-     * <p>
+     *
      * {@link BinaryOperator} that throws {@link IllegalStateException}.
      */
     private static <T> BinaryOperator<T> throwingMerger() {
