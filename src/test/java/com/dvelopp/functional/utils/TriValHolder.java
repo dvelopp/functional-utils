@@ -1,7 +1,7 @@
 package com.dvelopp.functional.utils;
 
 /**
- * Test class that holds pair of values in a way that is easy to use for testing.
+ * Test class that holds 3 values in a way that is easy to use for testing.
  *
  * @param <T> The first value type.
  * @param <K> The second value type.
