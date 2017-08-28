@@ -626,7 +626,7 @@ public final class CollectionUtils {
      * @param mapper     The function to apply to each element of the collection.
      * @param <T>        The source collection type.
      * @param <R>        The target collection type.
-     * @return the new collection that containing results of applying the merger function on each element.
+     * @return the new collection that containing results of applying the merger function for each element.
      */
     private static <T, R> Stream<? extends R> collectionToMappedStream(Collection<T> collection,
                                                                        Function<? super T, ? extends R> mapper) {
