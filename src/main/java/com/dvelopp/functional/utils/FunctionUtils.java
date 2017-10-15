@@ -18,6 +18,9 @@ import static java.util.Arrays.asList;
  */
 public final class FunctionUtils {
 
+    private static final IllegalStateException INTENDED_EXCEPTION_FOR_FUNCTIONAL_INTERFACE_FLOW
+            = new IllegalStateException("Exception from deliberately forcing exception predicate");
+
     //TODO test it
     private FunctionUtils() {
         throw new UnsupportedOperationException();
@@ -111,23 +114,25 @@ public final class FunctionUtils {
 
     public static <T> Supplier<T> exceptionSupplier() {
         return () -> {
-            throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
-            return null;
+            throw INTENDED_EXCEPTION_FOR_FUNCTIONAL_INTERFACE_FLOW;
         };
     }
 
     public static <T> Consumer<T> exceptionConsumer() {
-        return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
+        return o -> {
+            throw INTENDED_EXCEPTION_FOR_FUNCTIONAL_INTERFACE_FLOW;
+        };
     }
 
     public static <T> Predicate<T> exceptionPredicate() {
-        return o -> throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
+        return o -> {
+            throw INTENDED_EXCEPTION_FOR_FUNCTIONAL_INTERFACE_FLOW;
+        };
     }
 
     public static <T, R> Function<T, R> exceptionFunction() {
         return o -> {
-            throwAnExceptionForExceptionalCasesOfFunctionalInterfaces();
-            return null;
+            throw INTENDED_EXCEPTION_FOR_FUNCTIONAL_INTERFACE_FLOW;
         };
     }
 
@@ -180,7 +185,4 @@ public final class FunctionUtils {
         return o -> requireNonNull(action).apply(o, arg);
     }
 
-    private static boolean throwAnExceptionForExceptionalCasesOfFunctionalInterfaces() {
-        throw new IllegalStateException("Exception from deliberately forcing exception predicate");
-    }
 }
