@@ -68,7 +68,7 @@ public class CollectionUtilsTest {
         forEach(testObjects, (o1, o2, o3) -> o1.setVal1(o2), VAL_1, VAL_2);
         forEach(testObjects, (o1, o2, o3) -> o1.setVal2(o3), VAL_3, VAL_4);
         forEach(testObjects, (o1, o2, o3) -> o1.setVal3(VAL_5), VAL_6, VAL_7);
-        assertValuesChangedForTriConsumer((TriValHolder[]) testObjects.toArray());
+        assertValuesChangedForTriConsumer(testObjects.toArray(new TriValHolder[0]));
     }
 
     @Test

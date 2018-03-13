@@ -137,7 +137,9 @@ public final class FunctionUtils {
     }
 
     public static Runnable exceptionRunnable() {
-        return FunctionUtils::throwAnExceptionForExceptionalCasesOfFunctionalInterfaces;
+        return () -> {
+            throw INTENDED_EXCEPTION_FOR_FUNCTIONAL_INTERFACE_FLOW;
+        };
     }
 
     public static <T> Predicate<T> exceptionPredicate(Supplier<RuntimeException> exceptionSupplier) {
